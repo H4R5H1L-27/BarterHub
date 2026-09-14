@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import DatabaseERDiagram from '@/components/database-er-diagram';
 import CustomSQLWorkbench from '@/components/custom-sql-workbench';
+import DatabaseDDLViewer from '@/components/database-ddl-viewer';
 
 // ==========================================
 // MODELS DATA DEFINITION
@@ -556,7 +557,7 @@ ORDER BY l."listingType", avg_valuation DESC;`,
 ];
 
 export default function DatabasePage() {
-  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums'>('sql');
+  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums' | 'ddl'>('sql');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomain, setSelectedDomain] = useState<string>('All');
   const [selectedModel, setSelectedModel] = useState<DBModel | null>(DB_MODELS[0]);
@@ -595,6 +596,20 @@ export default function DatabasePage() {
               <p className="text-on-surface-variant max-w-2xl text-sm sm:text-base leading-relaxed">
                 Live interactive inspection of BarterHub&apos;s relational topology, entity-relationship models, foreign key cardinalities, and production-grade SQL queries for circular swaps and 6-digit handshake verification.
               </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  onClick={() => setActiveTab('ddl')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeTab === 'ddl'
+                      ? 'bg-primary text-white shadow-xs'
+                      : 'bg-surface-container-lowest text-primary hover:bg-surface-container border border-primary/20'
+                  }`}
+                >
+                  <FileCode className="w-3.5 h-3.5" />
+                  <span>View Database Creation SQL (DDL)</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-mono">48 stmts</span>
+                </button>
+              </div>
             </div>
 
             {/* Quick Metrics Bento */}
@@ -632,6 +647,7 @@ export default function DatabasePage() {
               { id: 'er', label: '2. Interactive ER & Mermaid Schema', icon: Layers },
               { id: 'sql', label: '3. Custom SQL Studio & Workbench', icon: Terminal },
               { id: 'enums', label: '4. Enums & Custom Types (13)', icon: Code2 },
+              { id: 'ddl', label: '5. SQL Creation DDL (All Commands)', icon: FileCode },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -1168,6 +1184,11 @@ export default function DatabasePage() {
             </div>
           </div>
         )}
+
+        {/* ========================================================= */}
+        {/* TAB 5: DATABASE CREATION DDL COMMANDS */}
+        {/* ========================================================= */}
+        {activeTab === 'ddl' && <DatabaseDDLViewer />}
       </div>
     </div>
   );

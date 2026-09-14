@@ -196,6 +196,17 @@ The `/database` screen provides developers, evaluators, and administrators with 
 ### 4. Enums & Custom PostgreSQL Types (13 Enums)
 - Detailed breakdown of all PostgreSQL enumerated types including `ListingType`, `ExchangeType`, `ItemCondition`, `AcademicSubject`, `BookFormat`, `BarterStatus`, `OfferStatus`, `MessageType`, `NotificationType`, and `UserRole`.
 
+### 5. SQL Creation DDL & Migration Scripts (Tab 5)
+- Fully segregated, production-grade PostgreSQL 16 SQL commands used to build the database from scratch in exact dependency order.
+- **Properly Segregated Sections**:
+  1. *Extensions & Prerequisites* (`uuid-ossp`, `pgcrypto`, UTF-8 client settings)
+  2. *Custom Domain Enums* (All 13 `CREATE TYPE ... AS ENUM` statements)
+  3. *Core Table Definitions* (All 16 tables segregated across 5 functional domains: User Identity & Trust, Catalog & Specs, Barter & Swaps, Real-time Chat, Trust & Safety)
+  4. *Unique Constraints & Performance Indexes* (Primary keys, compound uniques, B-Tree indexes)
+  5. *Foreign Key Constraints & Referential Actions* (`ALTER TABLE ... ADD CONSTRAINT` with `ON DELETE CASCADE` and `SET NULL`)
+  6. *Initial Seed & Demo Personas Bootstrap* (Executable `INSERT INTO` statements for test personas)
+- **Developer Features**: 1-Click "Copy Section", 1-Click "Copy All DDL (48 Statements)", and browser-based "Download .sql Script" (`barterhub-postgresql-schema.sql`).
+
 ---
 
 ## 🏗️ Database Schema & Relational Models
