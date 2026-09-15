@@ -257,6 +257,7 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
   const [workbenchMode, setWorkbenchMode] = useState<'custom' | 'recipes'>('custom');
   const [queryText, setQueryText] = useState<string>(SQL_TEMPLATES[0].sql);
   const [activeTemplateId, setActiveTemplateId] = useState<string>(SQL_TEMPLATES[0].id);
+  const [activeRecipeIndex, setActiveRecipeIndex] = useState<number>(0);
   const [executing, setExecuting] = useState(false);
   const [executionResult, setExecutionResult] = useState<{
     columns: string[];

@@ -3,9 +3,19 @@ import prisma from '@/lib/prisma';
 import { getUserFromRequest } from '@/lib/auth';
 import { resolveUser } from '@/lib/session';
 import { ListingType, ExchangeType, ItemCondition } from '@prisma/client';
+import { seedDatabase } from '@/lib/seed-data';
 
 export async function GET(req: NextRequest) {
   try {
+    // Auto-seed database if empty for instant demo experience
+    const totalExisting = await prisma.listing.count();
+    if (totalExisting === 0) {
+      try {
+        await seedDatabase(prisma);
+      } catch (seedErr) {
+        console.warn('Auto-seed execution error:', seedErr);
+      }
+    }
     const { searchParams } = new URL(req.url);
     const q = searchParams.get('q')?.trim();
     const type = searchParams.get('type') as ListingType | null;

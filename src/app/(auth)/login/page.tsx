@@ -433,13 +433,85 @@ export default function LoginPage() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-outline-variant/10">
-                    <span className="text-[10px] text-outline">Queens Creative Arts</span>
+                    <span className="text-[10px] text-outline">Seattle Hub</span>
                     <button
                       type="button"
                       onClick={() => handleQuickDemoLogin('david@example.com')}
                       className="px-3.5 py-1.5 rounded-full bg-surface-container-high group-hover:bg-primary group-hover:text-on-primary text-[11px] font-bold text-on-surface transition-all"
                     >
                       Switch to David
+                    </button>
+                  </div>
+                </div>
+
+                {/* Chloe Zhao */}
+                <div className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/20 hover:border-primary/40 shadow-sm transition-all flex flex-col justify-between gap-3 group">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80"
+                          alt="Chloe Zhao"
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="text-xs font-bold text-on-surface group-hover:text-primary transition-colors">Chloe Zhao</h4>
+                          <p className="text-[11px] text-on-surface-variant">Staff Product Designer</p>
+                        </div>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold">
+                        15 Swaps
+                      </span>
+                    </div>
+                    <div className="mt-2.5 flex flex-wrap gap-1">
+                      <span className="px-2 py-0.5 rounded-md bg-surface-container text-[10px] text-on-surface">iPad Air M2</span>
+                      <span className="px-2 py-0.5 rounded-md bg-surface-container text-[10px] text-on-surface">AirPods Pro 2</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-outline-variant/10">
+                    <span className="text-[10px] text-outline">Seattle Tech Commons</span>
+                    <button
+                      type="button"
+                      onClick={() => handleQuickDemoLogin('chloe@example.com')}
+                      className="px-3.5 py-1.5 rounded-full bg-surface-container-high group-hover:bg-primary group-hover:text-on-primary text-[11px] font-bold text-on-surface transition-all"
+                    >
+                      Switch to Chloe
+                    </button>
+                  </div>
+                </div>
+
+                {/* Julian Vance */}
+                <div className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/20 hover:border-primary/40 shadow-sm transition-all flex flex-col justify-between gap-3 group">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&auto=format&fit=crop&q=80"
+                          alt="Julian Vance"
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="text-xs font-bold text-on-surface group-hover:text-primary transition-colors">Julian Vance</h4>
+                          <p className="text-[11px] text-on-surface-variant">Camera & Synth Artisan</p>
+                        </div>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold">
+                        27 Swaps
+                      </span>
+                    </div>
+                    <div className="mt-2.5 flex flex-wrap gap-1">
+                      <span className="px-2 py-0.5 rounded-md bg-surface-container text-[10px] text-on-surface">Fujifilm X-T30 II</span>
+                      <span className="px-2 py-0.5 rounded-md bg-surface-container text-[10px] text-on-surface">Shure SM7B</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-outline-variant/10">
+                    <span className="text-[10px] text-outline">Portland Arts District</span>
+                    <button
+                      type="button"
+                      onClick={() => handleQuickDemoLogin('julian@example.com')}
+                      className="px-3.5 py-1.5 rounded-full bg-surface-container-high group-hover:bg-primary group-hover:text-on-primary text-[11px] font-bold text-on-surface transition-all"
+                    >
+                      Switch to Julian
                     </button>
                   </div>
                 </div>

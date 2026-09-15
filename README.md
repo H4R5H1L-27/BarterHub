@@ -385,8 +385,10 @@ productexchangeplat/
 
 ### Prerequisites
 - **Node.js**: v18.x or v20.x+
-- **PostgreSQL**: v16+ (Local instance or Docker container)
+- **Docker Desktop** (Recommended) or **PostgreSQL 16+**
 - **Git**
+
+---
 
 ### 1. Clone & Install Dependencies
 ```bash
@@ -395,32 +397,77 @@ cd BaterHub
 npm install
 ```
 
+---
+
 ### 2. Configure Environment Variables
 Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
 
-Verify your `.env` configuration:
+Your default `.env` is pre-configured to run PostgreSQL on port `5433` (to avoid collisions with any native PostgreSQL running on `5432`):
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/productexchange?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5433/productexchange?schema=public"
 JWT_SECRET="dev-super-secret-jwt-key-replace-in-production-random-32-chars"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
+UPLOAD_STORAGE_PROVIDER="local"
 ```
 
-### 3. Setup Database & Seed Realistic Personas
+---
+
+### 3. Start PostgreSQL Database
+Using Docker (Recommended):
 ```bash
-npx prisma generate
+docker compose up -d db
+```
+> The database will boot on port `localhost:5433` with database `productexchange` and credentials `postgres:postgres`.
+
+Push the Prisma schema to create the tables:
+```bash
 npx prisma db push
-npm run seed
 ```
 
-### 4. Run Development Server
+---
+
+### 4. Start Development Server
 ```bash
 npm run dev
 ```
 
-Visit **[http://localhost:3000](http://localhost:3000)** in your browser.
+Visit **[http://localhost:3000](http://localhost:3000)** in your browser!
+
+> 💡 **Instant Demo Auto-Load**: The application automatically detects if the database is fresh and auto-loads **36 real-photo items** (18 books + 18 tech products), **10 trader personas**, active barter proposals with handshake PIN tokens, cash offers, and chat messages on first load! No manual seed required for demo evaluations.
+
+---
+
+### 🔄 Optional: Manual Re-Seed Database
+To reset and re-populate the rich dataset at any time:
+```bash
+npm run seed
+```
+Or via REST API:
+```bash
+curl -X POST http://localhost:3000/api/seed
+```
+
+---
+
+### 🛑 How to Stop the Servers
+To cleanly stop the running development environment:
+
+1. **Stop the Next.js Web Server**:
+   Press `Ctrl + C` in the terminal running `npm run dev`.
+
+2. **Stop the PostgreSQL Container**:
+   ```bash
+   docker compose stop db
+   ```
+
+3. **To completely shut down and remove containers**:
+   ```bash
+   docker compose down
+   ```
+   *(To wipe all database volumes and start completely fresh: `docker compose down -v`)*
 
 ---
 
@@ -428,15 +475,17 @@ Visit **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 All pre-configured demo personas use the shared password: **`password123`**
 
-You can switch between any of these accounts with **1-click** on the `/login` screen:
+You can switch between any of these accounts with **1-click** directly on the **[/login](http://localhost:3000/login)** screen:
 
-| Persona | Avatar | Email | Focus & Role | Location | Completed Swaps |
-|---|:---:|---|---|---|---|
-| **Marcus Chen** | <img src="public/screenshots/marcus-chen.png" width="40" height="40" style="border-radius:50%;" /> | `marcus@example.com` | Tech & Electronics (Sony Headphones, Keychron) | San Francisco, CA | 14 Swaps |
-| **Alex Turner** | 👤 | `alex@example.com` | Software Engineering & Tech Books | New York, NY | 19 Swaps |
-| **Sarah Jenkins** | 👤 | `sarah@example.com` | Neuroscience & Medical Textbooks | Boston, MA | 18 Swaps |
-| **Elena Rostova** | 👤 | `elena@example.com` | Computer Science Graduate Scholar | Austin, TX | 35 Swaps |
-| **David Miller** | 👤 | `david@example.com` | Audio Engineer & Studio Gear | Seattle, WA | 6 Swaps |
+| Persona | Role & Focus | Location | Completed Swaps | 1-Click Login |
+|---|---|---|:---:|:---:|
+| **Marcus Chen** | Hardware Geek, Keyboards & Audiophile | San Francisco, CA | 18 Swaps | `marcus@example.com` |
+| **Alex Turner** | Senior Software Engineer & Distributed Systems | New York, NY | 22 Swaps | `alex@example.com` |
+| **Sarah Jenkins** | Literature PhD Candidate & Book Preservationist | Boston, MA | 38 Swaps | `sarah@example.com` |
+| **Chloe Zhao** | Staff Product Designer & Apple Silicon Specialist | Seattle, WA | 15 Swaps | `chloe@example.com` |
+| **Julian Vance** | Vintage Camera Restorer & Analog Synth Artisan | Portland, OR | 27 Swaps | `julian@example.com` |
+| **Elena Rostova** | UT Austin Senior Biology / STEM Scholar | Austin, TX | 14 Swaps | `elena@example.com` |
+| **David Miller** | Audio Engineer & Strategy Board Game Collector | Seattle, WA | 29 Swaps | `david@example.com` |
 
 ---
 

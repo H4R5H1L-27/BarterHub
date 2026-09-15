@@ -120,29 +120,33 @@ export async function POST(req: NextRequest) {
 
     // Add confirmation message to the negotiation thread if present
     if (proposal.conversationId) {
+      const otherUserId = user.id === proposal.initiatorId ? proposal.recipientId : proposal.initiatorId;
       await prisma.message.create({
         data: {
           conversationId: proposal.conversationId,
           senderId: user.id,
-          messageType: MessageType.SYSTEM,
+          receiverId: otherUserId,
+          messageType: MessageType.SYSTEM_ALERT,
           content: `🤝 In-Person Handshake Verified! Exchange Code ${proposal.exchangeCode} confirmed delivery. Swap status marked as COMPLETED.`,
         },
       });
     }
 
     // Notify both traders
-    await notify(
-      proposal.initiatorId,
-      '🤝 In-Person Trade Verified & Completed!',
-      `Handshake PIN verified for "${proposal.targetListing.title}". You can now leave a mutual trust review.`,
-      '/offers'
-    );
-    await notify(
-      proposal.recipientId,
-      '🤝 In-Person Trade Verified & Completed!',
-      `Handshake PIN verified for "${proposal.targetListing.title}". You can now leave a mutual trust review.`,
-      '/offers'
-    );
+    await notify({
+      userId: proposal.initiatorId,
+      type: 'BARTER',
+      title: '🤝 In-Person Trade Verified & Completed!',
+      body: `Handshake PIN verified for "${proposal.targetListing.title}". You can now leave a mutual trust review.`,
+      href: '/offers',
+    });
+    await notify({
+      userId: proposal.recipientId,
+      type: 'BARTER',
+      title: '🤝 In-Person Trade Verified & Completed!',
+      body: `Handshake PIN verified for "${proposal.targetListing.title}". You can now leave a mutual trust review.`,
+      href: '/offers',
+    });
 
     return NextResponse.json({
       success: true,

@@ -561,6 +561,15 @@ export default function DatabasePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomain, setSelectedDomain] = useState<string>('All');
   const [selectedModel, setSelectedModel] = useState<DBModel | null>(DB_MODELS[0]);
+  const [copiedCode, setCopiedCode] = useState(false);
+
+  const handleCopyText = (text: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedCode(true);
+      setTimeout(() => setCopiedCode(false), 2000);
+    }
+  };
 
   // Filtered models list
   const filteredModels = useMemo(() => {

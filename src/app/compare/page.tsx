@@ -113,7 +113,7 @@ function CompareContent() {
                     <div className="space-y-3">
                       <div className="w-full h-40 rounded-2xl overflow-hidden bg-surface-container-low">
                         <img
-                          src={item.images[0]?.url || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80'}
+                          src={item.images[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80'}
                           alt={item.title}
                           className="w-full h-full object-cover"
                         />
