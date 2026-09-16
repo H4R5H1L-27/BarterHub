@@ -21,8 +21,8 @@ import {
   ArrowLeft,
   Truck
 } from 'lucide-react';
-import OfferModal from '@/components/offer-modal';
-import BarterModal from '@/components/barter-modal';
+import OfferModal from '@/components/modals/offer-modal';
+import BarterModal from '@/components/modals/barter-modal';
 import { ListingItem } from '@/lib/types';
 import { formatPrice, getConditionBadgeColor, getExchangeTypeBadge, formatDate } from '@/lib/utils';
 

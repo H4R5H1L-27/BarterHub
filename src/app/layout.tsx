@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
-import { MarketplaceProvider } from '@/components/marketplace-provider';
-import CompareTray from '@/components/compare-tray';
+import Navbar from '@/components/layout/navbar';
+import Footer from '@/components/layout/footer';
+import { MarketplaceProvider } from '@/components/providers/marketplace-provider';
+import CompareTray from '@/components/marketplace/compare-tray';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],

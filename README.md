@@ -358,15 +358,24 @@ productexchangeplat/
 │   │   ├── layout.tsx               # Root layout & navigation shell
 │   │   └── page.tsx                 # Homepage with hero & circular bento
 │   ├── components/
-│   │   ├── barter-modal.tsx         # Interactive swap proposal modal
-│   │   ├── category-rail.tsx        # Dynamic category & filter rail
-│   │   ├── compare-tray.tsx         # Floating sticky comparison launcher
-│   │   ├── custom-sql-workbench.tsx # Custom SQL query editor & 15 templates
-│   │   ├── database-er-diagram.tsx  # SVG vector interactive ER & Mermaid viewer
-│   │   ├── listing-card.tsx         # Soft-modern item presentation card
-│   │   ├── marketplace-provider.tsx # React context for user session
-│   │   ├── navbar.tsx               # Top navigation with unread badges
-│   │   └── offer-modal.tsx          # Cash offer modal with counter options
+│   │   ├── database/                # Interactive Database Studio tools
+│   │   │   ├── custom-sql-workbench.tsx
+│   │   │   ├── database-ddl-viewer.tsx
+│   │   │   └── database-er-diagram.tsx
+│   │   ├── layout/                  # Shell & global navigation
+│   │   │   ├── footer.tsx
+│   │   │   └── navbar.tsx
+│   │   ├── marketplace/             # Cards, feeds, and discovery
+│   │   │   ├── category-rail.tsx
+│   │   │   ├── compare-tray.tsx
+│   │   │   └── listing-card.tsx
+│   │   ├── modals/                  # Swap proposals, cash offers & reviews
+│   │   │   ├── barter-modal.tsx
+│   │   │   ├── offer-modal.tsx
+│   │   │   └── review-modal.tsx
+│   │   ├── providers/               # Global state & market context
+│   │   │   └── marketplace-provider.tsx
+│   │   └── index.ts                 # Centralized barrel export
 │   └── lib/
 │       ├── auth.ts                  # Password hashing & JWT token handling
 │       ├── catalog.ts               # Static catalog taxonomy & constants

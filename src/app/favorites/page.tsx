@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { ListingItem } from '@/lib/types';
 import { formatPrice } from '@/lib/utils';
-import { useMarketplace } from '@/components/marketplace-provider';
+import { useMarketplace } from '@/components/providers/marketplace-provider';
 
 export default function FavoritesPage() {
   const { toggleFavorite, toggleCompare, compareIds } = useMarketplace();

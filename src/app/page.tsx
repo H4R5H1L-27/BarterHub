@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Flame, PlusCircle, Package, ShieldCheck, Star, Search } from 'lucide-react';
-import ListingCard from '@/components/listing-card';
-import CategoryRail from '@/components/category-rail';
+import ListingCard from '@/components/marketplace/listing-card';
+import CategoryRail from '@/components/marketplace/category-rail';
 import { ListingItem } from '@/lib/types';
 import { TRENDING_SEARCHES } from '@/lib/catalog';
-import { useMarketplace } from '@/components/marketplace-provider';
+import { useMarketplace } from '@/components/providers/marketplace-provider';
 
 export default function HomePage() {
   const { city } = useMarketplace();

@@ -25,9 +25,9 @@ import {
   RefreshCw,
   ExternalLink,
 } from 'lucide-react';
-import DatabaseERDiagram from '@/components/database-er-diagram';
-import CustomSQLWorkbench from '@/components/custom-sql-workbench';
-import DatabaseDDLViewer from '@/components/database-ddl-viewer';
+import DatabaseERDiagram from '@/components/database/database-er-diagram';
+import CustomSQLWorkbench from '@/components/database/custom-sql-workbench';
+import DatabaseDDLViewer from '@/components/database/database-ddl-viewer';
 
 // ==========================================
 // MODELS DATA DEFINITION

@@ -16,7 +16,7 @@ import {
   CheckCircle2,
   ThumbsUp
 } from 'lucide-react';
-import ListingCard from '@/components/listing-card';
+import ListingCard from '@/components/marketplace/listing-card';
 import { UserSummary, ListingItem, ReviewItem } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 

@@ -13,7 +13,7 @@ import {
   X,
   ArrowUpDown
 } from 'lucide-react';
-import ListingCard from '@/components/listing-card';
+import ListingCard from '@/components/marketplace/listing-card';
 import { ListingItem, ListingType, ExchangeType, ItemCondition } from '@/lib/types';
 
 function ListingsContent() {

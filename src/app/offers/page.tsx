@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { CashOfferItem, BarterProposalItem } from '@/lib/types';
 import { formatPrice, formatDate } from '@/lib/utils';
-import ReviewModal from '@/components/review-modal';
+import ReviewModal from '@/components/modals/review-modal';
 
 export default function OffersDashboardPage() {
   const [activeTab, setActiveTab] = useState<'RECEIVED_BARTERS' | 'SENT_BARTERS' | 'RECEIVED_OFFERS' | 'SENT_OFFERS'>('RECEIVED_BARTERS');
