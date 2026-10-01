@@ -13,20 +13,27 @@ import {
   MessageSquare,
   Sparkles,
   ShieldCheck,
-  Star
+  Star,
+  Share2,
 } from 'lucide-react';
 import { CashOfferItem, BarterProposalItem } from '@/lib/types';
 import { formatPrice, formatDate } from '@/lib/utils';
 import ReviewModal from '@/components/modals/review-modal';
+import MultiPartyTradesView from '@/components/marketplace/multi-party-trades-view';
+import { useSearchParams } from 'next/navigation';
 
-export default function OffersDashboardPage() {
-  const [activeTab, setActiveTab] = useState<'RECEIVED_BARTERS' | 'SENT_BARTERS' | 'RECEIVED_OFFERS' | 'SENT_OFFERS'>('RECEIVED_BARTERS');
+function OffersDashboardContent() {
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<'RECEIVED_BARTERS' | 'SENT_BARTERS' | 'RECEIVED_OFFERS' | 'SENT_OFFERS' | 'MULTI_PARTY_TRADES'>(
+    searchParams.get('tab') === 'multi_party' ? 'MULTI_PARTY_TRADES' : 'RECEIVED_BARTERS'
+  );
   
   const [user, setUser] = useState<any>(null);
   const [receivedBarters, setReceivedBarters] = useState<BarterProposalItem[]>([]);
   const [sentBarters, setSentBarters] = useState<BarterProposalItem[]>([]);
   const [receivedOffers, setReceivedOffers] = useState<CashOfferItem[]>([]);
   const [sentOffers, setSentOffers] = useState<CashOfferItem[]>([]);
+  const [multiPartyCount, setMultiPartyCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // Counter offer modal / input state
@@ -61,9 +68,10 @@ export default function OffersDashboardPage() {
         return;
       }
 
-      const [bartersRes, offersRes] = await Promise.all([
+      const [bartersRes, offersRes, chainsRes] = await Promise.all([
         fetch('/api/barters'),
         fetch('/api/offers'),
+        fetch('/api/trades/multi-party'),
       ]);
 
       if (bartersRes.ok) {
@@ -76,6 +84,11 @@ export default function OffersDashboardPage() {
         const oData = await offersRes.json();
         setReceivedOffers(oData.receivedOffers || []);
         setSentOffers(oData.sentOffers || []);
+      }
+
+      if (chainsRes.ok) {
+        const cData = await chainsRes.json();
+        setMultiPartyCount(cData.trades?.length || 0);
       }
     } catch (err) {
       console.error('Error fetching offers data:', err);
@@ -332,6 +345,18 @@ export default function OffersDashboardPage() {
           <DollarSign className="w-3.5 h-3.5" />
           <span>Sent Cash Offers ({sentOffers.length})</span>
         </button>
+
+        <button
+          onClick={() => setActiveTab('MULTI_PARTY_TRADES')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+            activeTab === 'MULTI_PARTY_TRADES'
+              ? 'bg-primary text-white shadow-sm'
+              : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Smart Swap Chains ({multiPartyCount})</span>
+        </button>
       </div>
 
       {/* Content View */}
@@ -440,25 +465,14 @@ export default function OffersDashboardPage() {
                   {proposal.status === 'ACCEPTED' && proposal.exchangeCode && (
                     <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
                       <div>
-                        <p className="text-xs font-bold text-emerald-900">Exchange Verification Code</p>
-                        <p className="text-xs text-emerald-700 mt-0.5">Share and verify this code during in-person physical meetup.</p>
+                        <p className="text-xs font-bold text-emerald-900">Your Handover Confirmation Code</p>
+                        <p className="text-xs text-emerald-700 mt-0.5">
+                          Share this code with {proposal.initiator.name} only after meeting in person and inspecting your items.
+                        </p>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="px-3.5 py-1.5 bg-emerald-600 text-white font-mono font-black text-sm rounded-lg shadow-sm">
-                          {proposal.exchangeCode}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setHandshakePin(proposal.exchangeCode!);
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          className="px-2.5 py-1.5 bg-white hover:bg-emerald-100 text-emerald-800 font-bold text-xs rounded-lg border border-emerald-300 shadow-2xs transition-colors"
-                          title="Fill this code into the handshake verification box above"
-                        >
-                          Auto-Fill
-                        </button>
-                      </div>
+                      <span className="px-3.5 py-1.5 bg-emerald-600 text-white font-mono font-black text-sm rounded-lg shadow-sm">
+                        {proposal.exchangeCode}
+                      </span>
                     </div>
                   )}
 
@@ -548,24 +562,14 @@ export default function OffersDashboardPage() {
                     </div>
                   </div>
 
-                  {proposal.exchangeCode && proposal.status !== 'COMPLETED' && (
-                    <div className="p-3 bg-emerald-50 rounded-xl text-xs text-emerald-800 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span>Meetup Verification Code:</span>
-                        <strong className="font-mono font-bold text-sm bg-white px-2 py-0.5 rounded border border-emerald-200">
-                          {proposal.exchangeCode}
-                        </strong>
+                  {proposal.status === 'ACCEPTED' && (
+                    <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-900 flex items-center justify-between">
+                      <div>
+                        <p className="font-bold">Meetup Verification Required</p>
+                        <p className="text-[11px] text-indigo-700 mt-0.5">
+                          Meet {proposal.recipient.name} in person to exchange items. Ask {proposal.recipient.name} for their confirmation code and enter it in the verification box above to complete the swap.
+                        </p>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setHandshakePin(proposal.exchangeCode!);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className="px-2.5 py-1 bg-white hover:bg-emerald-100 text-emerald-800 font-bold text-xs rounded-lg border border-emerald-300 shadow-2xs transition-colors"
-                      >
-                        Auto-Fill
-                      </button>
                     </div>
                   )}
 
@@ -790,6 +794,11 @@ export default function OffersDashboardPage() {
             )
           )}
 
+          {/* TAB 5: MULTI-PARTY 3-WAY TRADE CHAINS */}
+          {activeTab === 'MULTI_PARTY_TRADES' && (
+            <MultiPartyTradesView currentUserId={user?.id} />
+          )}
+
         </div>
       )}
 
@@ -812,5 +821,17 @@ export default function OffersDashboardPage() {
       )}
 
     </div>
+  );
+}
+
+export default function OffersDashboardPage() {
+  return (
+    <React.Suspense fallback={
+      <div className="min-h-screen bg-surface flex items-center justify-center p-8">
+        <div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+      </div>
+    }>
+      <OffersDashboardContent />
+    </React.Suspense>
   );
 }

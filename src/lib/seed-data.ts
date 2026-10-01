@@ -1712,6 +1712,50 @@ export async function seedDatabase(client?: PrismaClient) {
     },
   });
 
+  // 6B. Pre-seed a True 3-Way Circular Trade Cycle:
+  // Alex (DDIA) -> Sarah (Clean Code) -> Marcus (Sony Headphones) -> Alex (DDIA)
+  await prisma.barterProposal.create({
+    data: {
+      initiatorId: userAlex.id,
+      recipientId: userSarah.id,
+      targetListingId: b_cleanCode.id,
+      cashTopUp: 0.0,
+      status: BarterStatus.PROPOSED,
+      notes: '3-Way Cycle Leg 1: Alex offers DDIA for Clean Code',
+      offeredItems: {
+        create: [{ listingId: b_ddia.id }],
+      },
+    },
+  });
+
+  await prisma.barterProposal.create({
+    data: {
+      initiatorId: userSarah.id,
+      recipientId: userMarcus.id,
+      targetListingId: p_sonyHeadphones.id,
+      cashTopUp: 0.0,
+      status: BarterStatus.PROPOSED,
+      notes: '3-Way Cycle Leg 2: Sarah offers Clean Code for Sony Headphones',
+      offeredItems: {
+        create: [{ listingId: b_cleanCode.id }],
+      },
+    },
+  });
+
+  await prisma.barterProposal.create({
+    data: {
+      initiatorId: userMarcus.id,
+      recipientId: userAlex.id,
+      targetListingId: b_ddia.id,
+      cashTopUp: 0.0,
+      status: BarterStatus.PROPOSED,
+      notes: '3-Way Cycle Leg 3: Marcus offers Sony Headphones for DDIA',
+      offeredItems: {
+        create: [{ listingId: p_sonyHeadphones.id }],
+      },
+    },
+  });
+
   // 7. Create Active Negotiation Conversations with In-Thread Action Cards
   console.log('💬 Creating active chat negotiations and contextual cards...');
 

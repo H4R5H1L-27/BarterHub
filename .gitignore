@@ -13,14 +13,21 @@
 *.lcov
 
 # ==============================================================================
-# Next.js & Build Outputs
+# Java & Build Outputs
 # ==============================================================================
-/.next/
-/out/
-/build
-/dist
+bin/
+jdbc/bin/
+*.class
+*.jar
+!lib/*.jar
+!jdbc/lib/*.jar
+.next/
+out/
+build/
+dist/
 *.tsbuildinfo
 next-env.d.ts
+
 
 # ==============================================================================
 # Debug & Log Files

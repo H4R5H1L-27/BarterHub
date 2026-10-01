@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: barterhub-jdbc-service
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JDBC_DATABASE_URL
+        sync: false
+      - key: JDBC_USER
+        sync: false
+      - key: JDBC_PASSWORD
+        sync: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health

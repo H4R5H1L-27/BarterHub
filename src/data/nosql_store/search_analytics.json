@@ -1,0 +1,100 @@
+[
+  {
+    "query": "MacBook Pro M2 16GB",
+    "category": "Electronics",
+    "city": "New York",
+    "resultCount": 4,
+    "timestamp": "2026-10-10T17:40:48.366Z",
+    "filtersApplied": {
+      "condition": "LIKE_NEW",
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848368_tyxxn4g",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Sony WH-1000XM4 noise cancelling",
+    "category": "Electronics",
+    "city": "Brooklyn",
+    "resultCount": 3,
+    "timestamp": "2026-10-10T16:55:48.366Z",
+    "filtersApplied": {
+      "condition": "VERY_GOOD",
+      "barterWishlist": "Keychron"
+    },
+    "_id": "doc_1791655848368_718g6ha",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "CLRS Introduction to Algorithms 4th Edition",
+    "category": "Books",
+    "city": "Manhattan",
+    "resultCount": 2,
+    "timestamp": "2026-10-10T16:10:48.366Z",
+    "filtersApplied": {
+      "exchangeType": "BARTER_ONLY"
+    },
+    "_id": "doc_1791655848368_654oe3t",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Kindle Paperwhite signature edition",
+    "category": "Electronics",
+    "city": "Queens",
+    "resultCount": 5,
+    "timestamp": "2026-10-10T15:10:48.368Z",
+    "filtersApplied": {
+      "maxPrice": 150
+    },
+    "_id": "doc_1791655848368_8t028x1",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Fujifilm X-T30 mirrorless body",
+    "category": "Electronics",
+    "city": "New York",
+    "resultCount": 2,
+    "timestamp": "2026-10-10T14:10:48.368Z",
+    "filtersApplied": {
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848368_p45txi9",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Designing Data-Intensive Applications Kleppmann",
+    "category": "Books",
+    "city": "New York",
+    "resultCount": 3,
+    "timestamp": "2026-10-10T12:50:48.368Z",
+    "filtersApplied": {
+      "condition": "LIKE_NEW"
+    },
+    "_id": "doc_1791655848368_0uzasjs",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Keychron K2 wireless mechanical keyboard",
+    "category": "Electronics",
+    "city": "Jersey City",
+    "resultCount": 6,
+    "timestamp": "2026-10-10T11:10:48.368Z",
+    "filtersApplied": {
+      "switches": "Gateron Brown"
+    },
+    "_id": "doc_1791655848368_7cvuhn3",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  },
+  {
+    "query": "Calculus Early Transcendentals Stewart 9th",
+    "category": "Books",
+    "city": "New York",
+    "resultCount": 4,
+    "timestamp": "2026-10-10T09:50:48.368Z",
+    "filtersApplied": {
+      "exchangeType": "BARTER_ONLY"
+    },
+    "_id": "doc_1791655848368_8a1c20i",
+    "createdAt": "2026-10-10T18:10:48.368Z"
+  }
+]

@@ -1,0 +1,622 @@
+[
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d1e000bw1avw0q1rxx0",
+    "listingTitle": "Designing Data-Intensive Applications",
+    "timestamp": "2026-10-10T06:28:11.147Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 19484,
+      "referrer": "/listings",
+      "pricePoint": 35,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_jen99ob",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d1e000bw1avw0q1rxx0",
+    "listingTitle": "Designing Data-Intensive Applications",
+    "timestamp": "2026-10-10T13:45:15.298Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_5vthh0g",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d23000ew1avo2qcgeyh",
+    "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "timestamp": "2026-10-10T17:18:32.931Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 49761,
+      "referrer": "/listings",
+      "pricePoint": null,
+      "exchangeType": "BARTER_ONLY"
+    },
+    "_id": "doc_1791655848358_deavlbc",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d23000ew1avo2qcgeyh",
+    "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "timestamp": "2026-10-10T18:08:35.823Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_3ybj47h",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d2a000hw1avwj8k3jkp",
+    "listingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+    "timestamp": "2026-10-10T16:53:15.146Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 30782,
+      "referrer": "/listings",
+      "pricePoint": 45,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_kdjasnl",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d2a000hw1avwj8k3jkp",
+    "listingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+    "timestamp": "2026-10-10T14:12:32.729Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_qsfqs96",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d2f000kw1avuq20e3p5",
+    "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+    "timestamp": "2026-10-10T10:07:51.819Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 41866,
+      "referrer": "/listings",
+      "pricePoint": 65,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_lszue4a",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d2f000kw1avuq20e3p5",
+    "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+    "timestamp": "2026-10-10T16:53:38.404Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_0m44yad",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d2k000nw1avvv75pvnx",
+    "listingTitle": "Introduction to Algorithms (CLRS) 4th Edition",
+    "timestamp": "2026-10-10T13:14:00.811Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 54611,
+      "referrer": "/listings",
+      "pricePoint": 75,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_4t2k4pq",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d2k000nw1avvv75pvnx",
+    "listingTitle": "Introduction to Algorithms (CLRS) 4th Edition",
+    "timestamp": "2026-10-10T17:56:35.138Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_cxtflef",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d120006w1av81o5x9by",
+    "userEmail": "liam@example.com",
+    "listingId": "cmv2p4d2p000qw1av8bgif770",
+    "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+    "timestamp": "2026-10-10T07:41:35.592Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 32861,
+      "referrer": "/listings",
+      "pricePoint": 60,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_zpzq2ku",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d120006w1av81o5x9by",
+    "userEmail": "liam@example.com",
+    "listingId": "cmv2p4d2p000qw1av8bgif770",
+    "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+    "timestamp": "2026-10-10T16:19:19.586Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_ioft5j9",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0t0003w1av0kswfe1q",
+    "userEmail": "elena@example.com",
+    "listingId": "cmv2p4d2v000tw1avwvewbhvk",
+    "listingTitle": "Campbell Biology (12th Edition)",
+    "timestamp": "2026-10-10T09:57:03.073Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 13098,
+      "referrer": "/listings",
+      "pricePoint": 85,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_donlr0d",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0t0003w1av0kswfe1q",
+    "userEmail": "elena@example.com",
+    "listingId": "cmv2p4d2v000tw1avwvewbhvk",
+    "listingTitle": "Campbell Biology (12th Edition)",
+    "timestamp": "2026-10-10T14:04:48.384Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_i4vqexf",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d150007w1avso6l7g7q",
+    "userEmail": "maya@example.com",
+    "listingId": "cmv2p4d2z000ww1avpnr2wxwx",
+    "listingTitle": "Organic Chemistry (9th Edition) — Wade & Simek",
+    "timestamp": "2026-10-10T13:35:47.991Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 45954,
+      "referrer": "/listings",
+      "pricePoint": 70,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_m8l0qhn",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d150007w1avso6l7g7q",
+    "userEmail": "maya@example.com",
+    "listingId": "cmv2p4d2z000ww1avpnr2wxwx",
+    "listingTitle": "Organic Chemistry (9th Edition) — Wade & Simek",
+    "timestamp": "2026-10-10T12:43:46.729Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_hiwha8p",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d34000zw1avhjkmjoun",
+    "listingTitle": "Structure and Interpretation of Computer Programs (SICP)",
+    "timestamp": "2026-10-10T07:33:15.692Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 33354,
+      "referrer": "/listings",
+      "pricePoint": null,
+      "exchangeType": "BARTER_ONLY"
+    },
+    "_id": "doc_1791655848358_t2cepf6",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d34000zw1avhjkmjoun",
+    "listingTitle": "Structure and Interpretation of Computer Programs (SICP)",
+    "timestamp": "2026-10-10T13:19:16.808Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_iojqixe",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d390012w1avop4pl79u",
+    "listingTitle": "The Pragmatic Programmer: 20th Anniversary Edition",
+    "timestamp": "2026-10-10T10:49:07.871Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 23806,
+      "referrer": "/listings",
+      "pricePoint": 32,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_zxszc0g",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d390012w1avop4pl79u",
+    "listingTitle": "The Pragmatic Programmer: 20th Anniversary Edition",
+    "timestamp": "2026-10-10T14:46:37.294Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_byfbsv2",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0w0004w1avuplus2cg",
+    "userEmail": "david@example.com",
+    "listingId": "cmv2p4d3d0015w1avogn45ijl",
+    "listingTitle": "Project Hail Mary",
+    "timestamp": "2026-10-10T14:10:31.641Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 30077,
+      "referrer": "/listings",
+      "pricePoint": 14,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_gk2r2qs",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0w0004w1avuplus2cg",
+    "userEmail": "david@example.com",
+    "listingId": "cmv2p4d3d0015w1avogn45ijl",
+    "listingTitle": "Project Hail Mary",
+    "timestamp": "2026-10-10T16:53:31.162Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_ex0jmmo",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d3h0018w1avn6byvmat",
+    "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+    "timestamp": "2026-10-10T09:12:15.696Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 20118,
+      "referrer": "/listings",
+      "pricePoint": 10,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_cxfnlc8",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d3h0018w1avn6byvmat",
+    "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+    "timestamp": "2026-10-10T16:16:26.120Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_ozizyr9",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d120006w1av81o5x9by",
+    "userEmail": "liam@example.com",
+    "listingId": "cmv2p4d3m001bw1avfda2z61t",
+    "listingTitle": "Fundamentals of Physics (Extended 12th Edition)",
+    "timestamp": "2026-10-10T09:28:55.243Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 12436,
+      "referrer": "/listings",
+      "pricePoint": 90,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_nut3lij",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d120006w1av81o5x9by",
+    "userEmail": "liam@example.com",
+    "listingId": "cmv2p4d3m001bw1avfda2z61t",
+    "listingTitle": "Fundamentals of Physics (Extended 12th Edition)",
+    "timestamp": "2026-10-10T14:56:11.013Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_21v7shk",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d1a0009w1avxmymykac",
+    "userEmail": "sophia@example.com",
+    "listingId": "cmv2p4d3r001ew1av79vr089n",
+    "listingTitle": "Sapiens: A Brief History of Humankind",
+    "timestamp": "2026-10-10T17:12:18.583Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 43342,
+      "referrer": "/listings",
+      "pricePoint": 12,
+      "exchangeType": "CASH_ONLY"
+    },
+    "_id": "doc_1791655848358_13eawwg",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d1a0009w1avxmymykac",
+    "userEmail": "sophia@example.com",
+    "listingId": "cmv2p4d3r001ew1av79vr089n",
+    "listingTitle": "Sapiens: A Brief History of Humankind",
+    "timestamp": "2026-10-10T17:53:28.155Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_l6x6iby",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d100005w1av3pjquzde",
+    "userEmail": "chloe@example.com",
+    "listingId": "cmv2p4d3w001hw1avjvfxpo42",
+    "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+    "timestamp": "2026-10-10T09:52:28.246Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 42097,
+      "referrer": "/listings",
+      "pricePoint": 15,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_yhj9gr6",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d100005w1av3pjquzde",
+    "userEmail": "chloe@example.com",
+    "listingId": "cmv2p4d3w001hw1avjvfxpo42",
+    "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+    "timestamp": "2026-10-10T16:17:12.044Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_j88ffwv",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d42001kw1avdwimaduk",
+    "listingTitle": "Database System Concepts (7th Edition)",
+    "timestamp": "2026-10-10T17:11:57.234Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 52702,
+      "referrer": "/listings",
+      "pricePoint": 55,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_t4ror6o",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+    "userEmail": "alex@example.com",
+    "listingId": "cmv2p4d42001kw1avdwimaduk",
+    "listingTitle": "Database System Concepts (7th Edition)",
+    "timestamp": "2026-10-10T13:01:05.865Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_wb7aev4",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d48001nw1avp5odrmm6",
+    "listingTitle": "Thinking, Fast and Slow",
+    "timestamp": "2026-10-10T17:35:29.720Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 31081,
+      "referrer": "/listings",
+      "pricePoint": null,
+      "exchangeType": "BARTER_ONLY"
+    },
+    "_id": "doc_1791655848358_h0co5mp",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0o0001w1avb743jj1p",
+    "userEmail": "sarah@example.com",
+    "listingId": "cmv2p4d48001nw1avp5odrmm6",
+    "listingTitle": "Thinking, Fast and Slow",
+    "timestamp": "2026-10-10T15:23:00.237Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_nwlk03r",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4d001qw1avk4uagwfo",
+    "listingTitle": "Cracking the Coding Interview (6th Edition)",
+    "timestamp": "2026-10-10T07:28:28.719Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 54542,
+      "referrer": "/listings",
+      "pricePoint": 24,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_12yl48m",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4d001qw1avk4uagwfo",
+    "listingTitle": "Cracking the Coding Interview (6th Edition)",
+    "timestamp": "2026-10-10T17:50:07.785Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_a6xmjcz",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4l001tw1avmf82oc8l",
+    "listingTitle": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+    "timestamp": "2026-10-10T08:05:14.579Z",
+    "metadata": {
+      "clientDevice": "Desktop / Chrome",
+      "dwellTimeMs": 15234,
+      "referrer": "/listings",
+      "pricePoint": 260,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_cimopsw",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4l001tw1avmf82oc8l",
+    "listingTitle": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+    "timestamp": "2026-10-10T15:17:45.989Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_arjqd33",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "LISTING_VIEW",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4q001ww1avi1s4eocv",
+    "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+    "timestamp": "2026-10-10T16:52:21.314Z",
+    "metadata": {
+      "clientDevice": "Mobile / Safari",
+      "dwellTimeMs": 40851,
+      "referrer": "/listings",
+      "pricePoint": 145,
+      "exchangeType": "HYBRID"
+    },
+    "_id": "doc_1791655848358_orbu0cs",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  },
+  {
+    "eventType": "COMPARISON_ADDED",
+    "userId": "cmv2p4d0r0002w1av56sjb0er",
+    "userEmail": "marcus@example.com",
+    "listingId": "cmv2p4d4q001ww1avi1s4eocv",
+    "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+    "timestamp": "2026-10-10T16:46:53.712Z",
+    "metadata": {
+      "comparedWithCount": 2,
+      "featureMatrixOpened": true
+    },
+    "_id": "doc_1791655848358_zr30khc",
+    "createdAt": "2026-10-10T18:10:48.358Z"
+  }
+]

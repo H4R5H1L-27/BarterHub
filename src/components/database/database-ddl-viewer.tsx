@@ -635,7 +635,7 @@ const SECTIONS: SQLSection[] = [
     title: 'Complete Production DDL (All Statements)',
     badge: 'All-In-One Script',
     badgeColor: 'bg-primary text-white',
-    description: 'The complete executable PostgreSQL 16 schema script including extensions, enums, all 16 tables, constraints, foreign keys, and bootstrap seed data in exact execution sequence.',
+    description: '',
     itemCount: 48,
     sql: FULL_COMBINED_DDL,
   },
@@ -751,7 +751,6 @@ export default function DatabaseDDLViewer() {
   const [searchQuery, setSearchQuery] = useState('');
   const [copied, setCopied] = useState(false);
   const [copiedAll, setCopiedAll] = useState(false);
-  const [viewMode, setViewMode] = useState<'structured' | 'raw'>('structured');
 
   const selectedSection = useMemo(() => {
     return SECTIONS.find((s) => s.id === selectedSectionId) || SECTIONS[0];
@@ -798,17 +797,10 @@ export default function DatabaseDDLViewer() {
     <div className="space-y-6">
       {/* Top Banner with Stats & Quick Actions */}
       <div className="p-6 rounded-3xl bg-gradient-to-r from-surface-container-lowest via-surface-container-low to-surface-container border border-outline-variant/30 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">
-            <FileCode className="w-3.5 h-3.5" />
-            <span>PostgreSQL 16 Data Definition Language (DDL)</span>
-          </div>
+        <div>
           <h2 className="text-xl sm:text-2xl font-black text-on-surface">
-            Database Creation Commands & Schema Blueprint
+            Database Creation Commands
           </h2>
-          <p className="text-xs sm:text-sm text-on-surface-variant max-w-2xl">
-            Clean, segregated, and ordered SQL commands used to create the BarterHub database from scratch. Fully compatible with native PostgreSQL 16, Supabase, Neon, AWS RDS, and Docker.
-          </p>
         </div>
 
         {/* Quick Actions */}
@@ -833,9 +825,8 @@ export default function DatabaseDDLViewer() {
 
       {/* Execution Sequence Stepper Pills */}
       <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs">
-        <div className="flex items-center justify-between gap-2 pb-2 mb-3 border-b border-outline-variant/20 text-xs font-bold text-outline uppercase tracking-wider">
+        <div className="pb-2 mb-3 border-b border-outline-variant/20 text-xs font-bold text-outline uppercase tracking-wider">
           <span>Execution Hierarchy & Migration Order</span>
-          <span className="text-[11px] text-primary font-mono lowercase">postgres 16 engine ready</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center text-xs">
           {[
@@ -859,7 +850,7 @@ export default function DatabaseDDLViewer() {
         </div>
       </div>
 
-      {/* Search & View Mode Switcher */}
+      {/* Search Bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-outline absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -870,30 +861,6 @@ export default function DatabaseDDLViewer() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-4 py-2 bg-surface-container-lowest border border-outline-variant/30 rounded-full text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-2xs"
           />
-        </div>
-
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-          <span className="text-xs font-medium text-outline mr-1">Display:</span>
-          <button
-            onClick={() => setViewMode('structured')}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              viewMode === 'structured'
-                ? 'bg-primary text-white shadow-xs'
-                : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container border border-outline-variant/20'
-            }`}
-          >
-            Structured View
-          </button>
-          <button
-            onClick={() => setViewMode('raw')}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              viewMode === 'raw'
-                ? 'bg-primary text-white shadow-xs'
-                : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container border border-outline-variant/20'
-            }`}
-          >
-            Raw SQL Code
-          </button>
         </div>
       </div>
 
@@ -962,14 +929,15 @@ export default function DatabaseDDLViewer() {
                   <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${selectedSection.badgeColor}`}>
                     {selectedSection.badge}
                   </span>
-                  <span className="text-xs font-mono text-outline">PostgreSQL 16 Compatible</span>
                 </div>
                 <h3 className="text-base font-extrabold text-on-surface mt-1">
                   {selectedSection.title}
                 </h3>
-                <p className="text-xs text-on-surface-variant mt-0.5">
-                  {selectedSection.description}
-                </p>
+                {selectedSection.description && (
+                  <p className="text-xs text-on-surface-variant mt-0.5">
+                    {selectedSection.description}
+                  </p>
+                )}
               </div>
 
               {/* Copy Section Button */}

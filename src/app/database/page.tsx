@@ -28,6 +28,7 @@ import {
 import DatabaseERDiagram from '@/components/database/database-er-diagram';
 import CustomSQLWorkbench from '@/components/database/custom-sql-workbench';
 import DatabaseDDLViewer from '@/components/database/database-ddl-viewer';
+import PostgreSQLJDBCViewer from '@/components/database/postgresql-jdbc-viewer';
 
 // ==========================================
 // MODELS DATA DEFINITION
@@ -557,7 +558,7 @@ ORDER BY l."listingType", avg_valuation DESC;`,
 ];
 
 export default function DatabasePage() {
-  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums' | 'ddl'>('sql');
+  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums' | 'ddl' | 'jdbc'>('sql');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomain, setSelectedDomain] = useState<string>('All');
   const [selectedModel, setSelectedModel] = useState<DBModel | null>(DB_MODELS[0]);
@@ -587,106 +588,112 @@ export default function DatabasePage() {
   const domains = ['All', 'Core Marketplace', 'Barter & Swaps', 'Chat & Messaging', 'Trust & Community'];
 
   return (
-    <div className="min-h-screen bg-surface py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* ========================================================= */}
-        {/* HERO BANNER */}
-        {/* ========================================================= */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-fixed/40 via-surface-container-lowest to-surface-container-low p-8 sm:p-10 border border-outline-variant/30 shadow-sm">
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wide uppercase shadow-sm">
-                <Database className="w-3.5 h-3.5" />
-                <span>PostgreSQL 16 & Prisma ORM</span>
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight">
-                Database Architecture & ER Schema
-              </h1>
-              <p className="text-on-surface-variant max-w-2xl text-sm sm:text-base leading-relaxed">
-                Live interactive inspection of BarterHub&apos;s relational topology, entity-relationship models, foreign key cardinalities, and production-grade SQL queries for circular swaps and 6-digit handshake verification.
-              </p>
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <button
-                  onClick={() => setActiveTab('ddl')}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    activeTab === 'ddl'
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'bg-surface-container-lowest text-primary hover:bg-surface-container border border-primary/20'
-                  }`}
-                >
-                  <FileCode className="w-3.5 h-3.5" />
-                  <span>View Database Creation SQL (DDL)</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-mono">48 stmts</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Quick Metrics Bento */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Models</p>
-                <p className="text-2xl font-black text-primary mt-0.5">16</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Enums</p>
-                <p className="text-2xl font-black text-secondary mt-0.5">13</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Relations</p>
-                <p className="text-2xl font-black text-emerald-600 mt-0.5">28</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Status</p>
-                <div className="flex items-center justify-center gap-1.5 mt-1 text-xs font-bold text-emerald-600">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Synced
+    <div className="min-h-screen bg-surface py-6 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {/* ========================================================= */}
+          {/* LEFT SIDEBAR: Sleek Persistent Studio Navigation */}
+          {/* ========================================================= */}
+          <aside className="w-full lg:w-72 lg:shrink-0 lg:sticky lg:top-20 space-y-4">
+            <div className="p-4 sm:p-5 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 shadow-xs space-y-4">
+              {/* Brand Header */}
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-2xl bg-primary text-white flex items-center justify-center font-black shadow-md shadow-primary/20 shrink-0">
+                  <Database className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-base font-extrabold text-on-surface tracking-tight truncate">Database Studio</h1>
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>PostgreSQL &bull; JDBC</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* ========================================================= */}
-        {/* VIEW NAVIGATION TABS */}
-        {/* ========================================================= */}
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-outline-variant/30 pb-4">
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'models', label: '1. Relational Schema & Fields', icon: Table },
-              { id: 'er', label: '2. Interactive ER & Mermaid Schema', icon: Layers },
-              { id: 'sql', label: '3. Custom SQL Studio & Workbench', icon: Terminal },
-              { id: 'enums', label: '4. Enums & Custom Types (13)', icon: Code2 },
-              { id: 'ddl', label: '5. SQL Creation DDL (All Commands)', icon: FileCode },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-xs ${
-                    isActive
-                      ? 'bg-primary text-white shadow-lift'
-                      : 'bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant border border-outline-variant/30'
-                  }`}
+              {/* Compact Metrics Strip */}
+              <div className="grid grid-cols-3 gap-1.5 p-2 rounded-2xl bg-surface-container-low border border-outline-variant/20 text-center">
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Models</span>
+                  <span className="text-sm font-black text-primary">16</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Enums</span>
+                  <span className="text-sm font-black text-secondary">13</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Relations</span>
+                  <span className="text-sm font-black text-emerald-600">28</span>
+                </div>
+              </div>
+
+              {/* Navigation Items */}
+              <div className="space-y-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-outline px-2 pb-1">Navigation</p>
+                <nav className="space-y-1">
+                  {[
+                    { id: 'models', num: '1', label: 'Relational Models', badge: '16 Tables', icon: Table },
+                    { id: 'er', num: '2', label: 'Interactive ER Graph', badge: 'Mermaid', icon: Layers },
+                    { id: 'sql', num: '3', label: 'SQL Query Studio', badge: 'Workbench', icon: Terminal },
+                    { id: 'enums', num: '4', label: 'Enums & Types', badge: '13 Types', icon: Code2 },
+                    { id: 'ddl', num: '5', label: 'Creation DDL Script', badge: '48 Stmts', icon: FileCode },
+                    { id: 'jdbc', num: '6', label: 'PostgreSQL JDBC Engine', badge: 'Java SE', icon: Terminal },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveTab(item.id as any)}
+                        className={`w-full flex items-center justify-between p-2.5 rounded-2xl text-left transition-all ${
+                          isActive
+                            ? 'bg-primary text-white font-bold shadow-sm shadow-primary/20'
+                            : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-semibold'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span
+                            className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] font-mono font-bold shrink-0 ${
+                              isActive ? 'bg-white/20 text-white' : 'bg-surface-container text-outline'
+                            }`}
+                          >
+                            {item.num}
+                          </span>
+                          <Icon className="w-4 h-4 shrink-0" />
+                          <span className="text-xs truncate">{item.label}</span>
+                        </div>
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full font-mono shrink-0 ${
+                            isActive ? 'bg-white/20 text-white' : 'bg-surface-container text-outline'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* Quick Marketplace Link */}
+              <div className="pt-2 border-t border-outline-variant/20">
+                <Link
+                  href="/listings"
+                  className="flex items-center justify-between p-2 rounded-xl text-xs font-bold text-primary hover:bg-primary/5 transition-colors"
                 >
-                  <Icon className="w-4 h-4" />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
+                  <span className="flex items-center gap-1.5">
+                    <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+                    Marketplace
+                  </span>
+                  <ExternalLink className="w-3 h-3 text-outline" />
+                </Link>
+              </div>
+            </div>
+          </aside>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/listings"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
-            >
-              <span>Explore Marketplace</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
+          {/* ========================================================= */}
+          {/* MAIN CONTENT AREA */}
+          {/* ========================================================= */}
+          <main className="flex-1 w-full min-w-0 space-y-6">
 
         {/* ========================================================= */}
         {/* TAB 1: RELATIONAL SCHEMA EXPLORER */}
@@ -895,16 +902,16 @@ export default function DatabasePage() {
                 </div>
                 <div className="flex items-center gap-4 text-xs font-semibold">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-primary rounded" />
-                    <span>1:N Has Many</span>
+                    <span className="w-3.5 h-1 bg-indigo-500 rounded" />
+                    <span className="text-indigo-900 dark:text-indigo-300 font-bold">1:N One-to-Many</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-teal-500 rounded" />
-                    <span>1:1 Optional Child</span>
+                    <span className="w-3.5 h-1 bg-teal-500 border-t-2 border-dashed border-teal-500 rounded" />
+                    <span className="text-teal-900 dark:text-teal-300 font-bold">1:1 Optional Child</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-amber-500 rounded" />
-                    <span>N:M Multi-Join</span>
+                    <span className="w-3.5 h-1 bg-amber-500 border-t-2 border-dotted border-amber-500 rounded" />
+                    <span className="text-amber-900 dark:text-amber-300 font-bold">N:M Multi-Join Bridge</span>
                   </div>
                 </div>
               </div>
@@ -1096,30 +1103,21 @@ export default function DatabasePage() {
               <div className="pt-4 border-t border-outline-variant/20 space-y-3">
                 <h3 className="font-bold text-sm text-on-surface">Foreign Key Referential Cardinality Matrix</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-primary block">User → Listing (1:N)</span>
-                    <span className="text-on-surface-variant text-[11px]">CASCADE on user deletion. A user owns zero or many posted items.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-indigo-200/80">
+                    <span className="font-bold text-indigo-700 block">User → Listing (1:N One-to-Many)</span>
+                    <span className="text-on-surface-variant text-[11px]">CASCADE on user deletion. A single registered user owns zero, one, or many items.</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-teal-700 block">Listing → BookDetails (1:1)</span>
-                    <span className="text-on-surface-variant text-[11px]">Unique listingId FK. Automatically cascades when listing is removed.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-teal-200/80">
+                    <span className="font-bold text-teal-700 block">Listing → BookDetails (1:1 Extension)</span>
+                    <span className="text-on-surface-variant text-[11px]">Unique listingId FK. Optional 1-to-1 extension table for book-specific metadata.</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-amber-700 block">BarterProposal → BarterItem (1:N)</span>
-                    <span className="text-on-surface-variant text-[11px]">Join table resolves M:N barter combinations into clean 1:N relations.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-amber-200/80">
+                    <span className="font-bold text-amber-700 block">Proposal ↔ BarterItem ↔ Listing (N:M Bridge)</span>
+                    <span className="text-on-surface-variant text-[11px]">Associative join table: Resolves M:N swaps so a single barter proposal bundles multiple items.</span>
                   </div>
                 </div>
               </div>
 
-              {/* Prisma Schema Location & Engine Validation */}
-              <div className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                <span className="text-on-surface-variant font-medium">
-                  Prisma schema source: <code className="text-primary font-bold">prisma/schema.prisma</code>
-                </span>
-                <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  <Check className="w-4 h-4" /> Validated with Prisma Engine 5.22
-                </span>
-              </div>
             </div>
           </div>
         )}
@@ -1131,15 +1129,11 @@ export default function DatabasePage() {
           <div className="space-y-6">
             <div className="bg-surface-container-lowest rounded-3xl p-6 sm:p-8 border border-outline-variant/30 shadow-xs space-y-6">
               <div className="pb-4 border-b border-outline-variant/20">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>PostgreSQL 16 Analytical Playground</span>
-                </div>
                 <h2 className="text-xl font-extrabold text-on-surface">
-                  SQL Query Studio & Interactive Workbench
+                  SQL Query Studio & Table Explorer
                 </h2>
                 <p className="text-xs text-on-surface-variant mt-1">
-                  Write, edit, and execute custom SQL queries against the local database with editable templates, live syntax safety, and real-time result tables.
+                  Explore stored table records or write, edit, and run custom SQL queries against the local database.
                 </p>
               </div>
 
@@ -1198,6 +1192,13 @@ export default function DatabasePage() {
         {/* TAB 5: DATABASE CREATION DDL COMMANDS */}
         {/* ========================================================= */}
         {activeTab === 'ddl' && <DatabaseDDLViewer />}
+
+        {/* ========================================================= */}
+        {/* TAB 6: POSTGRESQL JDBC ENGINE (JAVA SE) */}
+        {/* ========================================================= */}
+        {activeTab === 'jdbc' && <PostgreSQLJDBCViewer />}
+          </main>
+        </div>
       </div>
     </div>
   );

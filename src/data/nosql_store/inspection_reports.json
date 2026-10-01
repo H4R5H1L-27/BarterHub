@@ -1,0 +1,656 @@
+[
+  {
+    "listingId": "cmv2p4d1e000bw1avw0q1rxx0",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T22:41:34.590Z",
+    "overallHealthScore": 97,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "1st Edition",
+      "isbn13Match": "978-1449373320",
+      "academicCourseTarget": "CS 452 / Distributed Systems",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 616
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-Q1RXX0-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_xc14u60"
+  },
+  {
+    "listingId": "cmv2p4d23000ew1avo2qcgeyh",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T09:13:34.767Z",
+    "overallHealthScore": 93,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "1st Edition",
+      "isbn13Match": "978-0132350884",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 464
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-QCGEYH-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_5zloy6i"
+  },
+  {
+    "listingId": "cmv2p4d2a000hw1avwj8k3jkp",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-08T12:14:43.976Z",
+    "overallHealthScore": 91,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Deluxe Collector's Edition",
+      "isbn13Match": "978-0593099322",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 688
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-8K3JKP-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_0m0wqxa"
+  },
+  {
+    "listingId": "cmv2p4d2f000kw1avuq20e3p5",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T11:37:26.975Z",
+    "overallHealthScore": 90,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Collector's Boxed Edition",
+      "isbn13Match": "978-0544445789",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1728
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-20E3P5-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_zxk3lee"
+  },
+  {
+    "listingId": "cmv2p4d2k000nw1avvv75pvnx",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T00:57:46.830Z",
+    "overallHealthScore": 97,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "4th Edition",
+      "isbn13Match": "978-0262046305",
+      "academicCourseTarget": "CS 301 / CS 6006",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1312
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-75PVNX-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_vn6he55"
+  },
+  {
+    "listingId": "cmv2p4d2p000qw1av8bgif770",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T21:36:14.167Z",
+    "overallHealthScore": 98,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "9th Edition",
+      "isbn13Match": "978-1337613927",
+      "academicCourseTarget": "MATH 151 / 152",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1368
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-GIF770-8345",
+    "createdAt": "2026-10-10T18:10:48.345Z",
+    "_id": "doc_1791655848351_1r97h6y"
+  },
+  {
+    "listingId": "cmv2p4d2v000tw1avwvewbhvk",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-08T22:38:12.686Z",
+    "overallHealthScore": 94,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "12th Edition",
+      "isbn13Match": "978-0135188743",
+      "academicCourseTarget": "BIO 311C",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1488
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-EWBHVK-8346",
+    "createdAt": "2026-10-10T18:10:48.346Z",
+    "_id": "doc_1791655848351_inii952"
+  },
+  {
+    "listingId": "cmv2p4d2z000ww1avpnr2wxwx",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T14:02:15.232Z",
+    "overallHealthScore": 95,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "9th Edition",
+      "isbn13Match": "978-0321971371",
+      "academicCourseTarget": "CHEM 241",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1320
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-R2WXWX-8346",
+    "createdAt": "2026-10-10T18:10:48.346Z",
+    "_id": "doc_1791655848351_6z61303"
+  },
+  {
+    "listingId": "cmv2p4d34000zw1avhjkmjoun",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T06:35:11.022Z",
+    "overallHealthScore": 95,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "2nd Edition",
+      "isbn13Match": "978-0262510875",
+      "academicCourseTarget": "MIT 6.001",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 657
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-KMJOUN-8348",
+    "createdAt": "2026-10-10T18:10:48.348Z",
+    "_id": "doc_1791655848351_xphc91r"
+  },
+  {
+    "listingId": "cmv2p4d390012w1avop4pl79u",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T20:16:27.013Z",
+    "overallHealthScore": 98,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "20th Anniversary Edition",
+      "isbn13Match": "978-0135957059",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 352
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-4PL79U-8348",
+    "createdAt": "2026-10-10T18:10:48.348Z",
+    "_id": "doc_1791655848351_fdmmzts"
+  },
+  {
+    "listingId": "cmv2p4d3d0015w1avogn45ijl",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T22:29:44.879Z",
+    "overallHealthScore": 94,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "1st Edition",
+      "isbn13Match": "978-0593135204",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 496
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-N45IJL-8348",
+    "createdAt": "2026-10-10T18:10:48.348Z",
+    "_id": "doc_1791655848351_tgg3ju5"
+  },
+  {
+    "listingId": "cmv2p4d3h0018w1avn6byvmat",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T04:52:03.132Z",
+    "overallHealthScore": 95,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Reprint",
+      "isbn13Match": "978-0441569595",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 288
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-BYVMAT-8348",
+    "createdAt": "2026-10-10T18:10:48.348Z",
+    "_id": "doc_1791655848351_fb4c5gn"
+  },
+  {
+    "listingId": "cmv2p4d3m001bw1avfda2z61t",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T13:38:38.506Z",
+    "overallHealthScore": 92,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "12th Edition",
+      "isbn13Match": "978-1119773511",
+      "academicCourseTarget": "PHYS 201 / 202",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1456
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-A2Z61T-8349",
+    "createdAt": "2026-10-10T18:10:48.349Z",
+    "_id": "doc_1791655848351_k39j992"
+  },
+  {
+    "listingId": "cmv2p4d3r001ew1av79vr089n",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-10T09:30:40.089Z",
+    "overallHealthScore": 98,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Paperback Edition",
+      "isbn13Match": "978-0062316097",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 464
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-VR089N-8349",
+    "createdAt": "2026-10-10T18:10:48.349Z",
+    "_id": "doc_1791655848351_8yjzglq"
+  },
+  {
+    "listingId": "cmv2p4d3w001hw1avjvfxpo42",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-08T02:56:07.482Z",
+    "overallHealthScore": 92,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Hardcover",
+      "isbn13Match": "978-0735211292",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 320
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-FXPO42-8349",
+    "createdAt": "2026-10-10T18:10:48.349Z",
+    "_id": "doc_1791655848351_gyfm1no"
+  },
+  {
+    "listingId": "cmv2p4d42001kw1avdwimaduk",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-10T10:30:53.200Z",
+    "overallHealthScore": 95,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "7th Edition",
+      "isbn13Match": "978-0078022159",
+      "academicCourseTarget": "CS 411 / Databases",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 1376
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-IMADUK-8349",
+    "createdAt": "2026-10-10T18:10:48.349Z",
+    "_id": "doc_1791655848351_5khrcbo"
+  },
+  {
+    "listingId": "cmv2p4d48001nw1avp5odrmm6",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-07T09:56:09.156Z",
+    "overallHealthScore": 98,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "Paperback",
+      "isbn13Match": "978-0374533557",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 512
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-ODRMM6-8350",
+    "createdAt": "2026-10-10T18:10:48.350Z",
+    "_id": "doc_1791655848351_356vpmq"
+  },
+  {
+    "listingId": "cmv2p4d4d001qw1avk4uagwfo",
+    "inspectorName": "Academic Exchange Curatorial Review",
+    "verificationLevel": "AUTHENTICATED_FIRST_EDITION",
+    "inspectionDate": "2026-10-09T18:45:50.158Z",
+    "overallHealthScore": 98,
+    "category": "BOOKS",
+    "diagnosticSpecs": {
+      "bindingIntegrity": "Tight Spine, Zero Loose Signatures",
+      "marginaliaDensity": "0% - Pristine Clean Pages",
+      "pageYellowingIndex": "0.04 (Archival Grade White)",
+      "editionVerified": "6th Edition",
+      "isbn13Match": "978-0984782857",
+      "academicCourseTarget": "CS / Engineering Core",
+      "waterDamageDetected": false
+    },
+    "defects": [
+      {
+        "component": "Cover Corners",
+        "severity": "MINOR",
+        "note": "Gentle shelf rub on bottom right spine corner."
+      }
+    ],
+    "benchmarkScores": {
+      "authenticityIndex": "100% Genuine Publisher Edition",
+      "pageCountVerified": 708
+    },
+    "inspectorNotes": "Verified authentic text. No missing problem set appendices or illegible markings. Highly suitable for semester coursework trade.",
+    "qrCertificateCode": "VERIFY-BK-UAGWFO-8350",
+    "createdAt": "2026-10-10T18:10:48.350Z",
+    "_id": "doc_1791655848351_ahq7mrf"
+  },
+  {
+    "listingId": "cmv2p4d4l001tw1avmf82oc8l",
+    "inspectorName": "Campus Hardware Diagnostics Lab (Station #4)",
+    "verificationLevel": "VERIFIED_HARDWARE",
+    "inspectionDate": "2026-10-07T19:53:36.974Z",
+    "overallHealthScore": 88,
+    "category": "ELECTRONICS",
+    "diagnosticSpecs": {
+      "batteryHealthPct": "95%",
+      "batteryCycles": 196,
+      "displayIntegrity": "100% Touch Responsive / Zero Dead Pixels",
+      "smartDiskHealth": "100% Good (SMART Passed)",
+      "imeiBlacklistCheck": "CLEAN - GSMA Registered",
+      "portConnectors": "USB-C/Lightning Audio Output Verified",
+      "thermalThrottling": "NORMAL (Max 68°C under sustained load)",
+      "originalAccessoriesIncluded": "Original Box & Charger"
+    },
+    "defects": [
+      {
+        "component": "Bezel Edge",
+        "severity": "MINOR",
+        "note": "Hairline cosmetic scratch on bottom-left chamfer."
+      },
+      {
+        "component": "Oleophobic Coating",
+        "severity": "MINOR",
+        "note": "Normal mild wear around thumb rest area."
+      }
+    ],
+    "benchmarkScores": {
+      "geekbenchSingleCore": 1671,
+      "geekbenchMultiCore": 7142,
+      "stressTestPassRate": "99.4%"
+    },
+    "inspectorNotes": "Thoroughly tested with automated hardware diagnostic jig. Battery voltage delivery is stable at 3.82V. All biometric sensors (TouchID/FaceID) operational.",
+    "qrCertificateCode": "VERIFY-HW-82OC8L-8350",
+    "createdAt": "2026-10-10T18:10:48.350Z",
+    "_id": "doc_1791655848351_clqjufg"
+  },
+  {
+    "listingId": "cmv2p4d4q001ww1avi1s4eocv",
+    "inspectorName": "Campus Hardware Diagnostics Lab (Station #4)",
+    "verificationLevel": "VERIFIED_HARDWARE",
+    "inspectionDate": "2026-10-10T08:21:20.663Z",
+    "overallHealthScore": 90,
+    "category": "ELECTRONICS",
+    "diagnosticSpecs": {
+      "batteryHealthPct": "97%",
+      "batteryCycles": 67,
+      "displayIntegrity": "100% Touch Responsive / Zero Dead Pixels",
+      "smartDiskHealth": "100% Good (SMART Passed)",
+      "imeiBlacklistCheck": "CLEAN - GSMA Registered",
+      "portConnectors": "USB-C/Lightning Audio Output Verified",
+      "thermalThrottling": "NORMAL (Max 68°C under sustained load)",
+      "originalAccessoriesIncluded": "Original Box & Charger"
+    },
+    "defects": [
+      {
+        "component": "Bezel Edge",
+        "severity": "MINOR",
+        "note": "Hairline cosmetic scratch on bottom-left chamfer."
+      },
+      {
+        "component": "Oleophobic Coating",
+        "severity": "MINOR",
+        "note": "Normal mild wear around thumb rest area."
+      }
+    ],
+    "benchmarkScores": {
+      "geekbenchSingleCore": 1621,
+      "geekbenchMultiCore": 6450,
+      "stressTestPassRate": "99.4%"
+    },
+    "inspectorNotes": "Thoroughly tested with automated hardware diagnostic jig. Battery voltage delivery is stable at 3.82V. All biometric sensors (TouchID/FaceID) operational.",
+    "qrCertificateCode": "VERIFY-HW-S4EOCV-8350",
+    "createdAt": "2026-10-10T18:10:48.350Z",
+    "_id": "doc_1791655848351_vxcw1bw"
+  }
+]
