@@ -1,0 +1,458 @@
+[
+  {
+    "id": "mpt_1791663209908_bosge",
+    "cycleId": "cycle-3-cmv2p4d23000ew1avo2qcgeyh:cmv2p4d5f002bw1av0hpoy7kc:cmv2p4d6u0038w1avl4psuy60",
+    "createdAt": "2026-10-10T20:13:29.908Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Julian Vance gives to Sarah Jenkins, Sarah Jenkins gives to Alex Turner, and Alex Turner gives to Julian Vance!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d180008w1av6iu4dc6a",
+        "userName": "Julian Vance",
+        "city": "Portland",
+        "givingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "receivingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.908Z"
+      },
+      {
+        "userId": "cmv2p4d0o0001w1avb743jj1p",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "receivingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "receivingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_709i",
+        "fromUserId": "cmv2p4d180008w1av6iu4dc6a",
+        "fromUserName": "Julian Vance",
+        "toUserId": "cmv2p4d0o0001w1avb743jj1p",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv2p4d6u0038w1avl4psuy60",
+        "listingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "listingPrice": 240,
+        "listingImage": "/items/products/hhkb-keyboard.jpg",
+        "handshakePin": "PIN-9134",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_5vtv",
+        "fromUserId": "cmv2p4d0o0001w1avb743jj1p",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d23000ew1avo2qcgeyh",
+        "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "listingPrice": 0,
+        "listingImage": "/items/books/clean-code.jpg",
+        "handshakePin": "PIN-3054",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_gw11",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d180008w1av6iu4dc6a",
+        "toUserName": "Julian Vance",
+        "listingId": "cmv2p4d5f002bw1av0hpoy7kc",
+        "listingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "listingPrice": 70,
+        "listingImage": "/items/products/logitech-mx-master-3s.jpg",
+        "handshakePin": "PIN-8440",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791663209892_11psg",
+    "cycleId": "cycle-3-cmv2p4d4l001tw1avmf82oc8l:cmv2p4d5f002bw1av0hpoy7kc:cmv2p4d6u0038w1avl4psuy60",
+    "createdAt": "2026-10-10T20:13:29.892Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Julian Vance gives to Marcus Chen, Marcus Chen gives to Alex Turner, and Alex Turner gives to Julian Vance!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d180008w1av6iu4dc6a",
+        "userName": "Julian Vance",
+        "city": "Portland",
+        "givingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "receivingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.892Z"
+      },
+      {
+        "userId": "cmv2p4d0r0002w1av56sjb0er",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+        "receivingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "receivingTitle": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_b9wb",
+        "fromUserId": "cmv2p4d180008w1av6iu4dc6a",
+        "fromUserName": "Julian Vance",
+        "toUserId": "cmv2p4d0r0002w1av56sjb0er",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv2p4d6u0038w1avl4psuy60",
+        "listingTitle": "HHKB Professional HYBRID Type-S (Charcoal, Printed Keycaps)",
+        "listingPrice": 240,
+        "listingImage": "/items/products/hhkb-keyboard.jpg",
+        "handshakePin": "PIN-3582",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_afee",
+        "fromUserId": "cmv2p4d0r0002w1av56sjb0er",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d4l001tw1avmf82oc8l",
+        "listingTitle": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+        "listingPrice": 260,
+        "listingImage": "/items/products/sony-wh1000xm5.jpg",
+        "handshakePin": "PIN-1037",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_kj5i",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d180008w1av6iu4dc6a",
+        "toUserName": "Julian Vance",
+        "listingId": "cmv2p4d5f002bw1av0hpoy7kc",
+        "listingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "listingPrice": 70,
+        "listingImage": "/items/products/logitech-mx-master-3s.jpg",
+        "handshakePin": "PIN-3631",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791663209863_mx4fr",
+    "cycleId": "cycle-3-cmv2p4d2p000qw1av8bgif770:cmv2p4d2v000tw1avwvewbhvk:cmv2p4d5f002bw1av0hpoy7kc",
+    "createdAt": "2026-10-10T20:13:29.864Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Liam O'Connor gives to Alex Turner, Alex Turner gives to Elena Rostova, and Elena Rostova gives to Liam O'Connor!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d120006w1av81o5x9by",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "receivingTitle": "Campbell Biology (12th Edition)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.863Z"
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "receivingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d0t0003w1av0kswfe1q",
+        "userName": "Elena Rostova",
+        "city": "Austin",
+        "givingTitle": "Campbell Biology (12th Edition)",
+        "receivingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_br8n",
+        "fromUserId": "cmv2p4d120006w1av81o5x9by",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d2p000qw1av8bgif770",
+        "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "listingPrice": 60,
+        "listingImage": "/items/books/stewart-calculus.jpg",
+        "handshakePin": "PIN-5148",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_xr6n",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d0t0003w1av0kswfe1q",
+        "toUserName": "Elena Rostova",
+        "listingId": "cmv2p4d5f002bw1av0hpoy7kc",
+        "listingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "listingPrice": 70,
+        "listingImage": "/items/products/logitech-mx-master-3s.jpg",
+        "handshakePin": "PIN-8695",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_2ino",
+        "fromUserId": "cmv2p4d0t0003w1av0kswfe1q",
+        "fromUserName": "Elena Rostova",
+        "toUserId": "cmv2p4d120006w1av81o5x9by",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv2p4d2v000tw1avwvewbhvk",
+        "listingTitle": "Campbell Biology (12th Edition)",
+        "listingPrice": 85,
+        "listingImage": "/items/books/campbell-biology.jpg",
+        "handshakePin": "PIN-5843",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791663209841_fho9j",
+    "cycleId": "cycle-3-cmv2p4d1e000bw1avw0q1rxx0:cmv2p4d2p000qw1av8bgif770:cmv2p4d3w001hw1avjvfxpo42",
+    "createdAt": "2026-10-10T20:13:29.841Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Liam O'Connor gives to Alex Turner, Alex Turner gives to Chloe Zhao, and Chloe Zhao gives to Liam O'Connor!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d120006w1av81o5x9by",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "receivingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.841Z"
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Designing Data-Intensive Applications",
+        "receivingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d100005w1av3pjquzde",
+        "userName": "Chloe Zhao",
+        "city": "Seattle",
+        "givingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "receivingTitle": "Designing Data-Intensive Applications",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_dy1l",
+        "fromUserId": "cmv2p4d120006w1av81o5x9by",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d2p000qw1av8bgif770",
+        "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "listingPrice": 60,
+        "listingImage": "/items/books/stewart-calculus.jpg",
+        "handshakePin": "PIN-1041",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_nb9a",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d100005w1av3pjquzde",
+        "toUserName": "Chloe Zhao",
+        "listingId": "cmv2p4d1e000bw1avw0q1rxx0",
+        "listingTitle": "Designing Data-Intensive Applications",
+        "listingPrice": 35,
+        "listingImage": "/items/books/ddia.jpg",
+        "handshakePin": "PIN-9557",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_sb2t",
+        "fromUserId": "cmv2p4d100005w1av3pjquzde",
+        "fromUserName": "Chloe Zhao",
+        "toUserId": "cmv2p4d120006w1av81o5x9by",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv2p4d3w001hw1avjvfxpo42",
+        "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "listingPrice": 15,
+        "listingImage": "/items/books/atomic-habits.jpg",
+        "handshakePin": "PIN-4042",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791663209819_gynm5",
+    "cycleId": "cycle-3-cmv2p4d1e000bw1avw0q1rxx0:cmv2p4d23000ew1avo2qcgeyh:cmv2p4d2p000qw1av8bgif770",
+    "createdAt": "2026-10-10T20:13:29.819Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Liam O'Connor gives to Alex Turner, Alex Turner gives to Sarah Jenkins, and Sarah Jenkins gives to Liam O'Connor!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d120006w1av81o5x9by",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "receivingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.819Z"
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Designing Data-Intensive Applications",
+        "receivingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d0o0001w1avb743jj1p",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "receivingTitle": "Designing Data-Intensive Applications",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_0fhn",
+        "fromUserId": "cmv2p4d120006w1av81o5x9by",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d2p000qw1av8bgif770",
+        "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "listingPrice": 60,
+        "listingImage": "/items/books/stewart-calculus.jpg",
+        "handshakePin": "PIN-5364",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_ndy5",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d0o0001w1avb743jj1p",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv2p4d1e000bw1avw0q1rxx0",
+        "listingTitle": "Designing Data-Intensive Applications",
+        "listingPrice": 35,
+        "listingImage": "/items/books/ddia.jpg",
+        "handshakePin": "PIN-9584",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_6upi",
+        "fromUserId": "cmv2p4d0o0001w1avb743jj1p",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv2p4d120006w1av81o5x9by",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv2p4d23000ew1avo2qcgeyh",
+        "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "listingPrice": 0,
+        "listingImage": "/items/books/clean-code.jpg",
+        "handshakePin": "PIN-7461",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791663209799_7ymjy",
+    "cycleId": "cycle-3-cmv2p4d2k000nw1avvv75pvnx:cmv2p4d2p000qw1av8bgif770:cmv2p4d2v000tw1avwvewbhvk",
+    "createdAt": "2026-10-10T20:13:29.800Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Liam O'Connor gives to Alex Turner, Alex Turner gives to Elena Rostova, and Elena Rostova gives to Liam O'Connor!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv2p4d120006w1av81o5x9by",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "receivingTitle": "Campbell Biology (12th Edition)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-10T20:13:29.799Z"
+      },
+      {
+        "userId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Introduction to Algorithms (CLRS) 4th Edition",
+        "receivingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv2p4d0t0003w1av0kswfe1q",
+        "userName": "Elena Rostova",
+        "city": "Austin",
+        "givingTitle": "Campbell Biology (12th Edition)",
+        "receivingTitle": "Introduction to Algorithms (CLRS) 4th Edition",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_or8c",
+        "fromUserId": "cmv2p4d120006w1av81o5x9by",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv2p4d2p000qw1av8bgif770",
+        "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "listingPrice": 60,
+        "listingImage": "/items/books/stewart-calculus.jpg",
+        "handshakePin": "PIN-9271",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_gt4g",
+        "fromUserId": "cmv2p4d0g0000w1av5h7v5h9o",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv2p4d0t0003w1av0kswfe1q",
+        "toUserName": "Elena Rostova",
+        "listingId": "cmv2p4d2k000nw1avvv75pvnx",
+        "listingTitle": "Introduction to Algorithms (CLRS) 4th Edition",
+        "listingPrice": 75,
+        "listingImage": "/items/books/clrs-algorithms.jpg",
+        "handshakePin": "PIN-4864",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_7shl",
+        "fromUserId": "cmv2p4d0t0003w1av0kswfe1q",
+        "fromUserName": "Elena Rostova",
+        "toUserId": "cmv2p4d120006w1av81o5x9by",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv2p4d2v000tw1avwvewbhvk",
+        "listingTitle": "Campbell Biology (12th Edition)",
+        "listingPrice": 85,
+        "listingImage": "/items/books/campbell-biology.jpg",
+        "handshakePin": "PIN-9896",
+        "isDelivered": false
+      }
+    ]
+  }
+]

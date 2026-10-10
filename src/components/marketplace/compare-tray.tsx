@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { GitCompare, X, ArrowRight } from 'lucide-react';
-import { useMarketplace } from './marketplace-provider';
+import { useMarketplace } from '@/components/providers/marketplace-provider';
 
 export default function CompareTray() {
   const { compareIds, clearCompare, toggleCompare } = useMarketplace();
@@ -19,7 +19,7 @@ export default function CompareTray() {
       </div>
       
       <div className="flex items-center gap-2">
-        {compareIds.map((id) => (
+        {compareIds.map((id: string) => (
           <button
             key={id}
             onClick={() => toggleCompare(id)}

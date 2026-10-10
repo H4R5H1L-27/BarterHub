@@ -28,6 +28,7 @@ import {
 import DatabaseERDiagram from '@/components/database/database-er-diagram';
 import CustomSQLWorkbench from '@/components/database/custom-sql-workbench';
 import DatabaseDDLViewer from '@/components/database/database-ddl-viewer';
+import Neo4jGraphExplorer from '@/components/database/neo4j-graph-explorer';
 
 // ==========================================
 // MODELS DATA DEFINITION
@@ -557,7 +558,7 @@ ORDER BY l."listingType", avg_valuation DESC;`,
 ];
 
 export default function DatabasePage() {
-  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums' | 'ddl'>('sql');
+  const [activeTab, setActiveTab] = useState<'models' | 'er' | 'sql' | 'enums' | 'ddl' | 'neo4j'>('sql');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomain, setSelectedDomain] = useState<string>('All');
   const [selectedModel, setSelectedModel] = useState<DBModel | null>(DB_MODELS[0]);
@@ -618,6 +619,19 @@ export default function DatabasePage() {
                   <span>View Database Creation SQL (DDL)</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-mono">48 stmts</span>
                 </button>
+
+                <button
+                  onClick={() => setActiveTab('neo4j')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeTab === 'neo4j'
+                      ? 'bg-emerald-600 text-white shadow-xs'
+                      : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/30'
+                  }`}
+                >
+                  <Share2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Modern NoSQL (Neo4j Graph)</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-mono">NEW</span>
+                </button>
               </div>
             </div>
 
@@ -657,6 +671,7 @@ export default function DatabasePage() {
               { id: 'sql', label: '3. Custom SQL Studio & Workbench', icon: Terminal },
               { id: 'enums', label: '4. Enums & Custom Types (13)', icon: Code2 },
               { id: 'ddl', label: '5. SQL Creation DDL (All Commands)', icon: FileCode },
+              { id: 'neo4j', label: '6. Modern NoSQL (Neo4j Graph)', icon: Share2 },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -1198,6 +1213,11 @@ export default function DatabasePage() {
         {/* TAB 5: DATABASE CREATION DDL COMMANDS */}
         {/* ========================================================= */}
         {activeTab === 'ddl' && <DatabaseDDLViewer />}
+
+        {/* ========================================================= */}
+        {/* TAB 6: MODERN NOSQL (NEO4J GRAPH DATABASE) */}
+        {/* ========================================================= */}
+        {activeTab === 'neo4j' && <Neo4jGraphExplorer />}
       </div>
     </div>
   );

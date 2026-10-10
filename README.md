@@ -8,6 +8,8 @@
   <img src="https://img.shields.io/badge/Next.js-14.2-black?logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Neo4j-5.26_Graph_Database-008CC1?logo=neo4j&logoColor=white" alt="Neo4j" />
+  <img src="https://img.shields.io/badge/Cypher-Graph_Queries-008CC1" alt="Cypher" />
   <img src="https://img.shields.io/badge/Prisma-5.22-2D3748?logo=prisma" alt="Prisma" />
   <img src="https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Design_System-Stitch_Soft_Modernism-4648D4" alt="Design System" />
@@ -15,7 +17,11 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
 </p>
 
-**BarterHub** is an enterprise-grade circular classifieds and exchange platform engineered for swapping, buying, and selling second-hand books, academic course materials, and high-performance tech gear. It delivers a sustainable, zero-cash peer economy through direct item-for-item bartering, hybrid cash top-up settlements, in-thread deal negotiation cards, and physical 6-digit PIN handshake verification tokens.
+**BarterHub** is an enterprise-grade circular classifieds and exchange platform engineered for swapping, buying, and selling second-hand books, academic course materials, and high-performance tech gear. It delivers a sustainable, zero-cash peer economy through direct item-for-item bartering, hybrid cash top-up settlements, in-thread deal negotiation cards, and physical handover delivery safety codes.
+
+BarterHub implements a **Polyglot Persistence Architecture**:
+1. **PostgreSQL 16 (Relational OLTP):** Manages user authentication, catalog items, transactional ACID integrity, chat threads, and peer reviews.
+2. **Neo4j Graph Database (NoSQL Network OLAP):** Solves multi-party circular liquidity bottlenecks by discovering 3-party circular swap cycles ($A \rightarrow B \rightarrow C \rightarrow A$) via $\mathcal{O}(1)$ index-free adjacency graph traversal.
 
 ---
 
@@ -23,8 +29,9 @@
 
 - [Visual Showcase & Screen Walkthrough](#-visual-showcase--screen-walkthrough)
 - [Platform Architecture & Site Map](#-platform-architecture--site-map)
-- [Core Platform Capabilities](#-core-platform-capabilities)
+- [Polyglot Persistence & NoSQL Justification](#-polyglot-persistence--nosql-justification-neo4j)
 - [Interactive Database Hub & SQL Studio (`/database`)](#-interactive-database-hub--sql-studio-database)
+- [Smart Swap Chains: Multi-Party Circular Barter Engine](#-smart-swap-chains-multi-party-circular-barter-engine)
 - [Database Schema & Relational Models](#-database-schema--relational-models)
 - [REST API Reference](#-rest-api-reference)
 - [Project Directory Structure](#-project-directory-structure)
@@ -62,8 +69,8 @@ Comprehensive item dossier displaying owner trade wishlists, academic and hardwa
 
 ---
 
-### 4. 🤝 Offers & Swaps Hub with Real Handshake PIN Settlement (`/offers`)
-End-to-end deal management with inbound and outbound negotiation cards, counter-offer rounds, Union Square Safe Kiosk indicator, and the physical in-person 6-digit handshake verification settlement interface (`TRD-XXXX`) with 1-click `Auto-Fill` buttons for friction-free trade completions.
+### 4. 🤝 Offers Hub & In-Person Handover Safety Codes (`/offers`)
+End-to-end deal management with inbound and outbound negotiation cards, counter-offer rounds, and secure role-based delivery verification codes. In every physical exchange, the recipient holds the secret code and the deliverer must obtain and enter it upon inspection to complete the trade.
 
 ![Offers Hub & Handshake Settlement](public/screenshots/offers-handshake.png)
 
@@ -104,8 +111,15 @@ Dual authentication hub featuring Barter Guarantee Standards with an instant 1-C
 
 ---
 
-### 10. 🗄️ Database & Interactive SQL Studio (`/database`)
-Interactive PostgreSQL 16 schema explorer, SVG vector entity-relationship diagram with zoom/pan controls and live Mermaid diagram rendering, 13 domain enums, and a live custom SQL studio with 15 editable query templates.
+### 10. 🗄️ Relational Database Hub & SQL Studio (`/database`)
+Interactive PostgreSQL 16 schema explorer, SVG vector entity-relationship diagram with zoom/pan controls, live Mermaid diagram rendering, 13 domain enums catalog, and a live custom SQL studio with 15 editable query templates.
+
+---
+
+### 11. 🕸️ NoSQL Graph Database Explorer & Cypher Workbench (`/database` Tab 6)
+Dedicated workbench for the **Neo4j Graph Database** integration. Displays live graph topology, node degree centralities, 2-way direct swaps, 3-way circular loop detection, live Cypher query execution, and computational complexity benchmarks ($\mathcal{O}(k)$ vs recursive SQL joins).
+
+![NoSQL Graph Database Explorer](public/screenshots/neo4j-graph-explorer.png)
 
 ---
 
@@ -117,14 +131,14 @@ graph TD
   Browse["🔍 Catalog & Filters (/listings)<br/>• Faceted Filter Rail<br/>• Valuation Histogram<br/>• Search & Active Chips<br/>• Soft Modern Cards"]
   NewListing["➕ Post Barter Ad (/listings/new)<br/>• Step 1-4 Wizard<br/>• Adaptable Category Specs<br/>• Valuation Slider & Wishlist Tags<br/>• Sticky Live Marketplace Preview"]
   ListingDetail["📦 Item Detail (/listings/:id)<br/>• Concentric Media Gallery<br/>• Barter / Cash CTAs<br/>• Trader Trust Dossier<br/>• Barter Modal / Offer Modal"]
-  Offers["🤝 Offers & Swaps (/offers)<br/>• Inbound & Outbound Tabs<br/>• 6-Digit Handshake PIN Banner<br/>• Real PIN Verification & Auto-Fill<br/>• Counter-Offer Actions"]
+  Offers["🤝 Offers Hub (/offers)<br/>• Inbound / Outbound Barters<br/>• Cash Offers Desk<br/>• Smart Swap Chains (Circular Loops)<br/>• In-Person Safety Code Verification"]
   Messages["💬 Trade Chat (/messages)<br/>• Auth-Gated Polling Chat<br/>• In-Thread Cash Offer Cards<br/>• In-Thread Barter Proposal Cards<br/>• Conversation Rail"]
   Dashboard["📊 Management Desk (/dashboard)<br/>• 4 Bento Analytics Cards<br/>• Views Sparkline Graph<br/>• Inventory Manager & Status Toggles<br/>• Quick Actions"]
   Favorites["❤️ Saved Watchlist (/favorites)<br/>• Mutual Match Recommendation Alert<br/>• Saved Listing Grid<br/>• Quick Propose Actions"]
   Compare["⚖️ Comparison Matrix (/compare)<br/>• Side-by-Side Analysis Table<br/>• Valuation & Condition Alignment<br/>• Safe Meetup & Direct CTAs"]
   Profile["👤 Trader Reputation (/profile/:id)<br/>• Trust Scorecard (100% Meets)<br/>• Verified Campus Badges<br/>• Completed Trades & Reviews"]
   Auth["🔐 Auth & Persona Sandbox (/login & /register)<br/>• 1-Click Rapid Persona Switcher<br/>• Barter Guarantee Standards<br/>• Secure Email / Password"]
-  DB["🗄️ Database & ER Workbench (/database)<br/>• 16 Model Inspector & Fields<br/>• Interactive ER & Mermaid Diagram<br/>• 13 Enums & Types Catalog<br/>• Custom SQL Studio & 15 Templates"]
+  DB["🗄️ Database & Architecture Hub (/database)<br/>• Tab 1: 16 Relational Models<br/>• Tab 2: Interactive ER & Mermaid<br/>• Tab 3: Custom SQL Studio (15 Queries)<br/>• Tab 4: 13 Custom Enums<br/>• Tab 5: Production DDL Migration<br/>• Tab 6: Neo4j NoSQL Graph Explorer & Cypher"]
 
   Home --> Browse
   Home --> NewListing
@@ -143,69 +157,115 @@ graph TD
 
 ---
 
-## ✨ Core Platform Capabilities
+## 🚀 Polyglot Persistence & NoSQL Justification (Neo4j)
 
-| Feature | Description |
-|---|---|
-| **Triple Exchange Engine** | Complete transaction flexibility supporting **Cash Direct Sales**, **True Barter** (Item-for-Item), and **Hybrid Deals** (Item + Cash Top-Up offset). |
-| **In-Thread Deal Cards** | Interactive bargaining directly inside conversation threads with real-time actionable cards to accept, counter, or decline offers without page hopping. |
-| **Academic & Tech Schemas** | Rich domain-specific schemas: ISBN-10/13, course codes (e.g., CS 440), academic subjects, annotations, edition, warranty status, battery health, and box/cable checklist. |
-| **Handshake PIN Settlement** | In-person delivery security via 6-digit tokens (`TRD-XXXX`). Mutual entry marks the deal as `COMPLETED`, transitions item statuses to `TRADED`, increments trader transaction counts, and posts chat receipts. |
-| **Valuation Histogram Slider** | Interactive pricing curve visualization in the catalog rail allowing granular value bounds filtering. |
-| **Side-by-Side Comparison** | Multi-item comparison tray and `/compare` matrix aligning condition, estimated value, specifications, and trade terms side by side. |
-| **1-Click Persona Switcher** | Instant demo identity toggle on `/login` to simulate multi-party negotiations across buyers and sellers with zero password friction. |
-| **Guest Privacy Protection** | Sensitive user data, private chat threads, proposals, and handshake PINs are strictly gated behind authenticated sessions. |
+For comprehensive technical analysis, algorithmic proofs, and benchmark tables, read the standalone documentation:  
+👉 **[DATABASE_JUSTIFICATION.md](DATABASE_JUSTIFICATION.md)**
+
+### University / Course Evaluation Requirement
+* **Requirement:** Augment the relational database with a production-grade **NoSQL database** (other than MongoDB) solving a real, non-trivial engineering requirement native to the domain.
+* **Selected Technology:** **Neo4j Graph Database (v5.26)** with Cypher Query Language and Bolt Protocol.
+
+### The Problem: Multi-Party Circular Barter Deadlocks
+In traditional 1-to-1 bartering, an exchange fails whenever two parties lack a **Double Coincidence of Wants**:
+* **Marcus** owns *Neuromancer* and wants *Clean Code*.
+* **Alex** owns *The Pragmatic Programmer* and wants *Neuromancer*.
+* **Sarah** owns *Clean Code* and wants *The Pragmatic Programmer*.
+
+None of these users can execute a direct 2-party trade. However, as a **closed circular barter chain**, 100% of desired items can be exchanged without any cash intermediation:
+$$\text{Marcus} \xrightarrow{\text{gives}} \text{Alex} \xrightarrow{\text{gives}} \text{Sarah} \xrightarrow{\text{gives}} \text{Marcus}$$
+
+### Why Relational SQL Fails at Cycle Detection
+Finding $k$-hop circular loops in a relational database requires recursive Common Table Expressions (`WITH RECURSIVE`) or self-joining the `Listing` and `BarterProposal` tables $k$ times:
+```sql
+SELECT ... FROM "Listing" l1
+JOIN "BarterProposal" b1 ON l1.id = b1."targetListingId"
+JOIN "Listing" l2 ON b1."offeredListingId" = l2.id
+JOIN "BarterProposal" b2 ON l2.id = b2."targetListingId"
+JOIN "Listing" l3 ON b2."offeredListingId" = l3.id
+JOIN "BarterProposal" b3 ON l3.id = b3."targetListingId"
+WHERE b3."offeredListingId" = l1.id;
+```
+* **Computational Complexity in SQL:** $\mathcal{O}(|V|^k)$ where $|V|$ is the number of listings. Each join requires table scans or index lookups, creating quadratic disk I/O bottlenecks.
+* **Computational Complexity in Neo4j:** $\mathcal{O}(k \cdot \bar{d})$ where $\bar{d}$ is the average degree of a node. Neo4j uses **Index-Free Adjacency** — each node directly stores physical memory pointers to its adjacent edges and neighboring nodes. Traversing relationships takes constant time $\mathcal{O}(1)$ per hop regardless of total database volume!
+
+### Live Dual-Engine Implementation
+* **Production Driver:** Implemented via official `neo4j-driver` connecting to Neo4j Bolt port `7687` (`neo4j://localhost:7687`).
+* **Deterministic Fallback Engine:** Implemented in `src/lib/neo4j.ts` using Tarjan's strongly connected components and DFS cycle detection, guaranteeing that evaluations run with zero configuration even if Docker is not active.
 
 ---
 
 ## 🗄️ Interactive Database Hub & SQL Studio (`/database`)
 
-The `/database` screen provides developers, evaluators, and administrators with an interactive view into BarterHub's relational architecture:
+The `/database` page (accessible from the top navigation bar as **Architecture**) provides an interactive technical workbench designed for database administrators and course examiners:
 
-### 1. Relational Schema & Fields (16 Models)
-- Searchable model navigator with field-by-field definitions, TypeScript/Prisma data types, primary keys, foreign keys, and optionality indicators.
-- Direct visualization of model relations and cardinality mappings.
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  /database Navigation Tabs                                                             │
+├──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬─────────────┤
+│ 1. Relational│ 2. ER &      │ 3. Custom    │ 4. Domain    │ 5. SQL DDL   │ 6. NoSQL    │
+│    Models    │    Mermaid   │    SQL Studio│    Enums     │    Migration │    Graph Hub│
+└──────────────┴──────────────┴──────────────┴──────────────┴──────────────┴─────────────┘
+```
 
-### 2. Interactive ER & Mermaid Architecture (Merged View)
-- **Vector SVG ER Diagram**: Interactive canvas with draggable nodes, zoom/pan navigation, relation curves (Crow's foot notation), and domain filters (*All Models*, *Core Users & Trust*, *Catalog & Specs*, *Deals & Handshake*, *Chat & System*).
-- **Live Mermaid Schema Visualizer**: High-fidelity Mermaid ER diagram rendering live SVG vector nodes, relationships, and code exporter.
+### Tab 1: Relational Schema & Fields (16 Models)
+* Interactive model browser displaying every table, column, TypeScript type, primary key, foreign key, nullability constraint, and bidirectional Prisma relation.
 
-### 3. Custom SQL Studio & Workbench (Live PostgreSQL Engine)
-- **Query Safety Whitelist**: Only read-only `SELECT` and `WITH` statements are permitted. Write operations (`DROP`, `DELETE`, `UPDATE`, `INSERT`, `ALTER`, `TRUNCATE`) are blocked by the safety analyzer.
-- **Ready-to-Execute State**: Results are executed on demand upon clicking **Execute SQL**, avoiding pre-computed table clutter.
-- **15 Editable Production SQL Templates**:
-  - **Simple (Single-Table)**:
-    - *Product Listings by Price (Ascending)*
-    - *Recent Active Users*
-    - *Available Academic Textbooks*
-    - *Recent Notifications Log*
-    - *All Bookmarks / Saved Listings*
-  - **Relational Joins & Swaps**:
-    - *All Active Listings with Owner Details*
-    - *Pending Barter Proposals with Target & Cash Top-Up*
-    - *Detailed Book Specifications & Conditions*
-    - *Cash Offers with Buyer & Listing Context*
-    - *Verified Reviews with Peer Breakdown*
-  - **Complex Analytics & Aggregations**:
-    - *Listing Breakdown by Exchange Type & Average Value*
-    - *Top Traders by Completed Trades & Reputation*
-    - *High-Activity Conversations with Message Counts*
-    - *Average Rating Score by User*
-    - *City-Level Supply & Demand Distribution*
+### Tab 2: Interactive ER & Mermaid Architecture
+* **Vector SVG Interactive Canvas:** Draggable nodes, zoom/pan controls, Crow's foot relation curves, and domain filters (*All Models*, *Core Users & Trust*, *Catalog & Specs*, *Deals & Handshake*, *Chat & System*).
+* **Live Mermaid ER Visualizer:** Renders the live relational entity-relationship diagram with 1-click code copying.
 
-### 4. Enums & Custom PostgreSQL Types (13 Enums)
-- Detailed breakdown of all PostgreSQL enumerated types including `ListingType`, `ExchangeType`, `ItemCondition`, `AcademicSubject`, `BookFormat`, `BarterStatus`, `OfferStatus`, `MessageType`, `NotificationType`, and `UserRole`.
+### Tab 3: Custom SQL Studio & Workbench (Live PostgreSQL Engine)
+* **Read-Only Safety Whitelist:** Only `SELECT` and `WITH` queries are permitted. Mutating statements (`DROP`, `DELETE`, `UPDATE`, `INSERT`, `ALTER`, `TRUNCATE`) are blocked by the security AST parser.
+* **15 Production Query Templates:**
+  * **Simple (Single-Table):** Product Listings by Price, Active Users, Textbooks Catalog, Notifications Log, Bookmarks.
+  * **Relational Joins & Swaps:** Active Listings with Owners, Pending Barters with Cash Top-Up, Book Specifications, Cash Offers with Buyer Context, Peer Reviews Breakdown.
+  * **Complex Analytics & Aggregations:** Supply Breakdown by Exchange Type, Top Traders by Volume, Chat Conversations by Message Volume, Average User Rating Breakdown, City-Level Barter Liquidity.
 
-### 5. SQL Creation DDL & Migration Scripts (Tab 5)
-- Fully segregated, production-grade PostgreSQL 16 SQL commands used to build the database from scratch in exact dependency order.
-- **Properly Segregated Sections**:
-  1. *Extensions & Prerequisites* (`uuid-ossp`, `pgcrypto`, UTF-8 client settings)
-  2. *Custom Domain Enums* (All 13 `CREATE TYPE ... AS ENUM` statements)
-  3. *Core Table Definitions* (All 16 tables segregated across 5 functional domains: User Identity & Trust, Catalog & Specs, Barter & Swaps, Real-time Chat, Trust & Safety)
-  4. *Unique Constraints & Performance Indexes* (Primary keys, compound uniques, B-Tree indexes)
-  5. *Foreign Key Constraints & Referential Actions* (`ALTER TABLE ... ADD CONSTRAINT` with `ON DELETE CASCADE` and `SET NULL`)
-  6. *Initial Seed & Demo Personas Bootstrap* (Executable `INSERT INTO` statements for test personas)
-- **Developer Features**: 1-Click "Copy Section", 1-Click "Copy All DDL (48 Statements)", and browser-based "Download .sql Script" (`barterhub-postgresql-schema.sql`).
+### Tab 4: Enums & Custom PostgreSQL Types (13 Domain Enums)
+* Catalogues all PostgreSQL enumerated types including `ListingType`, `ExchangeType`, `ItemCondition`, `AcademicSubject`, `BookFormat`, `BarterStatus`, `OfferStatus`, `MessageType`, `NotificationType`, and `UserRole`.
+
+### Tab 5: Production SQL Creation DDL & Migration Scripts
+* Displays the complete, ordered 48-statement PostgreSQL DDL script used to provision BarterHub from scratch (Extensions, Enums, Tables, Indexes, Constraints, Seed Bootstrap).
+* Features 1-click "Copy DDL" and direct `.sql` file download.
+
+### Tab 6: NoSQL Graph Explorer & Cypher Workbench (Neo4j)
+* **Live Graph Metrics:** Total Nodes, Directed Edges, Degree Centrality, and Detected Circular Cycles.
+* **Cycle Inspector:** Real-time breakdown of **2-Way Direct Swaps** (100% Cashless) and **3-Way Circular Barter Loops** (Multi-Party Liquidity).
+* **Interactive Cypher Workbench:** Execute live Cypher queries against the graph with 5 built-in Cypher templates:
+  * *Find All 3-Party Circular Barter Loops*
+  * *High-Degree Liquidity Hub Users*
+  * *Direct 2-Way Mutually Desired Swaps*
+  * *Cross-Category Barter Demand Matrix*
+  * *Global Graph Neighborhood Traversal*
+* **Benchmark Complexity Comparison Table:** Direct $\mathcal{O}(1)$ index-free adjacency vs $\mathcal{O}(V^k)$ recursive SQL joins matrix.
+
+---
+
+## 🔄 Smart Swap Chains: Multi-Party Circular Barter Engine
+
+Accessible directly from the **`/offers`** screen under the **"Smart Swap Chains"** tab:
+
+### 1. Automatic Detection Engine
+* Multi-party trade proposals are **automatically detected** in the background based on algorithmic compatibility thresholds:
+  * **Confidence Score Threshold:** $\ge 0.85$ (85% compatibility between items and wishlist keywords).
+  * **Chain Size:** Exactly 3 distinct participants ($A \rightarrow B \rightarrow C \rightarrow A$).
+  * **Direct Value Parity:** Items qualify within standard barter price tolerance and non-cash-only settings.
+  * **Personalized Prioritization:** The engine specifically matches and populates swap chains involving the currently authenticated trader.
+
+### 2. Multi-Party Consent Flow
+* A circular trade cannot execute until **all 3 participants review and accept**:
+  * Your card is tagged with a bold **"You"** badge and offers **Accept Swap** / **Decline** action buttons.
+  * Other participants' cards display their real-time consent status (**Accepted**, **Pending**, **Declined**) without allowing you to act on their behalf.
+  * If any participant declines, the trade chain transitions to `CANCELLED`.
+  * When all 3 accept, the trade chain activates and generates in-person handover safety codes.
+
+### 3. Realistic In-Person Handover Safety Codes (Zero Self-Verification Flaws)
+To prevent fraudulent trade completion, the exchange verification follows real-world peer-to-peer delivery semantics:
+* **Item You Receive (Incoming):** You are the **Receiver**. You hold the secret **Confirmation Code** (`PIN-XXXX`). You share this code with the deliverer *only after* you meet in person and inspect the item. (You have no input box — you cannot verify yourself!).
+* **Item You Deliver (Outgoing):** You are the **Deliverer**. You do *not* know the recipient's code in advance (it is masked by the server as `••••••••`). You meet the recipient, hand over the item, ask them for their code, and type it into your verification box.
+* **Third-Party Exchange:** The handover between the other two participants is read-only — you cannot see their codes or verify their step.
+* **Completion Reward:** Once all 3 handovers are confirmed, the trade transitions to `COMPLETED` and awards transaction counts and reputation score points in PostgreSQL.
 
 ---
 
@@ -237,7 +297,7 @@ erDiagram
     User ||--o{ Conversation : "participant B"
 ```
 
-### Complete Model Inventory
+### Complete Model Inventory (16 Tables)
 
 | # | Model | Description | Key Attributes & Relations |
 |---|---|---|---|
@@ -281,27 +341,32 @@ All API routes are located under `/api/` and utilize standard JSON request/respo
 | `PUT` | `/api/listings/:id` | Update listing title, price, specs, status | Owner |
 | `DELETE` | `/api/listings/:id` | Archive or delete listing | Owner |
 | `GET` | `/api/listings/my` | Get current user's active, pending, and traded items | Authenticated |
-| `POST` | `/api/listings/:id/promote` | Boost listing visibility with featured badge | Owner |
 
-### Barters, Offers & PIN Settlement
+### 1-on-1 Barters & Cash Offers
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
 | `GET` | `/api/barters` | List inbound and outbound barter proposals | Authenticated |
 | `POST` | `/api/barters` | Submit item-for-item or hybrid barter proposal | Authenticated |
 | `GET` | `/api/barters/:id` | Get barter proposal details and status | Participant |
 | `PATCH` | `/api/barters/:id` | Accept, counter, or decline barter proposal | Participant |
-| `POST` | `/api/barters/verify-pin` | **Verify 6-digit Handshake PIN (`TRD-XXXX`) and complete deal** | Participant |
+| `POST` | `/api/barters/verify-pin` | Verify 6-digit Handshake PIN (`TRD-XXXX`) and complete deal | Participant |
 | `GET` | `/api/offers` | List cash offers for user listings | Authenticated |
 | `POST` | `/api/offers` | Submit a cash offer on an item | Authenticated |
 | `PATCH` | `/api/offers/:id` | Counter or accept a cash offer | Listing Owner |
 
-### Messaging & Negotiation
+### 🔄 Multi-Party Circular Swaps (Smart Swap Chains)
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
-| `GET` | `/api/conversations` | List active user conversations with latest messages | Authenticated |
-| `POST` | `/api/conversations` | Start or retrieve conversation thread for a listing | Authenticated |
-| `GET` | `/api/messages?conversationId=:id` | Fetch messages for a thread (participation verified) | Participant |
-| `POST` | `/api/messages` | Send message or in-thread actionable deal card | Participant |
+| `GET` | `/api/trades/multi-party` | Fetch circular swap chains involving the authenticated user (PINs masked) | Authenticated |
+| `POST` | `/api/trades/multi-party/:id/respond` | Record user's personal `ACCEPT` or `DECLINE` on circular swap | Participant |
+| `POST` | `/api/trades/multi-party/:id/verify` | Submit recipient's safety code to confirm physical delivery step | Deliverer |
+
+### 🕸️ NoSQL Graph Database & Cypher
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| `GET` | `/api/graph/overview` | Fetch live graph topology, centrality metrics, and detected cycles | Public / Dev |
+| `POST` | `/api/graph/cypher` | Execute read-only Cypher graph queries | Public / Dev |
+| `POST` | `/api/graph/sync` | Trigger synchronization of PostgreSQL data into Neo4j graph | Dev / Admin |
 
 ### Database & Developer Tools
 | Method | Endpoint | Description | Access |
@@ -310,26 +375,18 @@ All API routes are located under `/api/` and utilize standard JSON request/respo
 | `GET` | `/api/health` | Health check endpoint returning database connectivity | Public |
 | `POST` | `/api/seed` | Trigger database re-seed with test data | Dev |
 
-### User Activity & Social
-| Method | Endpoint | Description | Access |
-|---|---|---|---|
-| `GET` | `/api/favorites` | List user bookmarked listings | Authenticated |
-| `POST` | `/api/favorites` | Toggle bookmark status for a listing | Authenticated |
-| `GET` | `/api/notifications` | Get user notifications and unread badges | Authenticated |
-| `POST` | `/api/reviews` | Submit post-trade review and ratings | Verified Trader |
-| `POST` | `/api/reports` | Submit trust and safety report on listing/user | Authenticated |
-
 ---
 
 ## 📁 Project Directory Structure
 
 ```
 productexchangeplat/
+├── DATABASE_JUSTIFICATION.md  # Comprehensive NoSQL Neo4j academic justification report
 ├── prisma/
 │   ├── schema.prisma          # Comprehensive 16-model PostgreSQL schema
-│   └── seed.ts                # Realistic seed script with 5 demo personas & items
+│   └── seed.ts                # Realistic seed script with 10 demo personas & 36 items
 ├── public/
-│   └── screenshots/           # High-resolution screenshots and brand assets
+│   └── screenshots/           # High-resolution screenshots & graph explorer captures
 ├── src/
 │   ├── app/
 │   │   ├── (auth)/
@@ -338,22 +395,28 @@ productexchangeplat/
 │   │   ├── api/                     # Next.js App Router API endpoints
 │   │   │   ├── auth/                # Login, register, me, logout
 │   │   │   ├── barters/             # Proposals & verify-pin endpoint
-│   │   │   ├── conversations/       # Thread management
 │   │   │   ├── database/query/      # Safe read-only SQL executor
+│   │   │   ├── graph/               # Neo4j overview, cypher runner & sync
+│   │   │   │   ├── cypher/route.ts
+│   │   │   │   ├── overview/route.ts
+│   │   │   │   └── sync/route.ts
 │   │   │   ├── listings/            # CRUD & promote endpoints
 │   │   │   ├── messages/            # Real-time chat & deal cards
 │   │   │   ├── offers/              # Cash offer management
-│   │   │   └── ...                  # Favorites, reviews, notifications
+│   │   │   └── trades/multi-party/  # Circular barter creation, respond & verify
+│   │   │       ├── route.ts
+│   │   │       ├── [id]/respond/route.ts
+│   │   │       └── [id]/verify/route.ts
 │   │   ├── compare/page.tsx         # Side-by-side comparison matrix
 │   │   ├── dashboard/page.tsx       # Seller management desk & stats
-│   │   ├── database/page.tsx        # 4-tab Database Hub & SQL Studio
+│   │   ├── database/page.tsx        # 6-tab Database Hub, SQL Studio & Neo4j Explorer
 │   │   ├── favorites/page.tsx       # Bookmarks & mutual match alerts
 │   │   ├── listings/
 │   │   │   ├── page.tsx             # Faceted catalog & histogram slider
 │   │   │   ├── new/page.tsx         # 4-step listing wizard
 │   │   │   └── [id]/page.tsx        # Item dossier & proposal launcher
 │   │   ├── messages/page.tsx        # Trade chat & deal cards
-│   │   ├── offers/page.tsx          # Swaps hub & handshake verification
+│   │   ├── offers/page.tsx          # Swaps hub, handshake & Smart Swap Chains
 │   │   ├── profile/[id]/page.tsx    # Trader reputation scorecard
 │   │   ├── layout.tsx               # Root layout & navigation shell
 │   │   └── page.tsx                 # Homepage with hero & circular bento
@@ -361,28 +424,24 @@ productexchangeplat/
 │   │   ├── database/                # Interactive Database Studio tools
 │   │   │   ├── custom-sql-workbench.tsx
 │   │   │   ├── database-ddl-viewer.tsx
-│   │   │   └── database-er-diagram.tsx
+│   │   │   ├── database-er-diagram.tsx
+│   │   │   └── neo4j-graph-explorer.tsx  # NoSQL Neo4j Explorer & Cypher Runner
 │   │   ├── layout/                  # Shell & global navigation
 │   │   │   ├── footer.tsx
 │   │   │   └── navbar.tsx
 │   │   ├── marketplace/             # Cards, feeds, and discovery
 │   │   │   ├── category-rail.tsx
 │   │   │   ├── compare-tray.tsx
-│   │   │   └── listing-card.tsx
-│   │   ├── modals/                  # Swap proposals, cash offers & reviews
-│   │   │   ├── barter-modal.tsx
-│   │   │   ├── offer-modal.tsx
-│   │   │   └── review-modal.tsx
-│   │   ├── providers/               # Global state & market context
-│   │   │   └── marketplace-provider.tsx
-│   │   └── index.ts                 # Centralized barrel export
+│   │   │   ├── listing-card.tsx
+│   │   │   └── multi-party-trades-view.tsx # Smart Swap Chains UI component
+│   │   └── modals/                  # Swap proposals, cash offers & reviews
 │   └── lib/
 │       ├── auth.ts                  # Password hashing & JWT token handling
-│       ├── catalog.ts               # Static catalog taxonomy & constants
+│       ├── multi-party-trade.ts     # Multi-party circular barter consensus engine
+│       ├── neo4j.ts                 # Neo4j Bolt driver + embedded graph traversal engine
 │       ├── prisma.ts                # Prisma client singleton
-│       ├── session.ts               # Session verification & auth guards
-│       └── utils.ts                 # Formatting helpers & CSS class merges
-├── docker-compose.yml         # Containerized PostgreSQL 16 & app
+│       └── session.ts               # Session verification & auth guards
+├── docker-compose.yml         # Containerized PostgreSQL 16 & Neo4j 5.26
 ├── Dockerfile                 # Multi-stage production container build
 ├── package.json               # Node.js project manifest & dependencies
 └── tailwind.config.ts         # Stitch design system tokens & colors
@@ -393,16 +452,16 @@ productexchangeplat/
 ## ⚡ Quick Start Guide
 
 ### Prerequisites
-- **Node.js**: v18.x or v20.x+
-- **Docker Desktop** (Recommended) or **PostgreSQL 16+**
-- **Git**
+* **Node.js**: v18.x or v20.x+
+* **Docker Desktop** (Recommended) or local **PostgreSQL 16+** & **Neo4j 5+**
+* **Git**
 
 ---
 
 ### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/H4R5H1L-27/BaterHub.git
-cd BaterHub
+cd productexchanceplat
 npm install
 ```
 
@@ -414,26 +473,34 @@ Copy `.env.example` to `.env`:
 cp .env.example .env
 ```
 
-Your default `.env` is pre-configured to run PostgreSQL on port `5433` (to avoid collisions with any native PostgreSQL running on `5432`):
+Your default `.env` is configured for both databases:
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5433/productexchange?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/productexchange?schema=public"
 JWT_SECRET="dev-super-secret-jwt-key-replace-in-production-random-32-chars"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
-UPLOAD_STORAGE_PROVIDER="local"
+
+# Optional Neo4j Connection (Embedded fallback runs automatically if unconfigured)
+NEO4J_URI="neo4j://localhost:7687"
+NEO4J_USER="neo4j"
+NEO4J_PASSWORD="password"
 ```
 
 ---
 
-### 3. Start PostgreSQL Database
-Using Docker (Recommended):
+### 3. Start Database Services via Docker
 ```bash
-docker compose up -d db
+docker compose up -d
 ```
-> The database will boot on port `localhost:5433` with database `productexchange` and credentials `postgres:postgres`.
+> Boots **PostgreSQL 16** on port `5432` and **Neo4j 5.26** on port `7474` (HTTP Browser) and `7687` (Bolt Protocol).
 
-Push the Prisma schema to create the tables:
+Push the Prisma schema to create the PostgreSQL tables:
 ```bash
 npx prisma db push
+```
+
+Seed the database with 10 personas, 36 listings, active proposals, and chat history:
+```bash
+npm run seed
 ```
 
 ---
@@ -445,39 +512,6 @@ npm run dev
 
 Visit **[http://localhost:3000](http://localhost:3000)** in your browser!
 
-> 💡 **Instant Demo Auto-Load**: The application automatically detects if the database is fresh and auto-loads **36 real-photo items** (18 books + 18 tech products), **10 trader personas**, active barter proposals with handshake PIN tokens, cash offers, and chat messages on first load! No manual seed required for demo evaluations.
-
----
-
-### 🔄 Optional: Manual Re-Seed Database
-To reset and re-populate the rich dataset at any time:
-```bash
-npm run seed
-```
-Or via REST API:
-```bash
-curl -X POST http://localhost:3000/api/seed
-```
-
----
-
-### 🛑 How to Stop the Servers
-To cleanly stop the running development environment:
-
-1. **Stop the Next.js Web Server**:
-   Press `Ctrl + C` in the terminal running `npm run dev`.
-
-2. **Stop the PostgreSQL Container**:
-   ```bash
-   docker compose stop db
-   ```
-
-3. **To completely shut down and remove containers**:
-   ```bash
-   docker compose down
-   ```
-   *(To wipe all database volumes and start completely fresh: `docker compose down -v`)*
-
 ---
 
 ## 🎭 Pre-Configured Test Personas
@@ -488,45 +522,47 @@ You can switch between any of these accounts with **1-click** directly on the **
 
 | Persona | Role & Focus | Location | Completed Swaps | 1-Click Login |
 |---|---|---|:---:|:---:|
-| **Marcus Chen** | Hardware Geek, Keyboards & Audiophile | San Francisco, CA | 18 Swaps | `marcus@example.com` |
-| **Alex Turner** | Senior Software Engineer & Distributed Systems | New York, NY | 22 Swaps | `alex@example.com` |
 | **Sarah Jenkins** | Literature PhD Candidate & Book Preservationist | Boston, MA | 38 Swaps | `sarah@example.com` |
+| **Alex Turner** | Senior Software Engineer & Distributed Systems | New York, NY | 22 Swaps | `alex@example.com` |
+| **Marcus Chen** | Hardware Geek, Keyboards & Audiophile | San Francisco, CA | 18 Swaps | `marcus@example.com` |
+| **Julian Vance** | Vintage Camera Restorer & Keyboards | Portland, OR | 27 Swaps | `julian@example.com` |
 | **Chloe Zhao** | Staff Product Designer & Apple Silicon Specialist | Seattle, WA | 15 Swaps | `chloe@example.com` |
-| **Julian Vance** | Vintage Camera Restorer & Analog Synth Artisan | Portland, OR | 27 Swaps | `julian@example.com` |
 | **Elena Rostova** | UT Austin Senior Biology / STEM Scholar | Austin, TX | 14 Swaps | `elena@example.com` |
-| **David Miller** | Audio Engineer & Strategy Board Game Collector | Seattle, WA | 29 Swaps | `david@example.com` |
+| **Liam O'Connor** | University of Chicago STEM Mathematics | Chicago, IL | 19 Swaps | `liam@example.com` |
+| **Maya Patel** | Medical School Candidate & Organic Chemistry | Philadelphia, PA | 21 Swaps | `maya@example.com` |
+| **David Miller** | Audio Engineer & Board Game Collector | Seattle, WA | 29 Swaps | `david@example.com` |
+| **Sophia Ramirez** | Mechanical Keyboard Artisan & Switch Modder | Los Angeles, CA | 12 Swaps | `sophia@example.com` |
 
 ---
 
 ## 🧪 Step-by-Step Feature Testing Guide
 
-### 1. Testing the In-Person Handshake PIN Settlement (`/offers`)
-1. Log in as **Marcus Chen** using the 1-Click Persona Switcher.
-2. Navigate to **Swaps & Offers** (`/offers`).
-3. Notice the top banner: *"In-Person Handshake PIN Verification"*.
-4. On any proposal card marked `ACCEPTED`, look for the code pill (e.g. `TRD-8492`).
-5. Click the **"Auto-Fill"** button next to the PIN code. The code will automatically populate the input field.
-6. Click **"Verify & Settle Deal"**.
-7. The database will process the verification:
-   - Barter proposal transitions from `ACCEPTED` to `COMPLETED`.
-   - Associated listings transition to `TRADED`.
-   - The user's `totalTrades` counter increments.
-   - An in-thread completion message and notification are generated.
+### 1. Testing Smart Swap Chains (Circular 3-Way Swaps) (`/offers`)
+1. Log in as **Sarah Jenkins** using the 1-Click Persona Switcher on `/login`.
+2. Navigate to **Offers Hub** (`/offers`) and click the **"Smart Swap Chains (2)"** tab.
+3. You will see auto-detected circular proposals where you give *Clean Code* to receive *HHKB Keyboard*.
+4. On your participant card, notice the bold **"You"** badge and click **"Accept Swap"**.
+5. Log in as the other pending participant (e.g. **Alex Turner**) and accept.
+6. Once all 3 accept, the trade chain activates and presents **Step 2: Physical Meetup & Handover Verification**:
+   * **Item You Receive:** Displays your secret confirmation code (`PIN-XXXX`) to share with the person delivering to you.
+   * **Item You Deliver:** Displays an input field requiring the recipient's code.
+   * **Third-Party Exchange:** Completely read-only with no leaked codes.
+7. Enter the recipient's code to confirm handover. When all 3 handovers are completed, the trade finishes and credits trade history!
 
-### 2. Testing the Custom SQL Studio (`/database`)
-1. Navigate to **Database Hub** (`/database`) via the header link or footer.
-2. Click the **"3. Custom SQL Studio & Workbench"** tab.
-3. Notice the query editor starts with: *"Ready to Execute - Select a template or write SQL above..."*
-4. Click on any template from the left rail (e.g., *"Product Listings by Price (Asc)"* under **Simple Queries**).
-5. Click **"Execute SQL (PostgreSQL)"**.
-6. The query executes live against PostgreSQL 16, displaying elapsed milliseconds, row count, and a formatted data grid.
-7. Try modifying the query (e.g. add `LIMIT 3`) and click **Execute SQL** again to verify live execution.
+### 2. Testing the Architecture & Database Hub (`/database`)
+1. In the top navbar, click **Architecture** (or navigate to `/database`).
+2. **Test Tab 3 (SQL Studio):** Click a query template (e.g., *"Product Listings by Price"*) and click **"Execute SQL (PostgreSQL)"**. View the live execution time and results table.
+3. **Test Tab 5 (SQL Migration DDL):** Inspect the full 48-statement PostgreSQL DDL creation script and test the **"Copy Section"** or **"Download .sql Script"** button.
+4. **Test Tab 6 (NoSQL Graph Explorer & Neo4j):**
+   * Inspect the **Graph Topology Metrics** (Nodes, Directed Edges, Degree Centrality).
+   * Review the detected **2-Way Direct Swaps** and **3-Way Circular Barter Loops**.
+   * Run a live Cypher query using the **Cypher Workbench** to query graph cycles in real time.
+   * Review the **Complexity Comparison Table** detailing $\mathcal{O}(1)$ index-free adjacency vs recursive SQL joins.
 
-### 3. Testing Real-Time Trade Chat & Deal Cards (`/messages`)
-1. Open `/listings` and select an item owned by another trader.
-2. Click **"Message Trader"** or **"Propose Barter"**.
-3. In `/messages`, send an offer adjustment chip (*Offer +$10 Cash*).
-4. The system posts an interactive deal card into the conversation thread.
+### 3. Testing 1-on-1 Barter Handover Verification (`/offers`)
+1. In `/offers`, open the **Received Barters** tab.
+2. For an `ACCEPTED` barter, notice your private **Handover Confirmation Code** displayed clearly for in-person sharing.
+3. Open the **Sent Barters** tab and observe that deliverers are instructed to request the code upon meetup and enter it into the verification input.
 
 ---
 
@@ -536,7 +572,7 @@ You can switch between any of these accounts with **1-click** directly on the **
 npm run dev           # Start Next.js local development server (port 3000)
 npm run build         # Compile production Next.js bundle and type-check
 npm run start         # Start Next.js production server
-npm run seed          # Seed PostgreSQL database with test personas & listings
+npm run seed          # Seed database with 10 test personas, 36 listings, barters & chat
 npm run lint          # Run ESLint check
 npx prisma studio     # Open Prisma visual database inspector (port 5555)
 npx prisma db push    # Synchronize Prisma schema with PostgreSQL database
@@ -546,18 +582,21 @@ npx prisma db push    # Synchronize Prisma schema with PostgreSQL database
 
 ## 🐳 Docker Deployment
 
-To launch BarterHub along with a containerized PostgreSQL 16 database in a single command:
+To launch BarterHub along with containerized **PostgreSQL 16** and **Neo4j 5.26** databases:
 
 ```bash
-# Build and launch containers in background
+# Build and launch all containers in background
 docker-compose up --build -d
 
-# Run Prisma schema push and database seed inside the container
+# Synchronize PostgreSQL schema and seed mock dataset
 docker-compose exec app npx prisma db push
 docker-compose exec app npm run seed
 ```
 
-The application will be accessible at **http://localhost:3000**.
+* **Web Application:** `http://localhost:3000`
+* **PostgreSQL Database:** `localhost:5432`
+* **Neo4j Web Browser:** `http://localhost:7474`
+* **Neo4j Bolt Protocol:** `neo4j://localhost:7687`
 
 ---
 

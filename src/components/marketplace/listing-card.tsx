@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { BookOpen, Package, Repeat, MapPin, ShieldCheck, Heart, GitCompare, Zap, Crown } from 'lucide-react';
 import { ListingItem } from '@/lib/types';
 import { formatPrice, getConditionBadgeColor, getExchangeTypeBadge } from '@/lib/utils';
-import { useMarketplace } from './marketplace-provider';
+import { useMarketplace } from '@/components/providers/marketplace-provider';
 
 export default function ListingCard({ listing }: { listing: ListingItem }) {
   const { favorites, toggleFavorite, compareIds, toggleCompare } = useMarketplace();

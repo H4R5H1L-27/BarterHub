@@ -18,10 +18,11 @@ import {
   Heart,
   Mic,
   LayoutGrid,
+  Database,
 } from 'lucide-react';
 import { UserSummary } from '@/lib/types';
 import { CITIES, TRENDING_SEARCHES } from '@/lib/catalog';
-import { useMarketplace } from './marketplace-provider';
+import { useMarketplace } from '@/components/providers/marketplace-provider';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -299,6 +300,16 @@ export default function Navbar() {
               }`}
             >
               Favorites
+            </Link>
+            <Link
+              href="/database"
+              className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold transition-all shrink-0 ${
+                pathname === '/database'
+                  ? 'bg-primary-container text-white shadow-sm'
+                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low'
+              }`}
+            >
+              Architecture
             </Link>
           </nav>
 
