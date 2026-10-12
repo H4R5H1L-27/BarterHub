@@ -13,9 +13,7 @@ import {
   Table as TableIcon,
   Code2,
   Database,
-  Layers,
   BookOpen,
-  ArrowRight,
   Filter,
 } from 'lucide-react';
 
@@ -233,8 +231,10 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
   const [sidebarTab, setSidebarTab] = useState<'tables' | 'queries' | 'recipes'>('tables');
   
   // SQL text state
-  const [queryText, setQueryText] = useState<string>(ALL_TABLES_COUNT_SQL);
-  const [activeItemId, setActiveItemId] = useState<string>('all-tables-summary');
+  const [queryText, setQueryText] = useState<string>(
+    'SELECT * FROM "Listing" ORDER BY "createdAt" DESC LIMIT 50;'
+  );
+  const [activeItemId, setActiveItemId] = useState<string>('Listing');
   
   // Execution state
   const [executing, setExecuting] = useState(false);
@@ -296,13 +296,6 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
       : `SELECT * FROM "${table.name}" LIMIT 50;`;
     setQueryText(sql);
     handleRunQuery(sql);
-  };
-
-  // Click "All Tables Record Counts"
-  const handleSelectAllTablesCount = () => {
-    setActiveItemId('all-tables-summary');
-    setQueryText(ALL_TABLES_COUNT_SQL);
-    handleRunQuery(ALL_TABLES_COUNT_SQL);
   };
 
   // Click on a template
@@ -383,31 +376,6 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
         {/* TAB 1: BROWSE TABLES & ALL TABLE RECORDS */}
         {sidebarTab === 'tables' && (
           <div className="space-y-3">
-            {/* Direct Option to View All Stored Records Across All Tables */}
-            <button
-              onClick={handleSelectAllTablesCount}
-              className={`w-full p-3 rounded-2xl text-left transition-all border flex items-center justify-between ${
-                activeItemId === 'all-tables-summary'
-                  ? 'bg-emerald-500/10 border-emerald-500 text-emerald-950 dark:text-emerald-200 ring-2 ring-emerald-500/30'
-                  : 'bg-emerald-50/50 hover:bg-emerald-100/60 border-emerald-200/80 text-emerald-900'
-              }`}
-            >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
-                  <Layers className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-extrabold text-xs tracking-tight truncate">
-                    📊 View All Tables Record Counts
-                  </div>
-                  <div className="text-[10px] text-emerald-700 dark:text-emerald-300 font-medium truncate">
-                    Live row count for every database table
-                  </div>
-                </div>
-              </div>
-              <ArrowRight className="w-4 h-4 text-emerald-600 shrink-0 ml-1" />
-            </button>
-
             {/* Individual Table List */}
             <div className="p-2.5 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-1">
               <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-outline flex items-center justify-between">
