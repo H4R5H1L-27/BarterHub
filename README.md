@@ -477,8 +477,8 @@ productexchangeplat/
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/H4R5H1L-27/BaterHub.git
-cd productexchanceplat
+git clone https://github.com/H4R5H1L-27/BarterHub.git
+cd BarterHub
 npm install
 ```
 
