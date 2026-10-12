@@ -565,38 +565,15 @@ export async function executeCypher(cypherQuery: string, params: Record<string, 
 
   const q = cypherQuery.trim().toUpperCase();
 
-  // 1. Emulate Preset 1: 3-Way Triangular Loops (check multi-party 3-way loops first)
-  if (q.includes('L3') || q.includes('TRIANGULAR') || q.includes('ITEM3') || (q.includes('WISHES_FOR') && q.includes('L1') && q.includes('L2'))) {
-    const cycles = embeddedEngine.findCycles().filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP');
-    const rows = cycles.map((c) => ({
-      trader1: c.users[0]?.name || 'Trader 1',
-      item1: c.items[0]?.title || 'Item 1',
-      trader2: c.users[1]?.name || 'Trader 2',
-      item2: c.items[1]?.title || 'Item 2',
-      trader3: c.users[2]?.name || 'Trader 3',
-      item3: c.items[2]?.title || 'Item 3',
-      efficiencyGain: c.efficiencyGain,
-    }));
-    return {
-      columns: ['trader1', 'item1', 'trader2', 'item2', 'trader3', 'item3', 'efficiencyGain'],
-      rows,
-      executionTimeMs,
-      source: 'embedded_graph_engine',
-      nodeCount: snapshot.nodes.length,
-      relCount: snapshot.edges.length,
-    };
-  }
-
-  // 2. Emulate Preset 2: Transitive Barter Paths & Rings
-  if (q.includes('PATH') || q.includes('TRANSITIVE') || q.includes('HOPS') || q.includes('2..3')) {
+  // 1. Emulate Preset 2: Transitive Barter Paths & Rings (check PATH first)
+  if (q.includes('PATH') || q.includes('TRANSITIVE') || q.includes('2..3')) {
     const cycles = embeddedEngine.findCycles().filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP');
     const rows = cycles.slice(0, 5).map((c) => ({
-      tradeChain: [c.items[0]?.title, c.items[1]?.title, c.items[2]?.title, c.items[0]?.title].join(' ➔ '),
-      hops: 3,
-      participants: `${c.users[0]?.name} ➔ ${c.users[1]?.name} ➔ ${c.users[2]?.name}`,
+      tradeChain: [c.items[0]?.title, c.items[1]?.title, c.items[2]?.title],
+      hops: 2,
     }));
     return {
-      columns: ['tradeChain', 'hops', 'participants'],
+      columns: ['tradeChain', 'hops'],
       rows,
       executionTimeMs,
       source: 'embedded_graph_engine',
@@ -605,30 +582,54 @@ export async function executeCypher(cypherQuery: string, params: Record<string, 
     };
   }
 
-  // Emulate Preset 3: Trader Centrality (Top Traders by Graph Degree)
-  if (q.includes('COUNT(') || q.includes('ORDER BY') || q.includes('DEGREE')) {
+  // 2. Emulate Preset 1: 3-Way Triangular Loops
+  if (q.includes('L3') || q.includes('TRIANGULAR') || q.includes('ITEM3') || (q.includes('WISHES_FOR') && q.includes('L1') && q.includes('L2'))) {
+    const cycles = embeddedEngine.findCycles().filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP');
+    const rows = cycles.slice(0, 5).map((c) => ({
+      item1: c.items[0]?.title || 'Item 1',
+      item2: c.items[1]?.title || 'Item 2',
+      item3: c.items[2]?.title || 'Item 3',
+    }));
+    return {
+      columns: ['item1', 'item2', 'item3'],
+      rows,
+      executionTimeMs,
+      source: 'embedded_graph_engine',
+      nodeCount: snapshot.nodes.length,
+      relCount: snapshot.edges.length,
+    };
+  }
+
+  // 3. Emulate Preset 3: Trader Centrality (Top Traders by Graph Degree)
+  if (q.includes('COUNT(') || q.includes('ORDER BY') || q.includes('DEGREE') || q.includes('CENTRALITY')) {
     const listings = snapshot.nodes.filter((n) => n.label === 'Listing');
-    const traderCounts = new Map<string, { name: string; count: number; value: number }>();
+    const traderCounts = new Map<string, { name: string; count: number; edges: number }>();
     for (const l of listings) {
       const name = l.properties.ownerName || 'Trader';
-      const cur = traderCounts.get(name) || { name, count: 0, value: 0 };
+      const cur = traderCounts.get(name) || { name, count: 0, edges: 0 };
       cur.count += 1;
-      cur.value += l.properties.price || 0;
       traderCounts.set(name, cur);
     }
+    for (const e of snapshot.edges) {
+      if (e.type === 'WISHES_FOR' || e.type === 'OFFERS_SWAP_FOR') {
+        const fromListing = snapshot.nodes.find((n) => n.id === e.startNodeId.replace('listing:', ''));
+        if (fromListing && fromListing.properties.ownerName) {
+          const cur = traderCounts.get(fromListing.properties.ownerName);
+          if (cur) cur.edges += 1;
+        }
+      }
+    }
     const rows = Array.from(traderCounts.values())
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 8)
-      .map((t, idx) => ({
-        rank: idx + 1,
+      .sort((a, b) => b.edges - a.edges || b.count - a.count)
+      .slice(0, 5)
+      .map((t) => ({
         traderName: t.name,
         activeListings: t.count,
-        graphPortfolioValue: `$${t.value.toFixed(2)}`,
-        nodeCentralityScore: (t.count * 1.75).toFixed(1),
+        degreeCentrality: t.edges,
       }));
 
     return {
-      columns: ['rank', 'traderName', 'activeListings', 'graphPortfolioValue', 'nodeCentralityScore'],
+      columns: ['traderName', 'activeListings', 'degreeCentrality'],
       rows,
       executionTimeMs,
       source: 'embedded_graph_engine',

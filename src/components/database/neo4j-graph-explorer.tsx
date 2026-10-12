@@ -85,12 +85,15 @@ WITH RECURSIVE BarterPaths AS (
   WHERE bp.depth < 3 AND NOT (bi2."listingId" = ANY(bp.visited[2:]))
 )
 SELECT 
-  bp.depth AS cycle_length,
-  l_start.title AS item_title,
-  bp.visited
+  l1.title AS item1,
+  l2.title AS item2,
+  l3.title AS item3
 FROM BarterPaths bp
-JOIN "Listing" l_start ON bp.start_item = l_start.id
-WHERE bp.current_item = bp.start_item AND bp.depth = 3;`,
+JOIN "Listing" l1 ON bp.visited[1] = l1.id
+JOIN "Listing" l2 ON bp.visited[2] = l2.id
+JOIN "Listing" l3 ON bp.visited[3] = l3.id
+WHERE bp.current_item = bp.start_item AND bp.depth = 3
+LIMIT 5;`,
   },
   {
     name: 'Transitive Barter Paths & Rings',
@@ -100,16 +103,28 @@ WHERE l1 <> l2
 RETURN [n in nodes(path) | n.title] AS tradeChain, length(path) AS hops
 LIMIT 5`,
     postgresEquivalent: `WITH RECURSIVE TransitivePaths AS (
-  SELECT b1."targetListingId" AS start_item, bi1."listingId" AS current_item, 1 AS depth
-  FROM "BarterProposal" b1 JOIN "BarterItem" bi1 ON b1.id = bi1."proposalId"
+  SELECT 
+    b1."targetListingId" AS start_item, 
+    bi1."listingId" AS current_item, 
+    1 AS hops, 
+    ARRAY[l_start.title, l_curr.title] AS "tradeChain"
+  FROM "BarterProposal" b1 
+  JOIN "BarterItem" bi1 ON b1.id = bi1."proposalId"
+  JOIN "Listing" l_start ON b1."targetListingId" = l_start.id
+  JOIN "Listing" l_curr ON bi1."listingId" = l_curr.id
   UNION ALL
-  SELECT tp.start_item, bi2."listingId", tp.depth + 1
+  SELECT 
+    tp.start_item, 
+    bi2."listingId", 
+    tp.hops + 1, 
+    tp."tradeChain" || l_next.title
   FROM TransitivePaths tp
   JOIN "BarterProposal" b2 ON tp.current_item = b2."targetListingId"
   JOIN "BarterItem" bi2 ON b2.id = bi2."proposalId"
-  WHERE tp.depth < 3
+  JOIN "Listing" l_next ON bi2."listingId" = l_next.id
+  WHERE tp.hops < 3
 )
-SELECT * FROM TransitivePaths WHERE depth >= 2 LIMIT 5;`,
+SELECT "tradeChain", hops FROM TransitivePaths WHERE hops >= 2 LIMIT 5;`,
   },
   {
     name: 'Trader Degree Centrality (Top Barter Hubs)',
@@ -118,12 +133,16 @@ SELECT * FROM TransitivePaths WHERE depth >= 2 LIMIT 5;`,
 OPTIONAL MATCH (l)-[r:WISHES_FOR|OFFERS_SWAP_FOR]-()
 RETURN u.name AS traderName, count(DISTINCT l) AS activeListings, count(r) AS degreeCentrality
 ORDER BY degreeCentrality DESC LIMIT 5`,
-    postgresEquivalent: `SELECT u.name, COUNT(DISTINCT l.id) AS active_listings, COUNT(bp.id) AS total_edges
+    postgresEquivalent: `SELECT 
+  u.name AS "traderName", 
+  COUNT(DISTINCT l.id) AS "activeListings", 
+  COUNT(bp.id) AS "degreeCentrality"
 FROM "User" u
 LEFT JOIN "Listing" l ON l."userId" = u.id
 LEFT JOIN "BarterProposal" bp ON bp."targetListingId" = l.id
 GROUP BY u.id, u.name
-ORDER BY total_edges DESC LIMIT 5;`,
+ORDER BY "degreeCentrality" DESC, "activeListings" DESC 
+LIMIT 5;`,
   },
 ];
 
