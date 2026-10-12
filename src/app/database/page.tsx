@@ -1121,15 +1121,6 @@ export default function DatabasePage() {
                 </div>
               </div>
 
-              {/* Prisma Schema Location & Engine Validation */}
-              <div className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                <span className="text-on-surface-variant font-medium">
-                  Prisma schema source: <code className="text-primary font-bold">prisma/schema.prisma</code>
-                </span>
-                <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  <Check className="w-4 h-4" /> Validated with Prisma Engine 5.22
-                </span>
-              </div>
             </div>
           </div>
         )}

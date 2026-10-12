@@ -87,18 +87,23 @@ WITH RECURSIVE BarterPaths AS (
 SELECT * FROM BarterPaths WHERE current_item = start_item AND depth = 3;`,
   },
   {
-    name: '2-Way Direct Swap Opportunities',
-    description: 'Mutual trade alignment where two users offer what the other desires',
-    query: `MATCH (u1:User)-[:OWNS]->(l1:Listing)-[:WISHES_FOR]->(l2:Listing)<-[:OWNS]-(u2:User)
-WHERE (l2)-[:WISHES_FOR]->(l1)
-RETURN u1.name AS userA, l1.title AS offeringA, u2.name AS userB, l2.title AS offeringB`,
-    postgresEquivalent: `SELECT u1.name, l1.title, u2.name, l2.title
-FROM "Listing" l1
-JOIN "User" u1 ON l1."userId" = u1.id
-JOIN "Listing" l2 ON l1."barterWishlist" ILIKE '%' || l2.id || '%'
-JOIN "User" u2 ON l2."userId" = u2.id
-WHERE l2."barterWishlist" ILIKE '%' || l1.id || '%'
-  AND l1."userId" <> l2."userId";`,
+    name: 'Transitive Barter Paths & Rings',
+    description: 'Finds transitive trade chains where items flow through intermediaries',
+    query: `MATCH path = (l1:Listing)-[:WISHES_FOR*2..3]->(l2:Listing)
+WHERE l1 <> l2
+RETURN [n in nodes(path) | n.title] AS tradeChain, length(path) AS hops
+LIMIT 5`,
+    postgresEquivalent: `WITH RECURSIVE TransitivePaths AS (
+  SELECT b1.targetListingId AS start_item, bi1.listingId AS current_item, 1 AS depth
+  FROM "BarterProposal" b1 JOIN "BarterItem" bi1 ON b1.id = bi1."proposalId"
+  UNION ALL
+  SELECT tp.start_item, bi2.listingId, tp.depth + 1
+  FROM TransitivePaths tp
+  JOIN "BarterProposal" b2 ON tp.current_item = b2."targetListingId"
+  JOIN "BarterItem" bi2 ON b2.id = bi2."proposalId"
+  WHERE tp.depth < 3
+)
+SELECT * FROM TransitivePaths WHERE depth >= 2 LIMIT 5;`,
   },
   {
     name: 'Trader Degree Centrality (Top Barter Hubs)',
@@ -128,7 +133,6 @@ export default function Neo4jGraphExplorer() {
   const [customCypher, setCustomCypher] = useState(CYPHER_PRESETS[0].query);
   const [queryResult, setQueryResult] = useState<any>(null);
   const [runningQuery, setRunningQuery] = useState(false);
-  const [activeCycleFilter, setActiveCycleFilter] = useState<'ALL' | '2_WAY' | '3_WAY'>('ALL');
 
   // Trade Modal State
   const [selectedCycleForAction, setSelectedCycleForAction] = useState<BarterCycle | null>(null);
@@ -187,11 +191,7 @@ export default function Neo4jGraphExplorer() {
     }
   };
 
-  const filteredCycles = cycles.filter((c) => {
-    if (activeCycleFilter === '2_WAY') return c.type === '2_WAY_DIRECT_SWAP';
-    if (activeCycleFilter === '3_WAY') return c.type === '3_WAY_TRIANGULAR_LOOP';
-    return true;
-  });
+  const filteredCycles = cycles.filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP' || c.length >= 3);
 
   const [createdTradeId, setCreatedTradeId] = useState<string | null>(null);
 
@@ -243,7 +243,7 @@ export default function Neo4jGraphExplorer() {
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               Added alongside PostgreSQL to solve the <strong>&quot;Double Coincidence of Wants&quot;</strong>. 
-              While relational SQL struggles with multi-hop recursive self-joins, Neo4j uses <strong>index-free adjacency</strong> to find instant 2-way swaps and 3-way circular barter cycles where no single person has to pay money.
+              While relational SQL struggles with multi-hop recursive self-joins, Neo4j uses <strong>index-free adjacency</strong> to find multi-party circular barter loops where no single person has to pay money.
             </p>
           </div>
 
@@ -270,7 +270,7 @@ export default function Neo4jGraphExplorer() {
       {/* ========================================================================= */}
       {/* 2. STATS OVERVIEW CARDS: Clean White, High-Contrast Light Mode */}
       {/* ========================================================================= */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold mb-1">
             <span>Graph Nodes</span>
@@ -295,26 +295,15 @@ export default function Neo4jGraphExplorer() {
           <div className="text-[11px] text-slate-500 font-medium mt-1">OWNS, WISHES, SWAPS</div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-emerald-200 bg-emerald-50/30 shadow-xs">
-          <div className="flex items-center justify-between text-emerald-700 text-xs font-semibold mb-1">
-            <span>2-Way Swaps</span>
-            <Repeat className="w-4 h-4 text-emerald-600" />
-          </div>
-          <div className="text-2xl font-black text-emerald-600">
-            {stats?.discovered2WaySwaps || 0}
-          </div>
-          <div className="text-[11px] text-emerald-700 font-medium mt-1">Direct Pair Trades</div>
-        </div>
-
         <div className="bg-white p-4 rounded-2xl border border-amber-200 bg-amber-50/30 shadow-xs">
           <div className="flex items-center justify-between text-amber-800 text-xs font-semibold mb-1">
-            <span>3-Way Loops</span>
+            <span>Circular Loops</span>
             <Share2 className="w-4 h-4 text-amber-600" />
           </div>
           <div className="text-2xl font-black text-amber-600">
             {stats?.discovered3WayCycles || 0}
           </div>
-          <div className="text-[11px] text-amber-800 font-medium mt-1">Multi-Hop Liquidity</div>
+          <div className="text-[11px] text-amber-800 font-medium mt-1">3-Party Trade Rings</div>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
@@ -341,41 +330,7 @@ export default function Neo4jGraphExplorer() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. EXPLAINER BOX: What is a 3-Way Ring and What Does the User Do With It? */}
-      {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-indigo-50/80 via-white to-emerald-50/80 p-6 rounded-3xl border border-indigo-100 shadow-xs">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/20">
-            <HelpCircle className="w-5 h-5" />
-          </div>
-          <div className="space-y-2">
-            <h3 className="text-base font-bold text-slate-900">
-              Why Does the &quot;3-Way Ring&quot; Exist & What Do You Do With This Information?
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 pt-1 leading-relaxed">
-              <div className="bg-white/80 p-3.5 rounded-xl border border-indigo-100/60">
-                <strong className="text-slate-900 font-bold block mb-1">
-                  1. The Real Problem Solved (The &quot;Double Coincidence of Wants&quot;):
-                </strong>
-                Direct 2-way barter fails 95% of the time. If Marcus has Headphones and wants an iPad, but Chloe (who has the iPad) wants Books instead of Headphones, they can&apos;t trade! A 3-way cycle connects Alex (who has Books) so:
-                <span className="block mt-1 font-mono text-[11px] text-indigo-700 font-semibold">
-                  Alex gives Books → Chloe gives iPad → Marcus gives Headphones → Alex gets Headphones!
-                </span>
-              </div>
-              <div className="bg-white/80 p-3.5 rounded-xl border border-emerald-100/60">
-                <strong className="text-slate-900 font-bold block mb-1">
-                  2. What You Do With This in the App (Actionable Trading):
-                </strong>
-                Instead of leaving users stuck with no trades, BarterHub displays these cycles and lets users click 
-                <strong className="text-emerald-700"> &quot;Initiate 3-Party Swap&quot;</strong>. The system generates unique 6-digit verification PINs for each handover, coordinating the 3-person swap safely!
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 4. DISCOVERED CYCLES: High Contrast Cards with Action Buttons */}
+      {/* 3. DISCOVERED CYCLES: High Contrast Cards with Action Buttons */}
       {/* ========================================================================= */}
       <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -383,45 +338,19 @@ export default function Neo4jGraphExplorer() {
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-emerald-600" />
               <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                Discovered Barter Loops & Trade Matches
+                Discovered Multi-Party Barter Loops
               </h3>
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              Select a trade chain below and click &quot;Initiate Multi-Party Swap&quot; to test the coordinated handover.
+              Select a circular trade chain below and click &quot;Initiate Multi-Party Swap&quot; to test the coordinated handover.
             </p>
           </div>
 
-          <div className="flex items-center bg-slate-100 p-1 rounded-2xl text-xs font-bold">
-            <button
-              onClick={() => setActiveCycleFilter('ALL')}
-              className={`px-3.5 py-1.5 rounded-xl transition-all ${
-                activeCycleFilter === 'ALL'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              All ({cycles.length})
-            </button>
-            <button
-              onClick={() => setActiveCycleFilter('2_WAY')}
-              className={`px-3.5 py-1.5 rounded-xl transition-all ${
-                activeCycleFilter === '2_WAY'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              2-Way Swaps ({stats?.discovered2WaySwaps || 0})
-            </button>
-            <button
-              onClick={() => setActiveCycleFilter('3_WAY')}
-              className={`px-3.5 py-1.5 rounded-xl transition-all ${
-                activeCycleFilter === '3_WAY'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              3-Way Loops ({stats?.discovered3WayCycles || 0})
-            </button>
+          <div className="flex items-center gap-2">
+            <span className="px-3.5 py-1.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200/60 text-xs font-bold flex items-center gap-1.5">
+              <Share2 className="w-3.5 h-3.5 text-amber-600" />
+              <span>{filteredCycles.length} Multi-Party Cycles Found</span>
+            </span>
           </div>
         </div>
 
@@ -436,33 +365,14 @@ export default function Neo4jGraphExplorer() {
               return (
                 <div
                   key={cycle.id}
-                  className={`p-5 sm:p-6 rounded-2xl border transition-all flex flex-col justify-between ${
-                    cycle.type === '3_WAY_TRIANGULAR_LOOP'
-                      ? 'bg-gradient-to-br from-amber-50/50 via-white to-white border-amber-200 hover:border-amber-300 shadow-xs'
-                      : 'bg-gradient-to-br from-emerald-50/50 via-white to-white border-emerald-200 hover:border-emerald-300 shadow-xs'
-                  }`}
+                  className="p-5 sm:p-6 rounded-2xl border bg-gradient-to-br from-amber-50/50 via-white to-white border-amber-200 hover:border-amber-300 shadow-xs flex flex-col justify-between"
                 >
                   <div>
                     {/* Card Top: Badges */}
                     <div className="flex items-center justify-between mb-3">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border flex items-center gap-1.5 ${
-                          cycle.type === '3_WAY_TRIANGULAR_LOOP'
-                            ? 'bg-amber-100 text-amber-800 border-amber-300'
-                            : 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                        }`}
-                      >
-                        {cycle.type === '3_WAY_TRIANGULAR_LOOP' ? (
-                          <>
-                            <Share2 className="w-3.5 h-3.5 text-amber-700" />
-                            3-Way Triangular Loop
-                          </>
-                        ) : (
-                          <>
-                            <Repeat className="w-3.5 h-3.5 text-emerald-700" />
-                            2-Way Direct Swap
-                          </>
-                        )}
+                      <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border flex items-center gap-1.5 bg-amber-100 text-amber-800 border-amber-300">
+                        <Share2 className="w-3.5 h-3.5 text-amber-700" />
+                        3-Way Triangular Loop
                       </span>
                       <span className="text-xs font-bold text-slate-600 bg-white px-2.5 py-1 rounded-full border border-slate-200">
                         Confidence: {(cycle.confidenceScore * 100).toFixed(0)}%
@@ -517,9 +427,7 @@ export default function Neo4jGraphExplorer() {
                       className={`w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs ${
                         isInitiated
                           ? 'bg-slate-100 text-slate-600 border border-slate-200'
-                          : cycle.type === '3_WAY_TRIANGULAR_LOOP'
-                          ? 'bg-amber-600 hover:bg-amber-500 text-white'
-                          : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                          : 'bg-amber-600 hover:bg-amber-500 text-white'
                       }`}
                     >
                       {isInitiated ? (
