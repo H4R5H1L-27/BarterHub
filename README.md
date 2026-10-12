@@ -17,6 +17,14 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
 </p>
 
+<p align="center">
+  <a href="https://barter-hub-eb6t-36e8czbcd-h4r5h1l-27s-projects.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Live_Demo-Visit_BarterHub_on_Vercel-4648D4?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  </a>
+</p>
+
+> 🚀 **Live Production Deployment:** [https://barter-hub-eb6t-36e8czbcd-h4r5h1l-27s-projects.vercel.app](https://barter-hub-eb6t-36e8czbcd-h4r5h1l-27s-projects.vercel.app/)
+
 **BarterHub** is an enterprise-grade circular classifieds and exchange platform engineered for swapping, buying, and selling second-hand books, academic course materials, and high-performance tech gear. It delivers a sustainable, zero-cash peer economy through direct item-for-item bartering, hybrid cash top-up settlements, in-thread deal negotiation cards, and physical handover delivery safety codes.
 
 BarterHub implements a **Polyglot Persistence Architecture**:
@@ -26,6 +34,8 @@ BarterHub implements a **Polyglot Persistence Architecture**:
 ---
 
 ## 📑 Table of Contents
+
+- [Live Deployment & Production Access](#-live-deployment--production-access)
 
 - [Visual Showcase & Screen Walkthrough](#-visual-showcase--screen-walkthrough)
 - [Platform Architecture & Site Map](#-platform-architecture--site-map)
@@ -41,6 +51,19 @@ BarterHub implements a **Polyglot Persistence Architecture**:
 - [Available Scripts](#-available-scripts)
 - [Docker Deployment](#-docker-deployment)
 - [License](#-license)
+
+---
+
+## 🌐 Live Deployment & Production Access
+
+BarterHub is deployed in production with automated continuous integration and continuous deployment (CI/CD):
+
+| Component | Provider / Infrastructure | Link / Endpoint |
+| :--- | :--- | :--- |
+| **Live Web Application** | **Vercel** (Next.js 14 App Router) | [barter-hub-eb6t-36e8czbcd-h4r5h1l-27s-projects.vercel.app](https://barter-hub-eb6t-36e8czbcd-h4r5h1l-27s-projects.vercel.app/) |
+| **Source Code Repository** | **GitHub** | [github.com/H4R5H1L-27/BarterHub](https://github.com/H4R5H1L-27/BarterHub) |
+| **Primary Relational DB** | **Neon** (Serverless PostgreSQL 16) | Fully managed cloud PostgreSQL with pooling |
+| **Network Graph DB** | **Neo4j** (AuraDB / Container) | High-performance Cypher multi-party swap graph engine |
 
 ---
 
