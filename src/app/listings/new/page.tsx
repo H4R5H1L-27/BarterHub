@@ -40,6 +40,7 @@ export default function NewListingPage() {
 
   // Active Wizard Step (1, 2, 3, 4)
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [stepEnteredAt, setStepEnteredAt] = useState<number>(Date.now());
 
   // Form State
   const [listingType, setListingType] = useState<'BOOK' | 'PRODUCT'>('PRODUCT');
@@ -132,6 +133,8 @@ export default function NewListingPage() {
     setWishlistTags([]);
     setBarterWishlist('');
     setError(null);
+    setCurrentStep(1);
+    setStepEnteredAt(Date.now());
   };
 
   const handleAddImage = () => {
@@ -212,7 +215,8 @@ export default function NewListingPage() {
   const goToNextStep = () => {
     if (validateStep(currentStep)) {
       if (currentStep < 4) {
-        setCurrentStep(currentStep + 1);
+        setCurrentStep((prev) => prev + 1);
+        setStepEnteredAt(Date.now());
         window.scrollTo({ top: 120, behavior: 'smooth' });
       }
     }
@@ -221,7 +225,8 @@ export default function NewListingPage() {
   const goToPrevStep = () => {
     setError(null);
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep((prev) => prev - 1);
+      setStepEnteredAt(Date.now());
       window.scrollTo({ top: 120, behavior: 'smooth' });
     }
   };
@@ -229,6 +234,7 @@ export default function NewListingPage() {
   const handleStepClick = (stepId: number) => {
     if (stepId <= currentStep || validateStep(currentStep)) {
       setCurrentStep(stepId);
+      setStepEnteredAt(Date.now());
       window.scrollTo({ top: 120, behavior: 'smooth' });
     }
   };
@@ -236,6 +242,17 @@ export default function NewListingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    // Guard: Prevent submission if user is not yet on Step 4
+    if (currentStep < 4) {
+      goToNextStep();
+      return;
+    }
+
+    // Guard: Prevent accidental double-clicks when navigating to Step 4 from immediately submitting
+    if (Date.now() - stepEnteredAt < 500) {
+      return;
+    }
 
     if (!validateStep(1) || !validateStep(3) || !validateStep(4)) {
       return;
@@ -407,7 +424,15 @@ export default function NewListingPage() {
       )}
 
       {/* Main 2-Column Split */}
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <form
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && (e.target as HTMLElement).tagName === 'INPUT' && currentStep < 4) {
+            e.preventDefault();
+          }
+        }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+      >
         
         {/* Left Column: Interactive Wizard Steps (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
@@ -1108,6 +1133,35 @@ export default function NewListingPage() {
                     </p>
                   </div>
                 </div>
+
+                {/* Summary Pre-Publish Review Box */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-surface-container-low border border-outline-variant/15 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-on-surface flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-primary" /> Listing Summary Ready to Publish
+                    </span>
+                    <span className="text-[11px] text-primary font-semibold">Step 4 of 4</span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+                    <div className="p-2.5 rounded-xl bg-surface-container-lowest">
+                      <span className="text-[10px] text-outline block font-medium">Item & Valuation</span>
+                      <span className="font-bold text-on-surface truncate block">{title || 'Untitled'}</span>
+                      <span className="text-tertiary font-bold text-[11px]">{exchangeType === 'BARTER_ONLY' ? 'Pure Barter' : `$${price || '0'}`}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-surface-container-lowest">
+                      <span className="text-[10px] text-outline block font-medium">Handover Spot</span>
+                      <span className="font-bold text-on-surface truncate block">{handoverSpot}</span>
+                      <span className="text-on-surface-variant text-[11px]">{city}, {state}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-surface-container-lowest col-span-2 sm:col-span-1">
+                      <span className="text-[10px] text-outline block font-medium">Fulfillment</span>
+                      <span className="font-bold text-on-surface block">
+                        {[pickupAvailable && 'Pickup', shippingAvailable && 'Shipping'].filter(Boolean).join(' & ') || 'Pickup'}
+                      </span>
+                      <span className="text-on-surface-variant text-[11px]">{wishlistTags.length} wishlist targets</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -1139,6 +1193,7 @@ export default function NewListingPage() {
               </span>
               {currentStep < 4 ? (
                 <button
+                  key="wizard-continue-button"
                   type="button"
                   onClick={goToNextStep}
                   className="px-7 py-3 bg-primary hover:bg-primary-container text-on-primary text-xs font-bold rounded-full shadow-md hover:shadow-lg transition-all flex items-center gap-2 active:scale-95"
@@ -1148,6 +1203,7 @@ export default function NewListingPage() {
                 </button>
               ) : (
                 <button
+                  key="wizard-submit-button"
                   type="submit"
                   disabled={loading}
                   className="px-8 py-3 bg-primary hover:bg-primary-container text-on-primary text-xs font-bold rounded-full shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
