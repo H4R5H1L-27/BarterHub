@@ -596,10 +596,6 @@ export default function DatabasePage() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-fixed/40 via-surface-container-lowest to-surface-container-low p-8 sm:p-10 border border-outline-variant/30 shadow-sm">
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wide uppercase shadow-sm">
-                <Database className="w-3.5 h-3.5" />
-                <span>PostgreSQL 16 & Prisma ORM</span>
-              </div>
               <h1 className="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight">
                 Database Architecture & ER Schema
               </h1>
@@ -1145,10 +1141,6 @@ export default function DatabasePage() {
           <div className="space-y-6">
             <div className="bg-surface-container-lowest rounded-3xl p-6 sm:p-8 border border-outline-variant/30 shadow-xs space-y-6">
               <div className="pb-4 border-b border-outline-variant/20">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>PostgreSQL 16 Database Studio</span>
-                </div>
                 <h2 className="text-xl font-extrabold text-on-surface">
                   SQL Query Studio & Table Explorer
                 </h2>

@@ -232,10 +232,6 @@ export default function Neo4jGraphExplorer() {
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
           <div className="space-y-3 max-w-3xl">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
-                <Share2 className="w-3.5 h-3.5 text-emerald-400" />
-                Modern NoSQL Database: Neo4j
-              </span>
               <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 {stats?.status === 'connected' ? 'Neo4j Live Bolt Server' : 'Deterministic Graph Engine (Active)'}

@@ -799,10 +799,6 @@ export default function DatabaseDDLViewer() {
       {/* Top Banner with Stats & Quick Actions */}
       <div className="p-6 rounded-3xl bg-gradient-to-r from-surface-container-lowest via-surface-container-low to-surface-container border border-outline-variant/30 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">
-            <FileCode className="w-3.5 h-3.5" />
-            <span>PostgreSQL 16 Data Definition Language (DDL)</span>
-          </div>
           <h2 className="text-xl sm:text-2xl font-black text-on-surface">
             Database Creation Commands & Schema Blueprint
           </h2>
