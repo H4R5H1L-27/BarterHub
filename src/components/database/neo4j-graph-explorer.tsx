@@ -84,7 +84,13 @@ WITH RECURSIVE BarterPaths AS (
   JOIN "BarterItem" bi2 ON b2.id = bi2."proposalId"
   WHERE bp.depth < 3 AND NOT (bi2."listingId" = ANY(bp.visited[2:]))
 )
-SELECT * FROM BarterPaths WHERE current_item = start_item AND depth = 3;`,
+SELECT 
+  bp.depth AS cycle_length,
+  l_start.title AS item_title,
+  bp.visited
+FROM BarterPaths bp
+JOIN "Listing" l_start ON bp.start_item = l_start.id
+WHERE bp.current_item = bp.start_item AND bp.depth = 3;`,
   },
   {
     name: 'Transitive Barter Paths & Rings',
