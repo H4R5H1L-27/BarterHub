@@ -1,5 +1,461 @@
 [
   {
+    "id": "mpt_1791798442704_feuub",
+    "cycleId": "cycle-3-cmv51a4we001545f98uac2w3e:cmv51a4wi001845f9cifkx476:cmv51a4wu001h45f9a5zyhvz8",
+    "createdAt": "2026-10-12T09:47:22.704Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to David Miller, David Miller gives to Chloe Zhao, and Chloe Zhao gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:22.704Z"
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Project Hail Mary",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tr000545f9m1yn08wt",
+        "userName": "Chloe Zhao",
+        "city": "Seattle",
+        "givingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "receivingTitle": "Project Hail Mary",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_g0ue",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-7814",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_t2zn",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4tr000545f9m1yn08wt",
+        "toUserName": "Chloe Zhao",
+        "listingId": "cmv51a4we001545f98uac2w3e",
+        "listingTitle": "Project Hail Mary",
+        "listingPrice": 14,
+        "listingImage": "/items/books/project-hail-mary.jpg",
+        "handshakePin": "PIN-5248",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_glao",
+        "fromUserId": "cmv51a4tr000545f9m1yn08wt",
+        "fromUserName": "Chloe Zhao",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4wu001h45f9a5zyhvz8",
+        "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "listingPrice": 15,
+        "listingImage": "/items/books/atomic-habits.jpg",
+        "handshakePin": "PIN-9678",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791798442674_2rb89",
+    "cycleId": "cycle-3-cmv51a4va000e45f9u8ou0tsb:cmv51a4wi001845f9cifkx476:cmv51a4z0003245f95q4xsabp",
+    "createdAt": "2026-10-12T09:47:22.674Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to Sophia Ramirez, and Sophia Ramirez gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:22.674Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4u4000945f9jzluxkbq",
+        "userName": "Sophia Ramirez",
+        "city": "Denver",
+        "givingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "receivingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_85i3",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-4740",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_xvqf",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4u4000945f9jzluxkbq",
+        "toUserName": "Sophia Ramirez",
+        "listingId": "cmv51a4va000e45f9u8ou0tsb",
+        "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "listingPrice": 0,
+        "listingImage": "/items/books/clean-code.jpg",
+        "handshakePin": "PIN-1816",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_crfn",
+        "fromUserId": "cmv51a4u4000945f9jzluxkbq",
+        "fromUserName": "Sophia Ramirez",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4z0003245f95q4xsabp",
+        "listingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "listingPrice": 0,
+        "listingImage": "/items/products/wingspan-game.jpg",
+        "handshakePin": "PIN-5311",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791798442638_bh47n",
+    "cycleId": "cycle-3-cmv51a4va000e45f9u8ou0tsb:cmv51a4wi001845f9cifkx476:cmv51a4xt002545f9jyqqbqxe",
+    "createdAt": "2026-10-12T09:47:22.639Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to David Miller, and David Miller gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:22.639Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "receivingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_7rfy",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-5211",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_e6d4",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4va000e45f9u8ou0tsb",
+        "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "listingPrice": 0,
+        "listingImage": "/items/books/clean-code.jpg",
+        "handshakePin": "PIN-6282",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_81vf",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4xt002545f9jyqqbqxe",
+        "listingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "listingPrice": 0,
+        "listingImage": "/items/products/catan-game.jpg",
+        "handshakePin": "PIN-4325",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791798440080_a3mho",
+    "cycleId": "cycle-3-cmv51a4u9000b45f9m5tyivt2:cmv51a4va000e45f9u8ou0tsb:cmv51a4wi001845f9cifkx476",
+    "createdAt": "2026-10-12T09:47:20.080Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Alex Turner, Alex Turner gives to Sarah Jenkins, and Sarah Jenkins gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:20.080Z"
+      },
+      {
+        "userId": "cmv51a4t4000045f9elq6gpi4",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Designing Data-Intensive Applications",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "receivingTitle": "Designing Data-Intensive Applications",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_avbf",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4t4000045f9elq6gpi4",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-8173",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_ylwm",
+        "fromUserId": "cmv51a4t4000045f9elq6gpi4",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4u9000b45f9m5tyivt2",
+        "listingTitle": "Designing Data-Intensive Applications",
+        "listingPrice": 35,
+        "listingImage": "/items/books/ddia.jpg",
+        "handshakePin": "PIN-5537",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_2hhx",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4va000e45f9u8ou0tsb",
+        "listingTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "listingPrice": 0,
+        "listingImage": "/items/books/clean-code.jpg",
+        "handshakePin": "PIN-1558",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791798440052_ryhe6",
+    "cycleId": "cycle-3-cmv51a4vg000h45f9iowy72xm:cmv51a4we001545f98uac2w3e:cmv51a4wi001845f9cifkx476",
+    "createdAt": "2026-10-12T09:47:20.052Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to David Miller, and David Miller gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Project Hail Mary",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:20.052Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Project Hail Mary",
+        "receivingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_gnhw",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-1748",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_9ea3",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4vg000h45f9iowy72xm",
+        "listingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "listingPrice": 45,
+        "listingImage": "/items/books/dune-deluxe.jpg",
+        "handshakePin": "PIN-2808",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_kbk1",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4we001545f98uac2w3e",
+        "listingTitle": "Project Hail Mary",
+        "listingPrice": 14,
+        "listingImage": "/items/books/project-hail-mary.jpg",
+        "handshakePin": "PIN-1892",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791798439957_f9jus",
+    "cycleId": "cycle-3-cmv51a4u9000b45f9m5tyivt2:cmv51a4vg000h45f9iowy72xm:cmv51a4wi001845f9cifkx476",
+    "createdAt": "2026-10-12T09:47:19.958Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to Alex Turner, and Alex Turner gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Designing Data-Intensive Applications",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T09:47:19.958Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4t4000045f9elq6gpi4",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Designing Data-Intensive Applications",
+        "receivingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_lkkm",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-4160",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_b57a",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4t4000045f9elq6gpi4",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv51a4vg000h45f9iowy72xm",
+        "listingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "listingPrice": 45,
+        "listingImage": "/items/books/dune-deluxe.jpg",
+        "handshakePin": "PIN-8266",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_a8kc",
+        "fromUserId": "cmv51a4t4000045f9elq6gpi4",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4u9000b45f9m5tyivt2",
+        "listingTitle": "Designing Data-Intensive Applications",
+        "listingPrice": 35,
+        "listingImage": "/items/books/ddia.jpg",
+        "handshakePin": "PIN-3983",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
     "id": "mpt_1791663209908_bosge",
     "cycleId": "cycle-3-cmv2p4d23000ew1avo2qcgeyh:cmv2p4d5f002bw1av0hpoy7kc:cmv2p4d6u0038w1avl4psuy60",
     "createdAt": "2026-10-10T20:13:29.908Z",
