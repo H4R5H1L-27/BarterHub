@@ -588,115 +588,112 @@ export default function DatabasePage() {
   const domains = ['All', 'Core Marketplace', 'Barter & Swaps', 'Chat & Messaging', 'Trust & Community'];
 
   return (
-    <div className="min-h-screen bg-surface py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* ========================================================= */}
-        {/* HERO BANNER */}
-        {/* ========================================================= */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-fixed/40 via-surface-container-lowest to-surface-container-low p-8 sm:p-10 border border-outline-variant/30 shadow-sm">
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-3">
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-on-surface tracking-tight">
-                Database Architecture & ER Schema
-              </h1>
-              <p className="text-on-surface-variant max-w-2xl text-sm sm:text-base leading-relaxed">
-                Live interactive inspection of BarterHub&apos;s relational topology, entity-relationship models, foreign key cardinalities, and production-grade SQL queries for circular swaps and 6-digit handshake verification.
-              </p>
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <button
-                  onClick={() => setActiveTab('ddl')}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    activeTab === 'ddl'
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'bg-surface-container-lowest text-primary hover:bg-surface-container border border-primary/20'
-                  }`}
-                >
-                  <FileCode className="w-3.5 h-3.5" />
-                  <span>View Database Creation SQL (DDL)</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-mono">48 stmts</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('neo4j')}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    activeTab === 'neo4j'
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'bg-surface-container-lowest text-primary hover:bg-surface-container border border-primary/20'
-                  }`}
-                >
-                  <Share2 className="w-3.5 h-3.5 text-primary" />
-                  <span>Modern NoSQL (Neo4j Graph)</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Quick Metrics Bento */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Models</p>
-                <p className="text-2xl font-black text-primary mt-0.5">16</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Enums</p>
-                <p className="text-2xl font-black text-secondary mt-0.5">13</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Relations</p>
-                <p className="text-2xl font-black text-emerald-600 mt-0.5">28</p>
-              </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs text-center">
-                <p className="text-xs font-semibold text-outline uppercase tracking-wider">Status</p>
-                <div className="flex items-center justify-center gap-1.5 mt-1 text-xs font-bold text-emerald-600">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Synced
+    <div className="min-h-screen bg-surface py-6 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {/* ========================================================= */}
+          {/* LEFT SIDEBAR: Sleek Persistent Studio Navigation */}
+          {/* ========================================================= */}
+          <aside className="w-full lg:w-72 lg:shrink-0 lg:sticky lg:top-20 space-y-4">
+            <div className="p-4 sm:p-5 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 shadow-xs space-y-4">
+              {/* Brand Header */}
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-2xl bg-primary text-white flex items-center justify-center font-black shadow-md shadow-primary/20 shrink-0">
+                  <Database className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-base font-extrabold text-on-surface tracking-tight truncate">Database Studio</h1>
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Postgres &bull; Neo4j</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* ========================================================= */}
-        {/* VIEW NAVIGATION TABS */}
-        {/* ========================================================= */}
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-outline-variant/30 pb-4">
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'models', label: '1. Relational Schema & Fields', icon: Table },
-              { id: 'er', label: '2. Interactive ER & Mermaid Schema', icon: Layers },
-              { id: 'sql', label: '3. Custom SQL Studio & Workbench', icon: Terminal },
-              { id: 'enums', label: '4. Enums & Custom Types (13)', icon: Code2 },
-              { id: 'ddl', label: '5. SQL Creation DDL (All Commands)', icon: FileCode },
-              { id: 'neo4j', label: '6. Modern NoSQL (Neo4j Graph)', icon: Share2 },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-xs ${
-                    isActive
-                      ? 'bg-primary text-white shadow-lift'
-                      : 'bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant border border-outline-variant/30'
-                  }`}
+              {/* Compact Metrics Strip */}
+              <div className="grid grid-cols-3 gap-1.5 p-2 rounded-2xl bg-surface-container-low border border-outline-variant/20 text-center">
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Models</span>
+                  <span className="text-sm font-black text-primary">16</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Enums</span>
+                  <span className="text-sm font-black text-secondary">13</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-outline uppercase block">Relations</span>
+                  <span className="text-sm font-black text-emerald-600">28</span>
+                </div>
+              </div>
+
+              {/* Navigation Items */}
+              <div className="space-y-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-outline px-2 pb-1">Navigation</p>
+                <nav className="space-y-1">
+                  {[
+                    { id: 'models', num: '1', label: 'Relational Models', badge: '16 Tables', icon: Table },
+                    { id: 'er', num: '2', label: 'Interactive ER Graph', badge: 'Mermaid', icon: Layers },
+                    { id: 'sql', num: '3', label: 'SQL Query Studio', badge: 'Workbench', icon: Terminal },
+                    { id: 'enums', num: '4', label: 'Enums & Types', badge: '13 Types', icon: Code2 },
+                    { id: 'ddl', num: '5', label: 'Creation DDL Script', badge: '48 Stmts', icon: FileCode },
+                    { id: 'neo4j', num: '6', label: 'Neo4j Graph Engine', badge: 'Multi-Hop', icon: Share2 },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveTab(item.id as any)}
+                        className={`w-full flex items-center justify-between p-2.5 rounded-2xl text-left transition-all ${
+                          isActive
+                            ? 'bg-primary text-white font-bold shadow-sm shadow-primary/20'
+                            : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-semibold'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span
+                            className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] font-mono font-bold shrink-0 ${
+                              isActive ? 'bg-white/20 text-white' : 'bg-surface-container text-outline'
+                            }`}
+                          >
+                            {item.num}
+                          </span>
+                          <Icon className="w-4 h-4 shrink-0" />
+                          <span className="text-xs truncate">{item.label}</span>
+                        </div>
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full font-mono shrink-0 ${
+                            isActive ? 'bg-white/20 text-white' : 'bg-surface-container text-outline'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* Quick Marketplace Link */}
+              <div className="pt-2 border-t border-outline-variant/20">
+                <Link
+                  href="/listings"
+                  className="flex items-center justify-between p-2 rounded-xl text-xs font-bold text-primary hover:bg-primary/5 transition-colors"
                 >
-                  <Icon className="w-4 h-4" />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
+                  <span className="flex items-center gap-1.5">
+                    <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+                    Marketplace
+                  </span>
+                  <ExternalLink className="w-3 h-3 text-outline" />
+                </Link>
+              </div>
+            </div>
+          </aside>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/listings"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
-            >
-              <span>Explore Marketplace</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
+          {/* ========================================================= */}
+          {/* MAIN CONTENT AREA */}
+          {/* ========================================================= */}
+          <main className="flex-1 w-full min-w-0 space-y-6">
 
         {/* ========================================================= */}
         {/* TAB 1: RELATIONAL SCHEMA EXPLORER */}
@@ -1200,6 +1197,8 @@ export default function DatabasePage() {
         {/* TAB 6: MODERN NOSQL (NEO4J GRAPH DATABASE) */}
         {/* ========================================================= */}
         {activeTab === 'neo4j' && <Neo4jGraphExplorer />}
+          </main>
+        </div>
       </div>
     </div>
   );
