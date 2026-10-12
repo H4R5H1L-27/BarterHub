@@ -36,6 +36,28 @@ export default function Navbar() {
   const [notesOpen, setNotesOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -110,13 +132,17 @@ export default function Navbar() {
           </Link>
 
           {/* Center Search Bar with Location Pill */}
-          <div className="hidden lg:flex items-center flex-1 min-w-[280px] max-w-md xl:max-w-lg bg-surface-container-low rounded-full px-2.5 py-1 border border-outline-variant/40 shadow-inner">
-            <label className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-xs font-semibold text-on-surface shadow-xs cursor-pointer hover:bg-surface-container transition-colors shrink-0">
-              <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+          <div
+            ref={searchContainerRef}
+            onMouseLeave={() => setSearchOpen(false)}
+            className="relative hidden lg:flex items-center w-64 xl:w-80 shrink-0 bg-surface-container-low rounded-full px-2 py-1 border border-outline-variant/40 shadow-inner"
+          >
+            <label className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest text-[11px] font-semibold text-on-surface shadow-xs cursor-pointer hover:bg-surface-container transition-colors shrink-0">
+              <MapPin className="w-3 h-3 text-primary shrink-0" />
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="bg-transparent focus:outline-none cursor-pointer max-w-[85px] text-xs font-medium truncate"
+                className="bg-transparent focus:outline-none cursor-pointer max-w-[65px] xl:max-w-[75px] text-[11px] font-medium truncate"
                 aria-label="Location"
               >
                 {CITIES.map((c) => (
@@ -127,18 +153,18 @@ export default function Navbar() {
               </select>
             </label>
 
-            <div className="h-4 w-px bg-outline-variant/60 mx-2 shrink-0" />
+            <div className="h-4 w-px bg-outline-variant/60 mx-1.5 shrink-0" />
 
-            <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-[140px] flex items-center">
-              <Search className="w-3.5 h-3.5 text-outline mr-2 shrink-0 pointer-events-none" />
+            <form onSubmit={handleSearchSubmit} className="flex-1 min-w-0 flex items-center">
+              <Search className="w-3.5 h-3.5 text-outline mr-1.5 shrink-0 pointer-events-none" />
               <input
                 ref={searchRef}
                 type="text"
-                placeholder="Search books, gear..."
+                placeholder="Search..."
                 value={searchQuery}
                 onFocus={() => setSearchOpen(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full flex-1 min-w-[100px] bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-outline/80 pr-1"
+                className="w-full flex-1 min-w-0 bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-outline/80 pr-1"
               />
 
               <div className="flex items-center gap-1 shrink-0 ml-1">
@@ -152,50 +178,64 @@ export default function Navbar() {
                     className="p-1 text-outline hover:text-on-surface rounded-full transition-colors"
                     title="Clear search"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3 h-3" />
                   </button>
                 )}
                 <button
                   type="submit"
-                  className="px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full hover:bg-primary-container transition-all shadow-xs shrink-0"
+                  className="px-2.5 py-1 bg-primary text-white text-[11px] font-bold rounded-full hover:bg-primary-container transition-all shadow-xs shrink-0"
                 >
                   Search
                 </button>
               </div>
+            </form>
 
-              {searchOpen && (
-                <div className="absolute top-11 left-0 right-0 bg-surface-container-lowest border border-outline-variant/50 rounded-2xl shadow-lift p-3 z-50">
-                  {recentSearches.length > 0 && (
-                    <div className="mb-2.5">
-                      <p className="text-[10px] uppercase tracking-wider text-outline font-bold mb-1">Recent Searches</p>
+            {/* Quick Search Flyout Dropdown */}
+            {searchOpen && (
+              <div className="absolute top-11 left-0 right-0 bg-surface-container-lowest border border-outline-variant/50 rounded-2xl shadow-lift p-3 z-50 animate-fadeIn">
+                <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-outline-variant/20">
+                  <span className="text-[10px] uppercase tracking-wider text-outline font-bold">Quick Search</span>
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(false)}
+                    className="p-1 text-outline hover:text-on-surface rounded-full transition-colors"
+                    title="Close"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+                {recentSearches.length > 0 && (
+                  <div className="mb-2 pb-2 border-b border-outline-variant/20">
+                    <p className="text-[10px] uppercase tracking-wider text-outline font-bold mb-1">Recent Searches</p>
+                    <div className="space-y-0.5">
                       {recentSearches.map((s) => (
                         <button
                           key={s}
                           type="button"
                           onClick={() => goSearch(s)}
-                          className="block w-full text-left text-xs py-1 text-on-surface hover:text-primary transition-colors"
+                          className="block w-full text-left text-xs py-1 px-2 rounded-lg text-on-surface hover:bg-surface-container hover:text-primary transition-colors truncate"
                         >
                           {s}
                         </button>
                       ))}
                     </div>
-                  )}
-                  <p className="text-[10px] uppercase tracking-wider text-outline font-bold mb-1.5">Trending Swaps</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {TRENDING_SEARCHES.map((s) => (
-                      <button
-                        key={s}
-                        type="button"
-                        onClick={() => goSearch(s)}
-                        className="px-2.5 py-1 rounded-full bg-surface-container-low text-[11px] font-medium text-on-surface hover:bg-primary-fixed hover:text-primary transition-colors"
-                      >
-                        {s}
-                      </button>
-                    ))}
                   </div>
+                )}
+                <p className="text-[10px] uppercase tracking-wider text-outline font-bold mb-1.5">Trending Swaps</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {TRENDING_SEARCHES.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => goSearch(s)}
+                      className="px-2.5 py-0.5 rounded-full bg-surface-container-low text-[11px] font-medium text-on-surface hover:bg-primary-fixed hover:text-primary transition-colors"
+                    >
+                      {s}
+                    </button>
+                  ))}
                 </div>
-              )}
-            </form>
+              </div>
+            )}
           </div>
 
           {/* Desktop Nav Links */}
