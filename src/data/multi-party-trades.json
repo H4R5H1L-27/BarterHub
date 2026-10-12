@@ -1,5 +1,385 @@
 [
   {
+    "id": "mpt_1791814640771_17kj8",
+    "cycleId": "cycle-3-cmv51a4vl000k45f9z9vghykm:cmv51a4wm001b45f92eu7sf48:cmv51a4xh001w45f9iwrt1af1",
+    "createdAt": "2026-10-12T14:17:20.771Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Sarah Jenkins gives to Marcus Chen, Marcus Chen gives to Liam O'Connor, and Liam O'Connor gives to Sarah Jenkins!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "receivingTitle": "Fundamentals of Physics (Extended 12th Edition)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T14:17:20.771Z"
+      },
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "receivingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tt000645f9oqftss0j",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Fundamentals of Physics (Extended 12th Edition)",
+        "receivingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_zlef",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4vl000k45f9z9vghykm",
+        "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "listingPrice": 65,
+        "listingImage": "/items/books/tolkien-box.jpg",
+        "handshakePin": "PIN-7298",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_2una",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tt000645f9oqftss0j",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv51a4xh001w45f9iwrt1af1",
+        "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "listingPrice": 145,
+        "listingImage": "/items/products/keychron-q1-pro.jpg",
+        "handshakePin": "PIN-8654",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_j614",
+        "fromUserId": "cmv51a4tt000645f9oqftss0j",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wm001b45f92eu7sf48",
+        "listingTitle": "Fundamentals of Physics (Extended 12th Edition)",
+        "listingPrice": 90,
+        "listingImage": "/items/books/fundamentals-physics.jpg",
+        "handshakePin": "PIN-5411",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791814640743_nzidb",
+    "cycleId": "cycle-3-cmv51a4vl000k45f9z9vghykm:cmv51a4vv000q45f98w0qusny:cmv51a4xh001w45f9iwrt1af1",
+    "createdAt": "2026-10-12T14:17:20.743Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Sarah Jenkins gives to Marcus Chen, Marcus Chen gives to Liam O'Connor, and Liam O'Connor gives to Sarah Jenkins!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "receivingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T14:17:20.743Z"
+      },
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "receivingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tt000645f9oqftss0j",
+        "userName": "Liam O'Connor",
+        "city": "Chicago",
+        "givingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "receivingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_c7i8",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4vl000k45f9z9vghykm",
+        "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "listingPrice": 65,
+        "listingImage": "/items/books/tolkien-box.jpg",
+        "handshakePin": "PIN-5389",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_pd9q",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tt000645f9oqftss0j",
+        "toUserName": "Liam O'Connor",
+        "listingId": "cmv51a4xh001w45f9iwrt1af1",
+        "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "listingPrice": 145,
+        "listingImage": "/items/products/keychron-q1-pro.jpg",
+        "handshakePin": "PIN-9406",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_t7b5",
+        "fromUserId": "cmv51a4tt000645f9oqftss0j",
+        "fromUserName": "Liam O'Connor",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4vv000q45f98w0qusny",
+        "listingTitle": "Calculus: Early Transcendentals (9th Edition)",
+        "listingPrice": 60,
+        "listingImage": "/items/books/stewart-calculus.jpg",
+        "handshakePin": "PIN-5392",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791814640450_zjags",
+    "cycleId": "cycle-3-cmv51a4wi001845f9cifkx476:cmv51a4xt002545f9jyqqbqxe:cmv51a4z0003245f95q4xsabp",
+    "createdAt": "2026-10-12T14:17:20.451Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to David Miller, David Miller gives to Sophia Ramirez, and Sophia Ramirez gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T14:17:20.450Z"
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4u4000945f9jzluxkbq",
+        "userName": "Sophia Ramirez",
+        "city": "Denver",
+        "givingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "receivingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_gw7m",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-5811",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_5s8g",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4u4000945f9jzluxkbq",
+        "toUserName": "Sophia Ramirez",
+        "listingId": "cmv51a4xt002545f9jyqqbqxe",
+        "listingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "listingPrice": 0,
+        "listingImage": "/items/products/catan-game.jpg",
+        "handshakePin": "PIN-4424",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_44fp",
+        "fromUserId": "cmv51a4u4000945f9jzluxkbq",
+        "fromUserName": "Sophia Ramirez",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4z0003245f95q4xsabp",
+        "listingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "listingPrice": 0,
+        "listingImage": "/items/products/wingspan-game.jpg",
+        "handshakePin": "PIN-7832",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791814640416_e8v4h",
+    "cycleId": "cycle-3-cmv51a4wi001845f9cifkx476:cmv51a4wu001h45f9a5zyhvz8:cmv51a4xt002545f9jyqqbqxe",
+    "createdAt": "2026-10-12T14:17:20.417Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to David Miller, David Miller gives to Chloe Zhao, and Chloe Zhao gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T14:17:20.417Z"
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tr000545f9m1yn08wt",
+        "userName": "Chloe Zhao",
+        "city": "Seattle",
+        "givingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "receivingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_dn92",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-7823",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_gwov",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4tr000545f9m1yn08wt",
+        "toUserName": "Chloe Zhao",
+        "listingId": "cmv51a4xt002545f9jyqqbqxe",
+        "listingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "listingPrice": 0,
+        "listingImage": "/items/products/catan-game.jpg",
+        "handshakePin": "PIN-8775",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_jk81",
+        "fromUserId": "cmv51a4tr000545f9m1yn08wt",
+        "fromUserName": "Chloe Zhao",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4wu001h45f9a5zyhvz8",
+        "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "listingPrice": 15,
+        "listingImage": "/items/books/atomic-habits.jpg",
+        "handshakePin": "PIN-4935",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791814640340_s4fdw",
+    "cycleId": "cycle-3-cmv51a4wi001845f9cifkx476:cmv51a4wu001h45f9a5zyhvz8:cmv51a4x3001n45f978gbgjhq",
+    "createdAt": "2026-10-12T14:17:20.341Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to Chloe Zhao, and Chloe Zhao gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T14:17:20.341Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Thinking, Fast and Slow",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tr000545f9m1yn08wt",
+        "userName": "Chloe Zhao",
+        "city": "Seattle",
+        "givingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "receivingTitle": "Thinking, Fast and Slow",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_5dmj",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-8458",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_b3uq",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4tr000545f9m1yn08wt",
+        "toUserName": "Chloe Zhao",
+        "listingId": "cmv51a4x3001n45f978gbgjhq",
+        "listingTitle": "Thinking, Fast and Slow",
+        "listingPrice": 0,
+        "listingImage": "/items/books/thinking-fast-and-slow.jpg",
+        "handshakePin": "PIN-5619",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_h1u8",
+        "fromUserId": "cmv51a4tr000545f9m1yn08wt",
+        "fromUserName": "Chloe Zhao",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4wu001h45f9a5zyhvz8",
+        "listingTitle": "Atomic Habits: An Easy & Proven Way to Build Good Habits",
+        "listingPrice": 15,
+        "listingImage": "/items/books/atomic-habits.jpg",
+        "handshakePin": "PIN-1217",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
     "id": "mpt_1791799369383_j5k7x",
     "cycleId": "cycle-3-cmv51a4vl000k45f9z9vghykm:cmv51a4xh001w45f9iwrt1af1:cmv51a4y1002b45f96amo9eds",
     "createdAt": "2026-10-12T10:02:49.383Z",

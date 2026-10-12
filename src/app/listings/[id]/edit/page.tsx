@@ -26,7 +26,9 @@ import {
   Truck,
   RotateCcw,
   Pencil,
-  Save
+  Save,
+  Upload,
+  Loader2
 } from 'lucide-react';
 import { ListingItem } from '@/lib/types';
 
@@ -60,6 +62,10 @@ export default function EditListingPage() {
   const [tagInput, setTagInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [images, setImages] = useState<string[]>([]);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   // Book specific
   const [author, setAuthor] = useState('');
@@ -167,6 +173,98 @@ export default function EditListingPage() {
       setImages([...images, imageUrl.trim()]);
       setImageUrl('');
     }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingImage(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to upload images.');
+      }
+
+      if (data.urls && data.urls.length > 0) {
+        setImages((prev) => [...prev, ...data.urls]);
+      } else if (data.url) {
+        setImages((prev) => [...prev, data.url]);
+      }
+    } catch (err: any) {
+      setUploadError(err.message || 'Error uploading file.');
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingImage(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    let hasImages = false;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.startsWith('image/')) {
+        formData.append('files', files[i]);
+        hasImages = true;
+      }
+    }
+
+    if (!hasImages) {
+      setUploadingImage(false);
+      setUploadError('Please drop valid image files (PNG, JPG, WEBP, GIF).');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to upload images.');
+      }
+
+      if (data.urls && data.urls.length > 0) {
+        setImages((prev) => [...prev, ...data.urls]);
+      } else if (data.url) {
+        setImages((prev) => [...prev, data.url]);
+      }
+    } catch (err: any) {
+      setUploadError(err.message || 'Error uploading file.');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleSetCoverImage = (index: number) => {
+    if (index === 0) return;
+    const selected = images[index];
+    const rest = images.filter((_, i) => i !== index);
+    setImages([selected, ...rest]);
   };
 
   const handleRemoveImage = (index: number) => {
@@ -750,47 +848,113 @@ export default function EditListingPage() {
               </div>
             </div>
 
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <input
-                  type="url"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddImage(); } }}
-                  placeholder="Paste image URL (https://images.unsplash.com/...)"
-                  className="w-full pl-9 pr-3.5 py-2.5 bg-surface-container-low border border-outline-variant/30 rounded-2xl text-xs focus:outline-none focus:border-primary shadow-inner"
-                />
-                <ImageIcon className="w-4 h-4 text-outline absolute left-3 top-1/2 -translate-y-1/2" />
+            {/* Drag & Drop File Upload Box */}
+            <div
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`border-2 border-dashed rounded-3xl p-6 text-center cursor-pointer transition-all ${
+                isDragging
+                  ? 'border-primary bg-primary/10 scale-[1.01]'
+                  : 'border-outline-variant/40 bg-surface-container-low hover:bg-surface-container hover:border-primary/50'
+              }`}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileUpload}
+                className="hidden"
+              />
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                  {uploadingImage ? (
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                  ) : (
+                    <Upload className="w-6 h-6 text-primary" />
+                  )}
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-on-surface block">
+                    {uploadingImage ? 'Uploading Photos...' : 'Click to upload or drag & drop photos here'}
+                  </span>
+                  <span className="text-[11px] text-on-surface-variant block mt-0.5">
+                    Supports JPG, PNG, WEBP, GIF up to 10MB • Multiple photos supported
+                  </span>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={handleAddImage}
-                className="px-5 py-2.5 bg-primary text-on-primary text-xs font-bold rounded-2xl hover:bg-primary-container transition-all flex items-center gap-1.5 shrink-0 shadow-sm"
-              >
-                <Plus className="w-4 h-4" /> Add
-              </button>
+            </div>
+
+            {uploadError && (
+              <p className="text-xs text-error font-medium">{uploadError}</p>
+            )}
+
+            {/* Photo URL Input Fallback */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block text-xs font-semibold text-on-surface flex items-center justify-between">
+                <span>Or add via Image Web URL</span>
+                <span className="text-[11px] text-outline font-normal">Direct image link</span>
+              </label>
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <input
+                    type="url"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddImage(); } }}
+                    placeholder="Paste image URL (https://images.unsplash.com/...)"
+                    className="w-full pl-9 pr-3.5 py-2.5 bg-surface-container-low border border-outline-variant/30 rounded-2xl text-xs focus:outline-none focus:border-primary shadow-inner"
+                  />
+                  <ImageIcon className="w-4 h-4 text-outline absolute left-3 top-1/2 -translate-y-1/2" />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddImage}
+                  className="px-5 py-2.5 bg-primary text-on-primary text-xs font-bold rounded-2xl hover:bg-primary-container transition-all flex items-center gap-1.5 shrink-0 shadow-sm"
+                >
+                  <Plus className="w-4 h-4" /> Add URL
+                </button>
+              </div>
             </div>
 
             {images.length > 0 && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                {images.map((img, idx) => (
-                  <div key={idx} className="relative aspect-square rounded-2xl overflow-hidden border border-outline-variant/30 group bg-surface-container-low shadow-sm">
-                    <img src={img} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
-                    {idx === 0 && (
-                      <span className="absolute top-2 left-2 bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-                        Cover
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveImage(idx)}
-                      className="absolute top-2 right-2 p-1.5 bg-error text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:scale-105"
-                      title="Remove photo"
+              <div className="pt-2">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="block text-xs font-semibold text-on-surface">Item Gallery ({images.length})</span>
+                  <span className="text-[11px] text-outline">First photo is cover • Click photo to set as cover</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => handleSetCoverImage(idx)}
+                      className={`relative aspect-square rounded-2xl overflow-hidden border group bg-surface-container-low shadow-sm cursor-pointer transition-all ${
+                        idx === 0 ? 'ring-2 ring-primary border-primary' : 'border-outline-variant/30 hover:border-primary/50'
+                      }`}
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))}
+                      <img src={img} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                      {idx === 0 ? (
+                        <span className="absolute top-2 left-2 bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+                          Cover
+                        </span>
+                      ) : (
+                        <span className="absolute top-2 left-2 bg-black/60 text-white text-[10px] font-medium px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                          Set Cover
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); handleRemoveImage(idx); }}
+                        className="absolute top-2 right-2 p-1.5 bg-error text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:scale-105"
+                        title="Remove photo"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
