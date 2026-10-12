@@ -172,13 +172,12 @@ export default function Neo4jGraphExplorer() {
   const fetchGraphData = async () => {
     try {
       setLoading(true);
-      const [statsRes, cyclesRes] = await Promise.all([
-        fetch('/api/graph/stats').then((r) => r.json()).catch(() => null),
-        fetch('/api/graph/cycles').then((r) => r.json()).catch(() => null),
-      ]);
-
-      if (statsRes?.stats) setStats(statsRes.stats);
-      if (cyclesRes?.cycles) setCycles(cyclesRes.cycles);
+      const res = await fetch('/api/graph/overview');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.stats) setStats(data.stats);
+        if (data.cycles) setCycles(data.cycles);
+      }
     } catch (err) {
       console.error('Failed to fetch graph data:', err);
     } finally {

@@ -1,5 +1,461 @@
 [
   {
+    "id": "mpt_1791799369383_j5k7x",
+    "cycleId": "cycle-3-cmv51a4vl000k45f9z9vghykm:cmv51a4xh001w45f9iwrt1af1:cmv51a4y1002b45f96amo9eds",
+    "createdAt": "2026-10-12T10:02:49.383Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Sarah Jenkins gives to Marcus Chen, Marcus Chen gives to Alex Turner, and Alex Turner gives to Sarah Jenkins!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "receivingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.383Z"
+      },
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "receivingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4t4000045f9elq6gpi4",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "receivingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_vazm",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4vl000k45f9z9vghykm",
+        "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "listingPrice": 65,
+        "listingImage": "/items/books/tolkien-box.jpg",
+        "handshakePin": "PIN-2280",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_420r",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4t4000045f9elq6gpi4",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv51a4xh001w45f9iwrt1af1",
+        "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "listingPrice": 145,
+        "listingImage": "/items/products/keychron-q1-pro.jpg",
+        "handshakePin": "PIN-2601",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_g1wu",
+        "fromUserId": "cmv51a4t4000045f9elq6gpi4",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4y1002b45f96amo9eds",
+        "listingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "listingPrice": 70,
+        "listingImage": "/items/products/logitech-mx-master-3s.jpg",
+        "handshakePin": "PIN-6783",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791799369369_so9b4",
+    "cycleId": "cycle-3-cmv51a4vl000k45f9z9vghykm:cmv51a4xh001w45f9iwrt1af1:cmv51a4xo002245f98nkwlojl",
+    "createdAt": "2026-10-12T10:02:49.369Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Sarah Jenkins gives to Marcus Chen, Marcus Chen gives to Alex Turner, and Alex Turner gives to Sarah Jenkins!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "receivingTitle": "Kindle Paperwhite Signature Edition (32GB, Agave Green)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.369Z"
+      },
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "receivingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4t4000045f9elq6gpi4",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Kindle Paperwhite Signature Edition (32GB, Agave Green)",
+        "receivingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_sm04",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4vl000k45f9z9vghykm",
+        "listingTitle": "The Lord of the Rings & The Hobbit Deluxe 4-Book Boxed Set",
+        "listingPrice": 65,
+        "listingImage": "/items/books/tolkien-box.jpg",
+        "handshakePin": "PIN-7477",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_n1we",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4t4000045f9elq6gpi4",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv51a4xh001w45f9iwrt1af1",
+        "listingTitle": "Keychron Q1 Pro Wireless Custom Mechanical Keyboard (Banana Tactile)",
+        "listingPrice": 145,
+        "listingImage": "/items/products/keychron-q1-pro.jpg",
+        "handshakePin": "PIN-6342",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_xys4",
+        "fromUserId": "cmv51a4t4000045f9elq6gpi4",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4xo002245f98nkwlojl",
+        "listingTitle": "Kindle Paperwhite Signature Edition (32GB, Agave Green)",
+        "listingPrice": 115,
+        "listingImage": "/items/products/kindle-paperwhite.jpg",
+        "handshakePin": "PIN-6618",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791799369350_wmiqv",
+    "cycleId": "cycle-3-cmv51a4vg000h45f9iowy72xm:cmv51a4wi001845f9cifkx476:cmv51a4y1002b45f96amo9eds",
+    "createdAt": "2026-10-12T10:02:49.350Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Alex Turner, Alex Turner gives to Sarah Jenkins, and Sarah Jenkins gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.350Z"
+      },
+      {
+        "userId": "cmv51a4t4000045f9elq6gpi4",
+        "userName": "Alex Turner",
+        "city": "New York",
+        "givingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "receivingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_hc3o",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4t4000045f9elq6gpi4",
+        "toUserName": "Alex Turner",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-2989",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_d0yz",
+        "fromUserId": "cmv51a4t4000045f9elq6gpi4",
+        "fromUserName": "Alex Turner",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4y1002b45f96amo9eds",
+        "listingTitle": "Logitech MX Master 3S Wireless Performance Mouse",
+        "listingPrice": 70,
+        "listingImage": "/items/products/logitech-mx-master-3s.jpg",
+        "handshakePin": "PIN-1300",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_2pcn",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4vg000h45f9iowy72xm",
+        "listingTitle": "Dune: Deluxe Hardcover Collector's Edition",
+        "listingPrice": 45,
+        "listingImage": "/items/books/dune-deluxe.jpg",
+        "handshakePin": "PIN-9095",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791799369240_zeh58",
+    "cycleId": "cycle-3-cmv51a4wi001845f9cifkx476:cmv51a4x3001n45f978gbgjhq:cmv51a4xt002545f9jyqqbqxe",
+    "createdAt": "2026-10-12T10:02:49.240Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to Sarah Jenkins, Sarah Jenkins gives to David Miller, and David Miller gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.240Z"
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Thinking, Fast and Slow",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "receivingTitle": "Thinking, Fast and Slow",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_p2zh",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-2126",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_un3i",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4x3001n45f978gbgjhq",
+        "listingTitle": "Thinking, Fast and Slow",
+        "listingPrice": 0,
+        "listingImage": "/items/books/thinking-fast-and-slow.jpg",
+        "handshakePin": "PIN-1141",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_wuj9",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4xt002545f9jyqqbqxe",
+        "listingTitle": "Catan (Settlers of Catan) 5th Edition Base Game",
+        "listingPrice": 0,
+        "listingImage": "/items/products/catan-game.jpg",
+        "handshakePin": "PIN-2797",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791799369213_xfpmx",
+    "cycleId": "cycle-3-cmv51a4we001545f98uac2w3e:cmv51a4wi001845f9cifkx476:cmv51a4z0003245f95q4xsabp",
+    "createdAt": "2026-10-12T10:02:49.213Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to David Miller, David Miller gives to Sophia Ramirez, and Sophia Ramirez gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.213Z"
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Project Hail Mary",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4u4000945f9jzluxkbq",
+        "userName": "Sophia Ramirez",
+        "city": "Denver",
+        "givingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "receivingTitle": "Project Hail Mary",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_j774",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-9322",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_vxv0",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4u4000945f9jzluxkbq",
+        "toUserName": "Sophia Ramirez",
+        "listingId": "cmv51a4we001545f98uac2w3e",
+        "listingTitle": "Project Hail Mary",
+        "listingPrice": 14,
+        "listingImage": "/items/books/project-hail-mary.jpg",
+        "handshakePin": "PIN-4616",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_wzg1",
+        "fromUserId": "cmv51a4u4000945f9jzluxkbq",
+        "fromUserName": "Sophia Ramirez",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4z0003245f95q4xsabp",
+        "listingTitle": "Wingspan Board Game + European Expansion (Stonemaier Games)",
+        "listingPrice": 0,
+        "listingImage": "/items/products/wingspan-game.jpg",
+        "handshakePin": "PIN-6482",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
+    "id": "mpt_1791799369185_hbjyq",
+    "cycleId": "cycle-3-cmv51a4we001545f98uac2w3e:cmv51a4wi001845f9cifkx476:cmv51a4x3001n45f978gbgjhq",
+    "createdAt": "2026-10-12T10:02:49.185Z",
+    "status": "PENDING_APPROVAL",
+    "summary": "Circle Swap: Marcus Chen gives to David Miller, David Miller gives to Sarah Jenkins, and Sarah Jenkins gives to Marcus Chen!",
+    "efficiencyGain": "Circular Barter Liquidity Unlocked without Currency",
+    "participants": [
+      {
+        "userId": "cmv51a4ti000245f9hirej4w2",
+        "userName": "Marcus Chen",
+        "city": "San Francisco",
+        "givingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "receivingTitle": "Thinking, Fast and Slow",
+        "hasAccepted": true,
+        "acceptedAt": "2026-10-12T10:02:49.185Z"
+      },
+      {
+        "userId": "cmv51a4tm000445f9xwq5998t",
+        "userName": "David Miller",
+        "city": "Seattle",
+        "givingTitle": "Project Hail Mary",
+        "receivingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "hasAccepted": false
+      },
+      {
+        "userId": "cmv51a4tf000145f94pp7wx16",
+        "userName": "Sarah Jenkins",
+        "city": "Boston",
+        "givingTitle": "Thinking, Fast and Slow",
+        "receivingTitle": "Project Hail Mary",
+        "hasAccepted": false
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg_1_50g9",
+        "fromUserId": "cmv51a4ti000245f9hirej4w2",
+        "fromUserName": "Marcus Chen",
+        "toUserId": "cmv51a4tm000445f9xwq5998t",
+        "toUserName": "David Miller",
+        "listingId": "cmv51a4wi001845f9cifkx476",
+        "listingTitle": "Neuromancer (Sprawl Trilogy Book 1)",
+        "listingPrice": 10,
+        "listingImage": "/items/books/neuromancer.jpg",
+        "handshakePin": "PIN-1029",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_2_049m",
+        "fromUserId": "cmv51a4tm000445f9xwq5998t",
+        "fromUserName": "David Miller",
+        "toUserId": "cmv51a4tf000145f94pp7wx16",
+        "toUserName": "Sarah Jenkins",
+        "listingId": "cmv51a4we001545f98uac2w3e",
+        "listingTitle": "Project Hail Mary",
+        "listingPrice": 14,
+        "listingImage": "/items/books/project-hail-mary.jpg",
+        "handshakePin": "PIN-4481",
+        "isDelivered": false
+      },
+      {
+        "id": "leg_3_o72f",
+        "fromUserId": "cmv51a4tf000145f94pp7wx16",
+        "fromUserName": "Sarah Jenkins",
+        "toUserId": "cmv51a4ti000245f9hirej4w2",
+        "toUserName": "Marcus Chen",
+        "listingId": "cmv51a4x3001n45f978gbgjhq",
+        "listingTitle": "Thinking, Fast and Slow",
+        "listingPrice": 0,
+        "listingImage": "/items/books/thinking-fast-and-slow.jpg",
+        "handshakePin": "PIN-4311",
+        "isDelivered": false
+      }
+    ]
+  },
+  {
     "id": "mpt_1791798442704_feuub",
     "cycleId": "cycle-3-cmv51a4we001545f98uac2w3e:cmv51a4wi001845f9cifkx476:cmv51a4wu001h45f9a5zyhvz8",
     "createdAt": "2026-10-12T09:47:22.704Z",
