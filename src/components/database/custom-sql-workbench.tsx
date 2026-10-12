@@ -445,17 +445,17 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
                         : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-bold text-xs truncate">{tmpl.name}</span>
+                    <div className="flex items-center gap-2.5 min-w-0">
                       <span
-                        className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0 ${
+                        className={`w-5 h-5 rounded-md flex items-center justify-center font-mono text-[10.5px] font-bold shrink-0 ${
                           isSelected
                             ? 'bg-primary text-white'
-                            : 'bg-surface-container text-outline'
+                            : 'bg-surface-container text-on-surface-variant'
                         }`}
                       >
-                        #{idx + 1}
+                        {idx + 1}
                       </span>
+                      <span className="font-bold text-xs truncate">{tmpl.name}</span>
                     </div>
                   </button>
                 );
@@ -479,19 +479,19 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
                       : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-bold text-xs truncate">{recipe.title}</span>
+                  <div className="flex items-center gap-2.5 min-w-0">
                     <span
-                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0 ${
+                      className={`w-5 h-5 rounded-md flex items-center justify-center font-mono text-[10.5px] font-bold shrink-0 ${
                         isSelected
                           ? 'bg-primary text-white'
-                          : 'bg-surface-container text-outline'
+                          : 'bg-surface-container text-on-surface-variant'
                       }`}
                     >
-                      #{idx + 1}
+                      {idx + 1}
                     </span>
+                    <span className="font-bold text-xs truncate">{recipe.title}</span>
                   </div>
-                  <div className="text-[10.5px] text-on-surface-variant truncate mt-0.5">
+                  <div className="text-[10.5px] text-on-surface-variant truncate mt-1 pl-7">
                     {recipe.description}
                   </div>
                 </button>
