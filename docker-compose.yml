@@ -51,6 +51,8 @@ services:
       - NEO4J_USER=neo4j
       - NEO4J_PASSWORD=password
       - NODE_ENV=production
+    volumes:
+      - uploads_data:/app/public/uploads
     depends_on:
       db:
         condition: service_healthy
@@ -58,3 +60,4 @@ services:
 volumes:
   postgres_data:
   neo4j_data:
+  uploads_data:
