@@ -433,7 +433,7 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
 
             {/* Streamlined Query List */}
             <div className="p-2 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-1 max-h-[500px] overflow-y-auto pr-1">
-              {filteredTemplates.map((tmpl) => {
+              {filteredTemplates.map((tmpl, idx) => {
                 const isSelected = activeItemId === tmpl.id;
                 return (
                   <button
@@ -445,18 +445,16 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
                         : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center justify-between gap-2">
                       <span className="font-bold text-xs truncate">{tmpl.name}</span>
                       <span
-                        className={`text-[9px] uppercase px-1.5 py-0.2 rounded font-mono font-bold shrink-0 ${
-                          tmpl.category === 'Simple'
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : tmpl.category === 'Joins'
-                            ? 'bg-amber-100 text-amber-900'
-                            : 'bg-purple-100 text-purple-900'
+                        className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0 ${
+                          isSelected
+                            ? 'bg-primary text-white'
+                            : 'bg-surface-container text-outline'
                         }`}
                       >
-                        {tmpl.category}
+                        #{idx + 1}
                       </span>
                     </div>
                   </button>
@@ -481,7 +479,18 @@ export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWor
                       : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
                   }`}
                 >
-                  <div className="font-bold text-xs truncate">{recipe.title}</div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-bold text-xs truncate">{recipe.title}</span>
+                    <span
+                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0 ${
+                        isSelected
+                          ? 'bg-primary text-white'
+                          : 'bg-surface-container text-outline'
+                      }`}
+                    >
+                      #{idx + 1}
+                    </span>
+                  </div>
                   <div className="text-[10.5px] text-on-surface-variant truncate mt-0.5">
                     {recipe.description}
                   </div>
