@@ -624,13 +624,12 @@ export default function DatabasePage() {
                   onClick={() => setActiveTab('neo4j')}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeTab === 'neo4j'
-                      ? 'bg-emerald-600 text-white shadow-xs'
-                      : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/30'
+                      ? 'bg-primary text-white shadow-xs'
+                      : 'bg-surface-container-lowest text-primary hover:bg-surface-container border border-primary/20'
                   }`}
                 >
-                  <Share2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <Share2 className="w-3.5 h-3.5 text-primary" />
                   <span>Modern NoSQL (Neo4j Graph)</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-mono">NEW</span>
                 </button>
               </div>
             </div>
