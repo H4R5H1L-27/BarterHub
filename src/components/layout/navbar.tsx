@@ -16,7 +16,6 @@ import {
   MapPin,
   Bell,
   Heart,
-  Mic,
   LayoutGrid,
   Database,
 } from 'lucide-react';
@@ -36,7 +35,6 @@ export default function Navbar() {
   const [notes, setNotes] = useState<{ id: string; title: string; body: string; href?: string | null; isRead: boolean }[]>([]);
   const [notesOpen, setNotesOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [isListening, setIsListening] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -95,32 +93,6 @@ export default function Navbar() {
     goSearch(searchQuery);
   };
 
-  const startVoice = () => {
-    const SpeechRecognition =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert('Voice search is not supported in this browser. Please type your search query directly.');
-      return;
-    }
-    try {
-      const rec = new SpeechRecognition();
-      rec.lang = 'en-US';
-      setIsListening(true);
-      rec.onresult = (event: any) => {
-        const text = event.results?.[0]?.[0]?.transcript;
-        if (text) {
-          setSearchQuery(text);
-          goSearch(text);
-        }
-      };
-      rec.onerror = () => setIsListening(false);
-      rec.onend = () => setIsListening(false);
-      rec.start();
-    } catch {
-      setIsListening(false);
-    }
-  };
-
   return (
     <header className="sticky top-0 z-50 bg-surface-container-lowest/95 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +110,7 @@ export default function Navbar() {
           </Link>
 
           {/* Center Search Bar with Location Pill */}
-          <div className="hidden lg:flex items-center flex-1 max-w-sm xl:max-w-md bg-surface-container-low rounded-full px-2 py-1 border border-outline-variant/40 shadow-inner">
+          <div className="hidden lg:flex items-center flex-1 min-w-[280px] max-w-md xl:max-w-lg bg-surface-container-low rounded-full px-2.5 py-1 border border-outline-variant/40 shadow-inner">
             <label className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-xs font-semibold text-on-surface shadow-xs cursor-pointer hover:bg-surface-container transition-colors shrink-0">
               <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
               <select
@@ -155,10 +127,10 @@ export default function Navbar() {
               </select>
             </label>
 
-            <div className="h-4 w-px bg-outline-variant/60 mx-1.5 shrink-0" />
+            <div className="h-4 w-px bg-outline-variant/60 mx-2 shrink-0" />
 
-            <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-0 flex items-center">
-              <Search className="w-3.5 h-3.5 text-outline mr-1.5 shrink-0 pointer-events-none" />
+            <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-[140px] flex items-center">
+              <Search className="w-3.5 h-3.5 text-outline mr-2 shrink-0 pointer-events-none" />
               <input
                 ref={searchRef}
                 type="text"
@@ -166,10 +138,10 @@ export default function Navbar() {
                 value={searchQuery}
                 onFocus={() => setSearchOpen(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full min-w-0 bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-outline/80"
+                className="w-full flex-1 min-w-[100px] bg-transparent border-none focus:outline-none text-xs text-on-surface placeholder:text-outline/80 pr-1"
               />
 
-              <div className="flex items-center gap-0.5 shrink-0 ml-1">
+              <div className="flex items-center gap-1 shrink-0 ml-1">
                 {searchQuery && (
                   <button
                     type="button"
@@ -177,28 +149,15 @@ export default function Navbar() {
                       setSearchQuery('');
                       searchRef.current?.focus();
                     }}
-                    className="p-1 text-outline hover:text-on-surface rounded-full"
+                    className="p-1 text-outline hover:text-on-surface rounded-full transition-colors"
                     title="Clear search"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
                 )}
                 <button
-                  type="button"
-                  onClick={startVoice}
-                  className={`p-1 rounded-full transition-all ${
-                    isListening
-                      ? 'bg-clay text-white animate-pulse'
-                      : 'text-outline hover:text-primary hover:bg-surface-container'
-                  }`}
-                  aria-label="Voice search"
-                  title={isListening ? 'Listening... speak now' : 'Voice search'}
-                >
-                  <Mic className="w-3.5 h-3.5" />
-                </button>
-                <button
                   type="submit"
-                  className="px-2.5 py-1 bg-primary text-white text-xs font-semibold rounded-full hover:bg-primary-container transition-all shadow-xs shrink-0"
+                  className="px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full hover:bg-primary-container transition-all shadow-xs shrink-0"
                 >
                   Search
                 </button>
