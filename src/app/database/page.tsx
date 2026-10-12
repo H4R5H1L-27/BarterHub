@@ -905,16 +905,16 @@ export default function DatabasePage() {
                 </div>
                 <div className="flex items-center gap-4 text-xs font-semibold">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-primary rounded" />
-                    <span>1:N Has Many</span>
+                    <span className="w-3.5 h-1 bg-indigo-500 rounded" />
+                    <span className="text-indigo-900 dark:text-indigo-300 font-bold">1:N One-to-Many</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-teal-500 rounded" />
-                    <span>1:1 Optional Child</span>
+                    <span className="w-3.5 h-1 bg-teal-500 border-t-2 border-dashed border-teal-500 rounded" />
+                    <span className="text-teal-900 dark:text-teal-300 font-bold">1:1 Optional Child</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-1 bg-amber-500 rounded" />
-                    <span>N:M Multi-Join</span>
+                    <span className="w-3.5 h-1 bg-amber-500 border-t-2 border-dotted border-amber-500 rounded" />
+                    <span className="text-amber-900 dark:text-amber-300 font-bold">N:M Multi-Join Bridge</span>
                   </div>
                 </div>
               </div>
@@ -1106,17 +1106,17 @@ export default function DatabasePage() {
               <div className="pt-4 border-t border-outline-variant/20 space-y-3">
                 <h3 className="font-bold text-sm text-on-surface">Foreign Key Referential Cardinality Matrix</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-primary block">User → Listing (1:N)</span>
-                    <span className="text-on-surface-variant text-[11px]">CASCADE on user deletion. A user owns zero or many posted items.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-indigo-200/80">
+                    <span className="font-bold text-indigo-700 block">User → Listing (1:N One-to-Many)</span>
+                    <span className="text-on-surface-variant text-[11px]">CASCADE on user deletion. A single registered user owns zero, one, or many items.</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-teal-700 block">Listing → BookDetails (1:1)</span>
-                    <span className="text-on-surface-variant text-[11px]">Unique listingId FK. Automatically cascades when listing is removed.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-teal-200/80">
+                    <span className="font-bold text-teal-700 block">Listing → BookDetails (1:1 Extension)</span>
+                    <span className="text-on-surface-variant text-[11px]">Unique listingId FK. Optional 1-to-1 extension table for book-specific metadata.</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20">
-                    <span className="font-bold text-amber-700 block">BarterProposal → BarterItem (1:N)</span>
-                    <span className="text-on-surface-variant text-[11px]">Join table resolves M:N barter combinations into clean 1:N relations.</span>
+                  <div className="p-3 rounded-xl bg-surface-container-lowest border border-amber-200/80">
+                    <span className="font-bold text-amber-700 block">Proposal ↔ BarterItem ↔ Listing (N:M Bridge)</span>
+                    <span className="text-on-surface-variant text-[11px]">Associative join table: Resolves M:N swaps so a single barter proposal bundles multiple items.</span>
                   </div>
                 </div>
               </div>
