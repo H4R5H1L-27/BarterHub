@@ -22,7 +22,7 @@ import ReviewModal from '@/components/modals/review-modal';
 import MultiPartyTradesView from '@/components/marketplace/multi-party-trades-view';
 import { useSearchParams } from 'next/navigation';
 
-export default function OffersDashboardPage() {
+function OffersDashboardContent() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<'RECEIVED_BARTERS' | 'SENT_BARTERS' | 'RECEIVED_OFFERS' | 'SENT_OFFERS' | 'MULTI_PARTY_TRADES'>(
     searchParams.get('tab') === 'multi_party' ? 'MULTI_PARTY_TRADES' : 'RECEIVED_BARTERS'
@@ -821,5 +821,17 @@ export default function OffersDashboardPage() {
       )}
 
     </div>
+  );
+}
+
+export default function OffersDashboardPage() {
+  return (
+    <React.Suspense fallback={
+      <div className="min-h-screen bg-surface flex items-center justify-center p-8">
+        <div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+      </div>
+    }>
+      <OffersDashboardContent />
+    </React.Suspense>
   );
 }
