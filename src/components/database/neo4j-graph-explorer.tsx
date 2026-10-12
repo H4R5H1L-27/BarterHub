@@ -75,14 +75,14 @@ WHERE l1 <> l2 AND l2 <> l3 AND l1 <> l3
 RETURN l1.title AS item1, l2.title AS item2, l3.title AS item3`,
     postgresEquivalent: `-- Requires 3-Way Self JOIN or Recursive CTE with Cycle Checks:
 WITH RECURSIVE BarterPaths AS (
-  SELECT b1.targetListingId AS start_item, bi1.listingId AS current_item, 1 AS depth, ARRAY[b1.targetListingId, bi1.listingId] AS visited
+  SELECT b1."targetListingId" AS start_item, bi1."listingId" AS current_item, 1 AS depth, ARRAY[b1."targetListingId", bi1."listingId"] AS visited
   FROM "BarterProposal" b1 JOIN "BarterItem" bi1 ON b1.id = bi1."proposalId"
   UNION ALL
-  SELECT bp.start_item, bi2.listingId, bp.depth + 1, bp.visited || bi2.listingId
+  SELECT bp.start_item, bi2."listingId", bp.depth + 1, bp.visited || bi2."listingId"
   FROM BarterPaths bp
   JOIN "BarterProposal" b2 ON bp.current_item = b2."targetListingId"
   JOIN "BarterItem" bi2 ON b2.id = bi2."proposalId"
-  WHERE bp.depth < 3 AND NOT (bi2.listingId = ANY(bp.visited[2:]))
+  WHERE bp.depth < 3 AND NOT (bi2."listingId" = ANY(bp.visited[2:]))
 )
 SELECT * FROM BarterPaths WHERE current_item = start_item AND depth = 3;`,
   },
@@ -94,10 +94,10 @@ WHERE l1 <> l2
 RETURN [n in nodes(path) | n.title] AS tradeChain, length(path) AS hops
 LIMIT 5`,
     postgresEquivalent: `WITH RECURSIVE TransitivePaths AS (
-  SELECT b1.targetListingId AS start_item, bi1.listingId AS current_item, 1 AS depth
+  SELECT b1."targetListingId" AS start_item, bi1."listingId" AS current_item, 1 AS depth
   FROM "BarterProposal" b1 JOIN "BarterItem" bi1 ON b1.id = bi1."proposalId"
   UNION ALL
-  SELECT tp.start_item, bi2.listingId, tp.depth + 1
+  SELECT tp.start_item, bi2."listingId", tp.depth + 1
   FROM TransitivePaths tp
   JOIN "BarterProposal" b2 ON tp.current_item = b2."targetListingId"
   JOIN "BarterItem" bi2 ON b2.id = bi2."proposalId"
