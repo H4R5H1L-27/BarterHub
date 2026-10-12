@@ -19,7 +19,8 @@ import {
   PlusCircle, 
   SlidersHorizontal,
   Tag,
-  AlertCircle
+  AlertCircle,
+  Pencil
 } from 'lucide-react';
 import { ListingItem } from '@/lib/types';
 
@@ -437,6 +438,16 @@ export default function MyListingsDashboard() {
 
                   {/* Quick Action Button Bar */}
                   <div className="flex items-center gap-1.5 flex-wrap">
+                    {/* Edit Posting */}
+                    <Link
+                      href={`/listings/${item.id}/edit`}
+                      className="px-3 py-1.5 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-full text-xs font-bold flex items-center gap-1 transition-all shadow-xs"
+                      title="Edit Full Posting"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                      <span>Edit</span>
+                    </Link>
+
                     {/* View Public Listing */}
                     <Link
                       href={`/listings/${item.id}`}

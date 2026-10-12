@@ -19,7 +19,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   ArrowLeft,
-  Truck
+  Truck,
+  Pencil
 } from 'lucide-react';
 import OfferModal from '@/components/modals/offer-modal';
 import BarterModal from '@/components/modals/barter-modal';
@@ -251,19 +252,32 @@ export default function ListingDetailPage() {
 
         <div className="lg:col-span-5 space-y-6">
           
-          {/* Quick Dashboard shortcut only if logged-in user owns listing */}
+          {/* Quick Owner Controls shortcut only if logged-in user owns listing */}
           {currentUser && currentUser.id === listing.userId && (
-            <div className="bg-indigo-900 text-white p-4 rounded-3xl flex items-center justify-between shadow-md">
+            <div className="bg-primary text-white p-4 sm:p-5 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
               <div>
-                <p className="text-xs font-bold text-indigo-200 uppercase tracking-wider">Owner Controls</p>
-                <p className="text-xs font-semibold text-white mt-0.5">Manage status, price drops & boosts</p>
+                <p className="text-[11px] font-bold text-primary-fixed uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Owner Controls
+                </p>
+                <p className="text-xs sm:text-sm font-semibold text-white mt-0.5">
+                  You created this posting. Update details or manage barter proposals.
+                </p>
               </div>
-              <Link
-                href="/dashboard"
-                className="px-3.5 py-2 bg-white text-indigo-950 font-black rounded-xl text-xs hover:bg-indigo-50 transition-colors"
-              >
-                Manage Item →
-              </Link>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href={`/listings/${listing.id}/edit`}
+                  className="px-4 py-2 bg-white text-primary font-bold rounded-xl text-xs hover:bg-primary-fixed transition-colors flex items-center gap-1.5 shadow-sm"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                  <span>Edit Posting</span>
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="px-3.5 py-2 bg-primary-container text-white font-semibold rounded-xl text-xs hover:bg-primary-container/80 transition-colors"
+                >
+                  Dashboard →
+                </Link>
+              </div>
             </div>
           )}
 
@@ -301,13 +315,23 @@ export default function ListingDetailPage() {
             {/* CTAs */}
             <div className="space-y-3">
               {currentUser && currentUser.id === listing.userId ? (
-                <div className="p-4 bg-primary-fixed/30 border border-primary/20 rounded-2xl text-center space-y-2">
-                  <p className="text-xs font-bold text-primary">You are the owner of this listing</p>
+                <div className="p-4 bg-primary-fixed/30 border border-primary/20 rounded-2xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-bold text-primary">You own this posting</p>
+                    <span className="text-[10px] uppercase font-bold text-outline">Verified Owner</span>
+                  </div>
+                  <Link
+                    href={`/listings/${listing.id}/edit`}
+                    className="w-full py-3 px-4 bg-primary text-white rounded-full text-xs font-bold hover:bg-primary-container shadow-lift transition-all flex items-center justify-center gap-2"
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                    <span>Edit Posting Details</span>
+                  </Link>
                   <Link
                     href="/dashboard"
-                    className="block w-full py-2.5 bg-primary text-white rounded-full text-xs font-bold hover:bg-primary-container shadow-lift transition-all"
+                    className="block w-full py-2 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-full text-xs font-semibold transition-colors text-center border border-outline-variant/30"
                   >
-                    Go to Management Desk
+                    Manage in Dashboard
                   </Link>
                 </div>
               ) : (
