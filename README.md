@@ -63,9 +63,14 @@ Comprehensive item dossier displaying owner trade wishlists, academic and hardwa
 ---
 
 ### 3. ➕ Publish Barter Ad Wizard & Live Preview (`/listings/new`)
-4-step progressive listing wizard with adaptive form schemas for tech gear and books, algorithmic valuation spectrum slider, target wishlist tags, safe handover spot picker, and a sticky live marketplace feed card preview.
+4-step progressive listing wizard with adaptive form schemas for tech gear and books, algorithmic valuation spectrum slider, target wishlist tags, drag-and-drop local image uploads with primary cover photo selection, simplified meetup location input with quick suggestions, and a sticky live marketplace feed card preview. Protected with stage arrival guards and DOM key isolation against accidental skips.
 
 ![Post New Barter Listing Wizard](public/screenshots/post-listing.png)
+
+---
+
+### 3b. ✏️ Owner Listing Editing & Real-Time Preview (`/listings/:id/edit`)
+Dedicated listing management page enabling owners to modify active listings with pre-populated values, split-screen real-time card preview, category-specific detail editing (`BookDetails` / `ProductDetails`), price history tracking, local image upload/removal, wishlist tag management, and meetup location updates. Strict authorization guards reject unauthorized non-owner edits with `403 Forbidden`.
 
 ---
 
@@ -131,9 +136,10 @@ graph TD
   Browse["🔍 Catalog & Filters (/listings)<br/>• Faceted Filter Rail<br/>• Valuation Histogram<br/>• Search & Active Chips<br/>• Soft Modern Cards"]
   NewListing["➕ Post Barter Ad (/listings/new)<br/>• Step 1-4 Wizard<br/>• Adaptable Category Specs<br/>• Valuation Slider & Wishlist Tags<br/>• Sticky Live Marketplace Preview"]
   ListingDetail["📦 Item Detail (/listings/:id)<br/>• Concentric Media Gallery<br/>• Barter / Cash CTAs<br/>• Trader Trust Dossier<br/>• Barter Modal / Offer Modal"]
+  EditListing["✏️ Edit Listing (/listings/:id/edit)<br/>• Pre-Populated State<br/>• Real-Time Preview<br/>• Local Image Upload & Reorder<br/>• Owner Access Guards"]
   Offers["🤝 Offers Hub (/offers)<br/>• Inbound / Outbound Barters<br/>• Cash Offers Desk<br/>• Smart Swap Chains (Circular Loops)<br/>• In-Person Safety Code Verification"]
   Messages["💬 Trade Chat (/messages)<br/>• Auth-Gated Polling Chat<br/>• In-Thread Cash Offer Cards<br/>• In-Thread Barter Proposal Cards<br/>• Conversation Rail"]
-  Dashboard["📊 Management Desk (/dashboard)<br/>• 4 Bento Analytics Cards<br/>• Views Sparkline Graph<br/>• Inventory Manager & Status Toggles<br/>• Quick Actions"]
+  Dashboard["📊 Management Desk (/dashboard)<br/>• 4 Bento Analytics Cards<br/>• Views Sparkline Graph<br/>• Inventory Manager & Status Toggles<br/>• Quick Actions & Edit Triggers"]
   Favorites["❤️ Saved Watchlist (/favorites)<br/>• Mutual Match Recommendation Alert<br/>• Saved Listing Grid<br/>• Quick Propose Actions"]
   Compare["⚖️ Comparison Matrix (/compare)<br/>• Side-by-Side Analysis Table<br/>• Valuation & Condition Alignment<br/>• Safe Meetup & Direct CTAs"]
   Profile["👤 Trader Reputation (/profile/:id)<br/>• Trust Scorecard (100% Meets)<br/>• Verified Campus Badges<br/>• Completed Trades & Reviews"]
@@ -148,9 +154,11 @@ graph TD
   Browse --> Compare
   ListingDetail --> Offers
   ListingDetail --> Messages
+  ListingDetail --> EditListing
   Offers --> Messages
   Offers --> Dashboard
   Dashboard --> NewListing
+  Dashboard --> EditListing
   Browse --> Favorites
   ListingDetail --> Profile
 ```
@@ -332,15 +340,20 @@ All API routes are located under `/api/` and utilize standard JSON request/respo
 | `GET` | `/api/auth/me` | Fetch currently authenticated user session | Authenticated |
 | `POST` | `/api/auth/logout` | Clear session token and log out | Public |
 
-### Listings & Catalog
+#### Listings & Catalog
 | Method | Endpoint | Description | Access |
 |---|---|---|---|
 | `GET` | `/api/listings` | Search and filter listings (query, type, exchange, price range) | Public |
 | `POST` | `/api/listings` | Create a new listing with book or product details | Authenticated |
 | `GET` | `/api/listings/:id` | Get comprehensive item details, owner profile, specs | Public |
-| `PUT` | `/api/listings/:id` | Update listing title, price, specs, status | Owner |
+| `PATCH` / `PUT` | `/api/listings/:id` | Update listing title, price, specs, status, location, and images | Owner |
 | `DELETE` | `/api/listings/:id` | Archive or delete listing | Owner |
 | `GET` | `/api/listings/my` | Get current user's active, pending, and traded items | Authenticated |
+
+### 🖼️ Media & Uploads
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| `POST` | `/api/upload` | Upload device image files (multipart/form-data, PNG/JPG/WEBP/GIF, up to 10MB) | Authenticated / Public |
 
 ### 1-on-1 Barters & Cash Offers
 | Method | Endpoint | Description | Access |
@@ -386,7 +399,8 @@ productexchangeplat/
 │   ├── schema.prisma          # Comprehensive 16-model PostgreSQL schema
 │   └── seed.ts                # Realistic seed script with 10 demo personas & 36 items
 ├── public/
-│   └── screenshots/           # High-resolution screenshots & graph explorer captures
+│   ├── screenshots/           # High-resolution screenshots & graph explorer captures
+│   └── uploads/               # Dynamic local user-uploaded image directory
 ├── src/
 │   ├── app/
 │   │   ├── (auth)/
@@ -403,18 +417,21 @@ productexchangeplat/
 │   │   │   ├── listings/            # CRUD & promote endpoints
 │   │   │   ├── messages/            # Real-time chat & deal cards
 │   │   │   ├── offers/              # Cash offer management
-│   │   │   └── trades/multi-party/  # Circular barter creation, respond & verify
-│   │   │       ├── route.ts
-│   │   │       ├── [id]/respond/route.ts
-│   │   │       └── [id]/verify/route.ts
+│   │   │   ├── trades/multi-party/  # Circular barter creation, respond & verify
+│   │   │   │   ├── route.ts
+│   │   │   │   ├── [id]/respond/route.ts
+│   │   │   │   └── [id]/verify/route.ts
+│   │   │   └── upload/route.ts      # Multi-part local image file upload
 │   │   ├── compare/page.tsx         # Side-by-side comparison matrix
 │   │   ├── dashboard/page.tsx       # Seller management desk & stats
 │   │   ├── database/page.tsx        # 6-tab Database Hub, SQL Studio & Neo4j Explorer
 │   │   ├── favorites/page.tsx       # Bookmarks & mutual match alerts
 │   │   ├── listings/
 │   │   │   ├── page.tsx             # Faceted catalog & histogram slider
-│   │   │   ├── new/page.tsx         # 4-step listing wizard
-│   │   │   └── [id]/page.tsx        # Item dossier & proposal launcher
+│   │   │   ├── new/page.tsx         # 4-step listing wizard & image upload
+│   │   │   ├── [id]/
+│   │   │   │   ├── page.tsx         # Item dossier & proposal launcher
+│   │   │   │   └── edit/page.tsx    # Owner listing editing & live preview
 │   │   ├── messages/page.tsx        # Trade chat & deal cards
 │   │   ├── offers/page.tsx          # Swaps hub, handshake & Smart Swap Chains
 │   │   ├── profile/[id]/page.tsx    # Trader reputation scorecard
@@ -563,6 +580,30 @@ You can switch between any of these accounts with **1-click** directly on the **
 1. In `/offers`, open the **Received Barters** tab.
 2. For an `ACCEPTED` barter, notice your private **Handover Confirmation Code** displayed clearly for in-person sharing.
 3. Open the **Sent Barters** tab and observe that deliverers are instructed to request the code upon meetup and enter it into the verification input.
+
+### 4. Testing Post Creation with Local Image Upload & Location (`/listings/new`)
+1. Click **"Post Ad"** in the top navigation (or navigate to `/listings/new`).
+2. **Step 1 (Category & Specs):** Fill in title, description, and specs (or leave defaults for testing). Click **"Continue to Step 2"**.
+3. **Step 2 (Photos & Proof):**
+   * Drag and drop an image file (PNG, JPG, WEBP) into the upload dropzone or click to browse files from your computer.
+   * The image is uploaded directly via `/api/upload` to `public/uploads/` with immediate visual feedback.
+   * Click any uploaded thumbnail in the gallery to mark it with the **Cover** photo badge.
+   * Click **"Continue to Step 3"**.
+4. **Step 3 (Valuation & Protocol):** Configure trade mode (**True Barter**, **Hybrid Swap**, or **Cash Direct**) and type wishlist tags. Click **"Continue to Step 4"**.
+5. **Step 4 (Location & Handover):**
+   * Enter your preferred meetup location/spot or select a quick suggestion pill (*Campus Student Union*, *Public Library*).
+   * Review the **Listing Summary Ready to Publish** card summarizing all choices.
+   * Click **"Publish Listing & Unlock Barter Matching"** to post your listing.
+
+### 5. Testing Owner Listing Editing & Real-Time Preview (`/listings/:id/edit`)
+1. Log in as **Julian Vance** (`julian@example.com`) via the 1-click persona switcher on `/login`.
+2. Go to your **Management Desk** (`/dashboard`) or open one of Julian's active listings (`/listings/:id`).
+3. Notice the **"Edit"** button on the dashboard toolbar and the **"Edit Posting"** controls banner on the listing page (visible strictly to the owner).
+4. Click **"Edit"** to open the dedicated editor at `/listings/:id/edit`.
+5. Observe all existing details pre-filled (hardware/book specs, price, condition, images, tags, city/state).
+6. Edit the price or title, upload a new photo, and watch the **Live Marketplace Preview** card in the right column update simultaneously.
+7. Click **"Save Listing Changes"** to commit the updates (with automatic price history logging) and return to the live listing.
+8. Verify authorization: Switching to another user and attempting to edit Julian's listing will display access rejection (`403 Forbidden`).
 
 ---
 
