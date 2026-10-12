@@ -159,25 +159,28 @@ export default function Neo4jGraphExplorer() {
   const [queryResult, setQueryResult] = useState<any>(null);
   const [runningQuery, setRunningQuery] = useState(false);
 
-  // Trade Modal State
+  // Modal State for initiating multi-party trade
   const [selectedCycleForAction, setSelectedCycleForAction] = useState<BarterCycle | null>(null);
   const [initiatedSwaps, setInitiatedSwaps] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchGraphData();
+    // Auto-run first Cypher preset
+    handleExecuteCypher(CYPHER_PRESETS[0].query);
   }, []);
 
   const fetchGraphData = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/graph/overview');
-      if (res.ok) {
-        const data = await res.json();
-        setStats(data.stats);
-        setCycles(data.cycles || []);
-      }
+      const [statsRes, cyclesRes] = await Promise.all([
+        fetch('/api/graph/stats').then((r) => r.json()).catch(() => null),
+        fetch('/api/graph/cycles').then((r) => r.json()).catch(() => null),
+      ]);
+
+      if (statsRes?.stats) setStats(statsRes.stats);
+      if (cyclesRes?.cycles) setCycles(cyclesRes.cycles);
     } catch (err) {
-      console.error('Failed to load graph overview:', err);
+      console.error('Failed to fetch graph data:', err);
     } finally {
       setLoading(false);
     }
@@ -186,6 +189,7 @@ export default function Neo4jGraphExplorer() {
   const handleSync = async () => {
     try {
       setSyncing(true);
+      setSyncMessage(null);
       const res = await fetch('/api/graph/sync', { method: 'POST' });
       const data = await res.json();
       setSyncMessage(data.message || 'Synchronization complete');
@@ -245,28 +249,27 @@ export default function Neo4jGraphExplorer() {
   };
 
   return (
-    <div className="space-y-8 font-sans">
+    <div className="space-y-6 font-sans">
       {/* ========================================================================= */}
-      {/* 1. TOP HEADER BANNER: Ultra Clean, High-Contrast Dark Header */}
+      {/* 1. TOP HEADER BANNER: Clean, Studio-Aligned Theme */}
       {/* ========================================================================= */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
-        {/* Subtle glowing background orbs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
+      <div className="bg-surface-container-lowest rounded-3xl p-6 sm:p-8 border border-outline-variant/30 shadow-xs relative overflow-hidden">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
-          <div className="space-y-3 max-w-3xl">
+          <div className="space-y-2 max-w-3xl">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary-fixed text-primary">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 {stats?.status === 'connected' ? 'Neo4j Live Bolt Server' : 'Deterministic Graph Engine (Active)'}
+              </span>
+              <span className="text-[11px] font-bold text-outline uppercase tracking-wider">
+                Graph NoSQL Layer
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
               Neo4j Barter Graph & Multi-Hop Cycle Engine
             </h2>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
               Added alongside PostgreSQL to solve the <strong>&quot;Double Coincidence of Wants&quot;</strong>. 
               While relational SQL struggles with multi-hop recursive self-joins, Neo4j uses <strong>index-free adjacency</strong> to find multi-party circular barter loops where no single person has to pay money.
             </p>
@@ -276,7 +279,7 @@ export default function Neo4jGraphExplorer() {
             <button
               onClick={handleSync}
               disabled={syncing}
-              className="px-5 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95 disabled:opacity-50"
+              className="px-5 py-2.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all active:scale-95 disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
               {syncing ? 'Syncing Graph...' : 'Sync Postgres → Neo4j'}
@@ -285,217 +288,96 @@ export default function Neo4jGraphExplorer() {
         </div>
 
         {syncMessage && (
-          <div className="mt-4 px-4 py-3 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>{syncMessage}</span>
+          <div className="mt-4 px-4 py-3 rounded-2xl bg-primary-fixed/50 border border-primary/20 text-on-primary-fixed text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+            <span className="font-medium">{syncMessage}</span>
           </div>
         )}
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. STATS OVERVIEW CARDS: Clean White, High-Contrast Light Mode */}
+      {/* 2. STATS OVERVIEW CARDS: Clean Surface Styling */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold mb-1">
+        <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs hover:border-primary/40 transition-all">
+          <div className="flex items-center justify-between text-outline text-xs font-semibold mb-1">
             <span>Graph Nodes</span>
-            <CircleDot className="w-4 h-4 text-indigo-600" />
+            <CircleDot className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-2xl font-black text-on-surface">
             {(stats?.totalUsers || 0) + (stats?.totalListings || 0)}
           </div>
-          <div className="text-[11px] text-slate-500 font-medium mt-1">
+          <div className="text-[11px] text-on-surface-variant font-medium mt-1">
             {stats?.totalUsers || 0} Users • {stats?.totalListings || 0} Items
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold mb-1">
+        <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs hover:border-primary/40 transition-all">
+          <div className="flex items-center justify-between text-outline text-xs font-semibold mb-1">
             <span>Relationships</span>
-            <GitBranch className="w-4 h-4 text-cyan-600" />
+            <GitBranch className="w-4 h-4 text-secondary" />
           </div>
-          <div className="text-2xl font-black text-cyan-600">
+          <div className="text-2xl font-black text-secondary">
             {stats?.totalRelationships || 0}
           </div>
-          <div className="text-[11px] text-slate-500 font-medium mt-1">OWNS, WISHES, SWAPS</div>
+          <div className="text-[11px] text-on-surface-variant font-medium mt-1">OWNS, WISHES, SWAPS</div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-amber-200 bg-amber-50/30 shadow-xs">
-          <div className="flex items-center justify-between text-amber-800 text-xs font-semibold mb-1">
+        <div className="bg-surface-container-lowest p-4 rounded-2xl border border-tertiary/30 bg-tertiary-fixed/10 shadow-xs">
+          <div className="flex items-center justify-between text-on-tertiary-fixed-variant text-xs font-semibold mb-1">
             <span>Circular Loops</span>
-            <Share2 className="w-4 h-4 text-amber-600" />
+            <Share2 className="w-4 h-4 text-tertiary" />
           </div>
-          <div className="text-2xl font-black text-amber-600">
+          <div className="text-2xl font-black text-tertiary">
             {stats?.discovered3WayCycles || 0}
           </div>
-          <div className="text-[11px] text-amber-800 font-medium mt-1">3-Party Trade Rings</div>
+          <div className="text-[11px] text-on-surface-variant font-medium mt-1">3-Party Trade Rings</div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold mb-1">
+        <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs hover:border-primary/40 transition-all">
+          <div className="flex items-center justify-between text-outline text-xs font-semibold mb-1">
             <span>Graph Density</span>
-            <TrendingUp className="w-4 h-4 text-purple-600" />
+            <TrendingUp className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-2xl font-black text-purple-600">
+          <div className="text-2xl font-black text-primary">
             {stats?.graphDensity || 0}%
           </div>
-          <div className="text-[11px] text-slate-500 font-medium mt-1">Network Connectivity</div>
+          <div className="text-[11px] text-on-surface-variant font-medium mt-1">Network Connectivity</div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold mb-1">
+        <div className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/20 shadow-xs hover:border-primary/40 transition-all">
+          <div className="flex items-center justify-between text-outline text-xs font-semibold mb-1">
             <span>Query Speed</span>
-            <Zap className="w-4 h-4 text-amber-500" />
+            <Zap className="w-4 h-4 text-tertiary" />
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-2xl font-black text-on-surface">
             &lt; 2 ms
           </div>
-          <div className="text-[11px] text-slate-500 font-medium mt-1">Index-Free Adjacency</div>
+          <div className="text-[11px] text-on-surface-variant font-medium mt-1">Index-Free Adjacency</div>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. DISCOVERED CYCLES: High Contrast Cards with Action Buttons */}
+      {/* 3. ORDER FIRST: INTERACTIVE CYPHER CONSOLE & QUERY BOX */}
       {/* ========================================================================= */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+      <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 p-6 sm:p-8 space-y-6 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-outline-variant/20">
           <div>
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-emerald-600" />
-              <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                Discovered Multi-Party Barter Loops
-              </h3>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              Select a circular trade chain below and click &quot;Initiate Multi-Party Swap&quot; to test the coordinated handover.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="px-3.5 py-1.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200/60 text-xs font-bold flex items-center gap-1.5">
-              <Share2 className="w-3.5 h-3.5 text-amber-600" />
-              <span>{filteredCycles.length} Multi-Party Cycles Found</span>
-            </span>
-          </div>
-        </div>
-
-        {filteredCycles.length === 0 ? (
-          <div className="text-center py-12 text-slate-400 text-sm">
-            No cycles found for the selected filter. Click &quot;Sync Postgres → Neo4j&quot; to refresh.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {filteredCycles.map((cycle) => {
-              const isInitiated = initiatedSwaps.has(cycle.id);
-              return (
-                <div
-                  key={cycle.id}
-                  className="p-5 sm:p-6 rounded-2xl border bg-gradient-to-br from-amber-50/50 via-white to-white border-amber-200 hover:border-amber-300 shadow-xs flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Card Top: Badges */}
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border flex items-center gap-1.5 bg-amber-100 text-amber-800 border-amber-300">
-                        <Share2 className="w-3.5 h-3.5 text-amber-700" />
-                        3-Way Triangular Loop
-                      </span>
-                      <span className="text-xs font-bold text-slate-600 bg-white px-2.5 py-1 rounded-full border border-slate-200">
-                        Confidence: {(cycle.confidenceScore * 100).toFixed(0)}%
-                      </span>
-                    </div>
-
-                    <p className="text-xs font-semibold text-slate-800 mb-4 leading-relaxed">
-                      {cycle.summary}
-                    </p>
-
-                    {/* Step-by-Step Flow List */}
-                    <div className="space-y-2 bg-slate-50/80 p-3.5 rounded-xl border border-slate-200 text-xs mb-4">
-                      {cycle.items.map((item, idx) => (
-                        <div
-                          key={item.id}
-                          className="flex items-center justify-between gap-2 py-1.5 border-b border-slate-200/70 last:border-0"
-                        >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <span className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
-                              {idx + 1}
-                            </span>
-                            <div className="truncate">
-                              <span className="font-bold text-slate-900">{item.ownerName}</span>
-                              <span className="text-slate-500 text-[11px] ml-1">gives</span>
-                              <div className="text-indigo-600 font-semibold truncate text-[11px]">
-                                &quot;{item.title}&quot;
-                              </div>
-                            </div>
-                          </div>
-
-                          <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
-
-                          <div className="text-right shrink-0">
-                            <span className="text-[11px] text-slate-500">to</span>
-                            <span className="font-bold text-slate-900 text-xs ml-1">
-                              {item.desiredByUserName}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Card Bottom: Action Button & Liquidity Note */}
-                  <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">
-                      {cycle.efficiencyGain}
-                    </span>
-
-                    <button
-                      onClick={() => setSelectedCycleForAction(cycle)}
-                      className={`w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs ${
-                        isInitiated
-                          ? 'bg-slate-100 text-slate-600 border border-slate-200'
-                          : 'bg-amber-600 hover:bg-amber-500 text-white'
-                      }`}
-                    >
-                      {isInitiated ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Chain Active</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Initiate Multi-Party Swap</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 5. INTERACTIVE CYPHER CONSOLE: Dark IDE look with high contrast code */}
-      {/* ========================================================================= */}
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-8 space-y-6 text-white shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <Code2 className="w-5 h-5 text-emerald-400" />
-              <h3 className="text-xl font-extrabold text-white tracking-tight">
+              <Code2 className="w-5 h-5 text-primary" />
+              <h3 className="text-xl font-extrabold text-on-surface tracking-tight">
                 Interactive Cypher Query Workbench
               </h3>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
-              Run real declarative Cypher queries against the graph database layer and benchmark execution times.
+            <p className="text-xs text-on-surface-variant mt-1">
+              Run real declarative Cypher queries against the graph database layer and benchmark execution times against PostgreSQL.
             </p>
           </div>
 
           <button
             onClick={() => handleExecuteCypher()}
             disabled={runningQuery}
-            className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50 self-start sm:self-auto"
+            className="px-5 py-2.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all active:scale-95 disabled:opacity-50 self-start sm:self-auto"
           >
             <Play className={`w-3.5 h-3.5 fill-current ${runningQuery ? 'animate-spin' : ''}`} />
             {runningQuery ? 'Executing...' : 'Run Cypher Query'}
@@ -514,15 +396,15 @@ export default function Neo4jGraphExplorer() {
               }}
               className={`p-4 rounded-2xl border text-left transition-all ${
                 selectedPreset === idx
-                  ? 'bg-slate-800 border-emerald-400 text-white ring-1 ring-emerald-400/30'
-                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                  ? 'bg-primary/10 border-primary text-on-surface ring-1 ring-primary/40'
+                  : 'bg-surface-container-low border-outline-variant/20 text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
               }`}
             >
-              <div className="font-bold text-xs mb-1 flex items-center justify-between text-white">
+              <div className="font-bold text-xs mb-1 flex items-center justify-between text-on-surface">
                 <span>{p.name}</span>
-                {selectedPreset === idx && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                {selectedPreset === idx && <CheckCircle2 className="w-4 h-4 text-primary" />}
               </div>
-              <p className="text-[11px] text-slate-400 leading-tight">
+              <p className="text-[11px] text-on-surface-variant leading-tight">
                 {p.description}
               </p>
             </button>
@@ -532,34 +414,34 @@ export default function Neo4jGraphExplorer() {
         {/* Query Editor & PostgreSQL Comparison */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold text-white">
-              <span className="flex items-center gap-1.5 text-emerald-400">
+            <div className="flex items-center justify-between text-xs font-bold text-on-surface">
+              <span className="flex items-center gap-1.5 text-primary">
                 <Share2 className="w-4 h-4" />
                 Cypher Query (Neo4j Graph NoSQL)
               </span>
-              <span className="text-[11px] text-slate-400 font-mono">Index-Free Adjacency</span>
+              <span className="text-[11px] text-outline font-mono">Index-Free Adjacency</span>
             </div>
             <textarea
               value={customCypher}
               onChange={(e) => setCustomCypher(e.target.value)}
               rows={8}
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-emerald-300 focus:outline-none focus:border-emerald-500 transition-colors"
+              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-emerald-300 focus:outline-none focus:border-primary transition-colors shadow-inner"
             />
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold text-white">
-              <span className="flex items-center gap-1.5 text-cyan-400">
+            <div className="flex items-center justify-between text-xs font-bold text-on-surface">
+              <span className="flex items-center gap-1.5 text-secondary">
                 <Database className="w-4 h-4" />
                 Equivalent Relational SQL (PostgreSQL)
               </span>
-              <span className="text-[11px] text-amber-400 font-mono">Expensive Recursive / Self-JOIN</span>
+              <span className="text-[11px] text-tertiary font-mono">Recursive Self-JOIN</span>
             </div>
             <textarea
               readOnly
               value={CYPHER_PRESETS[selectedPreset].postgresEquivalent}
               rows={8}
-              className="w-full bg-slate-950/70 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-slate-400 focus:outline-none cursor-default"
+              className="w-full bg-slate-950/90 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-slate-300 focus:outline-none cursor-default shadow-inner"
             />
           </div>
         </div>
@@ -569,33 +451,33 @@ export default function Neo4jGraphExplorer() {
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-white">Execution Output:</span>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                <span className="font-bold text-on-surface">Execution Output:</span>
+                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-primary-fixed text-primary font-bold">
                   {queryResult.rows?.length || 0} rows returned
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-secondary-fixed text-secondary font-bold">
                   {queryResult.executionTimeMs || 1} ms latency
                 </span>
               </div>
-              <span className="text-[11px] text-slate-400">
-                Engine: <strong className="text-white">{queryResult.source === 'live_neo4j' ? 'Neo4j Bolt Server' : 'Deterministic Graph Engine'}</strong>
+              <span className="text-[11px] text-on-surface-variant">
+                Engine: <strong className="text-on-surface">{queryResult.source === 'live_neo4j' ? 'Neo4j Bolt Server' : 'Deterministic Graph Engine'}</strong>
               </span>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-slate-800 max-h-72 bg-slate-950">
+            <div className="overflow-x-auto rounded-2xl border border-outline-variant/30 max-h-72 bg-surface-container-low">
               <table className="w-full text-left text-xs font-mono">
-                <thead className="bg-slate-800/80 text-slate-300 uppercase text-[10px] sticky top-0">
+                <thead className="bg-surface-container text-on-surface uppercase text-[10px] sticky top-0 border-b border-outline-variant/20">
                   <tr>
                     {queryResult.columns?.map((col: string) => (
                       <th key={col} className="px-4 py-3 font-bold">{col}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-outline-variant/15">
                   {queryResult.rows?.map((row: any, rIdx: number) => (
-                    <tr key={rIdx} className="hover:bg-slate-800/50 transition-colors">
+                    <tr key={rIdx} className="hover:bg-surface-container-high/50 transition-colors">
                       {queryResult.columns?.map((col: string) => (
-                        <td key={col} className="px-4 py-2.5 text-slate-200 truncate max-w-xs">
+                        <td key={col} className="px-4 py-2.5 text-on-surface truncate max-w-xs">
                           {typeof row[col] === 'object' ? JSON.stringify(row[col]) : String(row[col] ?? '')}
                         </td>
                       ))}
@@ -609,27 +491,148 @@ export default function Neo4jGraphExplorer() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 6. MODAL: Multi-Party Swap Execution (How to actually use the 3-way ring) */}
+      {/* 4. ORDER SECOND: DISCOVERED CYCLES & FOUND LOOPS */}
+      {/* ========================================================================= */}
+      <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 p-6 sm:p-8 space-y-6 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/20 pb-5">
+          <div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-tertiary" />
+              <h3 className="text-xl font-extrabold text-on-surface tracking-tight">
+                Discovered Multi-Party Barter Loops
+              </h3>
+            </div>
+            <p className="text-xs text-on-surface-variant mt-1">
+              Select a circular trade chain below and click &quot;Initiate Multi-Party Swap&quot; to test coordinated exchange handovers.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-fixed text-primary text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+              <Share2 className="w-3.5 h-3.5" />
+              <span>{filteredCycles.length} Multi-Party Cycles Found</span>
+            </span>
+          </div>
+        </div>
+
+        {filteredCycles.length === 0 ? (
+          <div className="text-center py-12 text-outline text-sm">
+            No cycles found. Click &quot;Sync Postgres → Neo4j&quot; above to scan for multi-hop barter paths.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {filteredCycles.map((cycle) => {
+              const isInitiated = initiatedSwaps.has(cycle.id);
+              return (
+                <div
+                  key={cycle.id}
+                  className="p-5 sm:p-6 rounded-2xl border bg-surface-container-lowest border-outline-variant/30 hover:border-primary/50 shadow-xs flex flex-col justify-between transition-all"
+                >
+                  <div>
+                    {/* Card Top: Badges */}
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border flex items-center gap-1.5 bg-primary-fixed text-primary border-primary/20">
+                        <Share2 className="w-3.5 h-3.5" />
+                        3-Way Triangular Loop
+                      </span>
+                      <span className="text-xs font-bold text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-outline-variant/20">
+                        Confidence: {(cycle.confidenceScore * 100).toFixed(0)}%
+                      </span>
+                    </div>
+
+                    <p className="text-xs font-semibold text-on-surface mb-4 leading-relaxed">
+                      {cycle.summary}
+                    </p>
+
+                    {/* Step-by-Step Flow List */}
+                    <div className="space-y-2 bg-surface-container-low p-3.5 rounded-xl border border-outline-variant/20 text-xs mb-4">
+                      {cycle.items.map((item, idx) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center justify-between gap-2 py-1.5 border-b border-outline-variant/15 last:border-0"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[10px] shrink-0">
+                              {idx + 1}
+                            </span>
+                            <div className="truncate">
+                              <span className="font-bold text-on-surface">{item.ownerName}</span>
+                              <span className="text-on-surface-variant text-[11px] ml-1">gives</span>
+                              <div className="text-primary font-semibold truncate text-[11px]">
+                                &quot;{item.title}&quot;
+                              </div>
+                            </div>
+                          </div>
+
+                          <ArrowRight className="w-4 h-4 text-outline shrink-0" />
+
+                          <div className="text-right shrink-0">
+                            <span className="text-[11px] text-on-surface-variant">to</span>
+                            <span className="font-bold text-on-surface text-xs ml-1">
+                              {item.desiredByUserName}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card Bottom: Action Button & Liquidity Note */}
+                  <div className="pt-3 border-t border-outline-variant/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <span className="text-[11px] font-bold text-primary bg-primary-fixed/50 px-2.5 py-1 rounded-lg border border-primary/20">
+                      {cycle.efficiencyGain}
+                    </span>
+
+                    <button
+                      onClick={() => setSelectedCycleForAction(cycle)}
+                      className={`w-full sm:w-auto px-4 py-2 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs ${
+                        isInitiated
+                          ? 'bg-surface-container text-on-surface-variant border border-outline-variant/30'
+                          : 'bg-primary hover:bg-primary-container text-on-primary'
+                      }`}
+                    >
+                      {isInitiated ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-primary" />
+                          <span>Chain Active</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Initiate Multi-Party Swap</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 5. MODAL: Multi-Party Swap Execution */}
       {/* ========================================================================= */}
       {selectedCycleForAction && (
-        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface-container-lowest rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-outline-variant/30 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
             <button
               onClick={() => setSelectedCycleForAction(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary-fixed text-primary uppercase tracking-wider mb-2">
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Multi-Party Swap Execution</span>
               </div>
-              <h3 className="text-xl font-extrabold text-slate-900">
+              <h3 className="text-xl font-extrabold text-on-surface">
                 Coordinated 3-Way Exchange Protocol
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-on-surface-variant">
                 How BarterHub securely executes triangular trades using 6-digit handshake verification PINs.
               </p>
             </div>
@@ -639,22 +642,22 @@ export default function Neo4jGraphExplorer() {
               {selectedCycleForAction.items.map((item, idx) => {
                 const pin = `PIN-${(7241 + idx * 1387) % 9000 + 1000}`;
                 return (
-                  <div key={item.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-4">
+                  <div key={item.id} className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center">
+                        <span className="w-5 h-5 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center">
                           {idx + 1}
                         </span>
-                        <span className="text-xs font-bold text-slate-900">Leg {idx + 1}: {item.ownerName} → {item.desiredByUserName}</span>
+                        <span className="text-xs font-bold text-on-surface">Leg {idx + 1}: {item.ownerName} → {item.desiredByUserName}</span>
                       </div>
-                      <div className="text-xs text-indigo-700 font-semibold pl-7">
+                      <div className="text-xs text-primary font-semibold pl-7">
                         Item: &quot;{item.title}&quot;
                       </div>
                     </div>
 
                     <div className="text-right">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Verification PIN</span>
-                      <span className="font-mono text-xs font-extrabold text-slate-900 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs">
+                      <span className="text-[10px] uppercase font-bold text-outline block">Verification PIN</span>
+                      <span className="font-mono text-xs font-extrabold text-on-surface bg-surface-container-lowest px-2.5 py-1 rounded-lg border border-outline-variant/20 shadow-2xs">
                         {pin}
                       </span>
                     </div>
@@ -663,20 +666,20 @@ export default function Neo4jGraphExplorer() {
               })}
             </div>
 
-            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 space-y-1">
-              <div className="font-bold flex items-center gap-1.5 text-emerald-900">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="p-4 rounded-2xl bg-primary-fixed/40 border border-primary/20 text-xs text-on-primary-fixed space-y-1">
+              <div className="font-bold flex items-center gap-1.5 text-primary">
+                <ShieldCheck className="w-4 h-4 text-primary" />
                 Escrow & Delivery Guarantee:
               </div>
-              <p className="text-[11px] leading-relaxed">
+              <p className="text-[11px] text-on-surface-variant leading-relaxed">
                 Once each recipient verifies their partner&apos;s PIN in person at the local exchange point, the cycle is marked complete and reputation points are awarded to all 3 traders simultaneously!
               </p>
             </div>
 
             {createdTradeId ? (
               <div className="space-y-4 pt-2">
-                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                <div className="p-4 rounded-2xl bg-primary-fixed/40 border border-primary/20 text-xs text-on-primary-fixed flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                   <span>
                     <strong>Multi-Party Trade Chain Request Created!</strong> Notifications sent to all 3 participants. They can now review &amp; accept in their Offers dashboard.
                   </span>
@@ -687,13 +690,13 @@ export default function Neo4jGraphExplorer() {
                       setSelectedCycleForAction(null);
                       setCreatedTradeId(null);
                     }}
-                    className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+                    className="px-4 py-2.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-surface-container"
                   >
                     Close
                   </button>
                   <Link
                     href="/offers?tab=multi_party"
-                    className="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white flex items-center gap-2 shadow-sm"
+                    className="px-5 py-2.5 rounded-full text-xs font-bold bg-primary hover:bg-primary-container text-on-primary flex items-center gap-2 shadow-sm"
                   >
                     <span>Open in Offers &amp; Swaps Dashboard</span>
                     <ArrowRight className="w-4 h-4" />
@@ -704,7 +707,7 @@ export default function Neo4jGraphExplorer() {
               <div className="flex items-center justify-end gap-3 pt-2">
                 <button
                   onClick={() => setSelectedCycleForAction(null)}
-                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors"
+                  className="px-4 py-2.5 rounded-full text-xs font-bold text-on-surface-variant hover:bg-surface-container transition-colors"
                 >
                   Close
                 </button>
@@ -712,7 +715,7 @@ export default function Neo4jGraphExplorer() {
                   onClick={async () => {
                     await handleInitiateSwap(selectedCycleForAction);
                   }}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-full text-xs font-bold bg-primary hover:bg-primary-container text-on-primary shadow-sm transition-all flex items-center gap-2"
                 >
                   <Check className="w-4 h-4" />
                   <span>Send Trade Requests to All Participants</span>
