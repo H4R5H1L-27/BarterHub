@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Terminal,
   Play,
@@ -10,239 +10,214 @@ import {
   Trash2,
   Sparkles,
   AlertCircle,
-  CheckCircle2,
   Table as TableIcon,
   Code2,
-  FileCode,
-  Sliders,
-  ExternalLink,
+  Database,
+  Layers,
   BookOpen,
+  ArrowRight,
+  Filter,
 } from 'lucide-react';
 
 export interface SQLTemplateItem {
   id: string;
   name: string;
-  category: 'Simple' | 'Joins & Swaps' | 'Analytics';
-  description: string;
+  category: 'Simple' | 'Joins' | 'Analytics';
   sql: string;
 }
 
+export interface TableMeta {
+  name: string;
+  label: string;
+  hasCreatedAt: boolean;
+}
+
+const ALL_TABLES_COUNT_SQL = `SELECT 'User' AS "Table Name", COUNT(*) AS "Record Count" FROM "User"
+UNION ALL SELECT 'Listing', COUNT(*) FROM "Listing"
+UNION ALL SELECT 'BookDetails', COUNT(*) FROM "BookDetails"
+UNION ALL SELECT 'ProductDetails', COUNT(*) FROM "ProductDetails"
+UNION ALL SELECT 'BarterProposal', COUNT(*) FROM "BarterProposal"
+UNION ALL SELECT 'BarterItem', COUNT(*) FROM "BarterItem"
+UNION ALL SELECT 'CashOffer', COUNT(*) FROM "CashOffer"
+UNION ALL SELECT 'Conversation', COUNT(*) FROM "Conversation"
+UNION ALL SELECT 'Message', COUNT(*) FROM "Message"
+UNION ALL SELECT 'Review', COUNT(*) FROM "Review"
+UNION ALL SELECT 'SavedListing', COUNT(*) FROM "SavedListing"
+UNION ALL SELECT 'Notification', COUNT(*) FROM "Notification"
+UNION ALL SELECT 'Report', COUNT(*) FROM "Report"
+ORDER BY "Record Count" DESC;`;
+
+const DB_TABLES: TableMeta[] = [
+  { name: 'User', label: 'Users & Profiles', hasCreatedAt: true },
+  { name: 'Listing', label: 'Items & Books', hasCreatedAt: true },
+  { name: 'BookDetails', label: 'Book Metadata & ISBN', hasCreatedAt: false },
+  { name: 'ProductDetails', label: 'Electronics & Specs', hasCreatedAt: false },
+  { name: 'BarterProposal', label: 'Trade Proposals & PINs', hasCreatedAt: true },
+  { name: 'BarterItem', label: 'Items Offered in Trade', hasCreatedAt: false },
+  { name: 'CashOffer', label: 'Cash Offers & Bids', hasCreatedAt: true },
+  { name: 'Conversation', label: 'Chat Conversations', hasCreatedAt: true },
+  { name: 'Message', label: 'Messages & Cards', hasCreatedAt: true },
+  { name: 'Review', label: 'Ratings & Reviews', hasCreatedAt: true },
+  { name: 'SavedListing', label: 'Saved Wishlists', hasCreatedAt: true },
+  { name: 'Notification', label: 'Alerts & Notifications', hasCreatedAt: true },
+  { name: 'Report', label: 'Safety Reports', hasCreatedAt: true },
+];
+
 export const SQL_TEMPLATES: SQLTemplateItem[] = [
-  // ==========================================
-  // SIMPLE & DIRECT TEMPLATES (Beginner-Friendly)
-  // ==========================================
   {
-    id: 'product-list-by-price-desc',
-    name: 'Product List by Price (High to Low)',
+    id: 'all-tables-summary',
+    name: 'All Tables Record Counts',
     category: 'Simple',
-    description: 'Lists all items ordered by highest valuation first with price, condition, and status.',
+    sql: ALL_TABLES_COUNT_SQL,
+  },
+  {
+    id: 'product-price-high',
+    name: 'Products by Price (High to Low)',
+    category: 'Simple',
     sql: `SELECT id, title, price, "listingType", condition, status
 FROM "Listing"
 WHERE price IS NOT NULL
 ORDER BY price DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'product-list-by-price-asc',
-    name: 'Product List by Price (Budget Deals / Low to High)',
+    id: 'budget-deals',
+    name: 'Budget Items (< $100)',
     category: 'Simple',
-    description: 'Finds the most affordable budget items ordered from lowest price to highest.',
-    sql: `SELECT id, title, price, "listingType", condition, "exchangeType"
-FROM "Listing"
-WHERE price IS NOT NULL AND status = 'ACTIVE'
-ORDER BY price ASC
-LIMIT 10;`,
-  },
-  {
-    id: 'products-under-100',
-    name: 'Products Under $100',
-    category: 'Simple',
-    description: 'Filters active marketplace items priced under or equal to $100.',
     sql: `SELECT title, price, condition, "listingType", status
 FROM "Listing"
 WHERE price <= 100 AND status = 'ACTIVE'
-ORDER BY price DESC;`,
+ORDER BY price DESC
+LIMIT 15;`,
   },
   {
-    id: 'tech-products-only',
+    id: 'tech-gear-only',
     name: 'Tech & Hardware Gear Only',
     category: 'Simple',
-    description: 'Filters listings where listingType is PRODUCT (headphones, keyboards, e-readers).',
     sql: `SELECT title, price, condition, status, "createdAt"
 FROM "Listing"
 WHERE "listingType" = 'PRODUCT' AND status = 'ACTIVE'
 ORDER BY "createdAt" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
     id: 'books-only',
     name: 'Books & Textbooks Catalog',
     category: 'Simple',
-    description: 'Filters listings where listingType is BOOK (academic textbooks, manuals).',
     sql: `SELECT title, price, condition, status, "createdAt"
 FROM "Listing"
 WHERE "listingType" = 'BOOK' AND status = 'ACTIVE'
 ORDER BY "createdAt" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
     id: 'pure-barter-only',
-    name: 'Pure Barters (Zero Cash Needed)',
+    name: 'Pure Barters (Cashless Trades)',
     category: 'Simple',
-    description: 'Finds item-for-item trade listings that require no cash payment.',
     sql: `SELECT id, title, condition, "barterWishlist"
 FROM "Listing"
 WHERE "exchangeType" = 'BARTER_ONLY' AND status = 'ACTIVE'
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'most-viewed-listings',
-    name: 'Most Viewed / Trending Items',
+    id: 'most-viewed',
+    name: 'Most Viewed Items',
     category: 'Simple',
-    description: 'Ranks listings by popularity and impression views.',
     sql: `SELECT title, price, "viewsCount", condition, "exchangeType"
 FROM "Listing"
 ORDER BY "viewsCount" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'users-by-reputation',
-    name: 'User List by Reputation Score',
+    id: 'users-reputation',
+    name: 'Users by Reputation Score',
     category: 'Simple',
-    description: 'Lists registered community traders ordered by their dual-sided reputation rating.',
     sql: `SELECT name, email, city, "reputationScore", "totalTrades", "isVerified"
 FROM "User"
 ORDER BY "reputationScore" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'quick-counts',
-    name: 'Total Platform Counts (Simple Summary)',
-    category: 'Simple',
-    description: 'One-shot count of total users, listings, barter proposals, and cash offers.',
+    id: 'active-listings-sellers',
+    name: 'Active Listings & Sellers (Join)',
+    category: 'Joins',
     sql: `SELECT 
-  (SELECT COUNT(*) FROM "User") AS total_users,
-  (SELECT COUNT(*) FROM "Listing") AS total_listings,
-  (SELECT COUNT(*) FROM "BarterProposal") AS total_barter_proposals,
-  (SELECT COUNT(*) FROM "CashOffer") AS total_cash_offers;`,
-  },
-
-  // ==========================================
-  // ADVANCED JOINS & ANALYTICS
-  // ==========================================
-  {
-    id: 'active-listings',
-    name: 'Active Listings & Seller Details (Join)',
-    category: 'Joins & Swaps',
-    description: 'Fetches active catalog listings joined with seller reputation, city location, and exchange mode.',
-    sql: `SELECT 
-  l.id, 
   l.title, 
   l.price, 
   l."listingType",
   l."exchangeType", 
-  l.condition, 
-  u.name AS seller_name, 
+  u.name AS seller, 
   u.city, 
   u."reputationScore"
 FROM "Listing" l
 JOIN "User" u ON l."userId" = u.id
 WHERE l.status = 'ACTIVE'
 ORDER BY l.price DESC NULLS LAST
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'barter-handshake-pins',
-    name: 'Barter Proposals with 6-Digit Handshake PINs (Join)',
-    category: 'Joins & Swaps',
-    description: 'Inspects accepted barter agreements with their synchronized verification handshake PIN tokens.',
+    id: 'barter-proposals-pins',
+    name: 'Barter Proposals & Handshake PINs (Join)',
+    category: 'Joins',
     sql: `SELECT 
-  bp.id AS proposal_id,
+  bp.id,
   bp."exchangeCode" AS handshake_pin,
-  init.name AS initiator_trader,
-  rec.name AS recipient_trader,
+  init.name AS initiator,
+  rec.name AS recipient,
   l.title AS target_item,
-  bp."cashTopUp" AS cash_balance_adjustment,
-  bp.status AS agreement_status,
-  bp."createdAt"
+  bp."cashTopUp" AS cash_top_up,
+  bp.status
 FROM "BarterProposal" bp
 JOIN "User" init ON bp."initiatorId" = init.id
 JOIN "User" rec ON bp."recipientId" = rec.id
 JOIN "Listing" l ON bp."targetListingId" = l.id
 ORDER BY bp."createdAt" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'top-traders',
-    name: 'Top Rated Traders & Reputation Metrics (Group By)',
-    category: 'Analytics',
-    description: 'Ranks community traders by dual-sided reputation rating, verified physical trades, and review counts.',
+    id: 'cash-offers-buyers',
+    name: 'Cash Offers with Buyers (Join)',
+    category: 'Joins',
     sql: `SELECT 
-  u.id, 
+  co.id,
+  co."offerAmount",
+  co.status,
+  buyer.name AS buyer_name,
+  seller.name AS seller_name,
+  l.title AS listing_title
+FROM "CashOffer" co
+JOIN "User" buyer ON co."buyerId" = buyer.id
+JOIN "User" seller ON co."sellerId" = seller.id
+JOIN "Listing" l ON co."listingId" = l.id
+ORDER BY co."createdAt" DESC
+LIMIT 15;`,
+  },
+  {
+    id: 'top-traders-reviews',
+    name: 'Top Traders & Reviews (Group By)',
+    category: 'Analytics',
+    sql: `SELECT 
   u.name, 
   u.city, 
-  u."isVerified",
   u."reputationScore", 
   u."totalTrades", 
-  u."totalSales", 
   COUNT(r.id) AS verified_reviews
 FROM "User" u
 LEFT JOIN "Review" r ON r."targetId" = u.id
-GROUP BY u.id, u.name, u.city, u."isVerified", u."reputationScore", u."totalTrades", u."totalSales"
+GROUP BY u.id, u.name, u.city, u."reputationScore", u."totalTrades"
 ORDER BY u."reputationScore" DESC, u."totalTrades" DESC
-LIMIT 10;`,
+LIMIT 15;`,
   },
   {
-    id: 'negotiation-messages',
-    name: 'In-Thread Negotiation Cards & Messages (Join)',
-    category: 'Joins & Swaps',
-    description: 'Audits bilateral conversation messages including embedded CASH_OFFER_CARD and BARTER_PROPOSAL_CARD metadata.',
-    sql: `SELECT 
-  m.id AS message_id, 
-  c.id AS conversation_id, 
-  s.name AS sender_name, 
-  m."messageType", 
-  m.content AS message_text, 
-  m."isRead",
-  m."createdAt"
-FROM "Message" m
-JOIN "Conversation" c ON m."conversationId" = c.id
-JOIN "User" s ON m."senderId" = s.id
-WHERE m."messageType" IN ('CASH_OFFER_CARD', 'BARTER_PROPOSAL_CARD', 'TEXT')
-ORDER BY m."createdAt" DESC
-LIMIT 10;`,
-  },
-  {
-    id: 'textbooks-course-codes',
-    name: 'Academic Textbooks by Subject & Course Code (Join)',
-    category: 'Joins & Swaps',
-    description: 'Queries textbooks with course codes, ISBN numbers, authors, and annotations.',
-    sql: `SELECT 
-  l.title AS book_title, 
-  l.price, 
-  bd.isbn, 
-  bd.author, 
-  bd."academicSubject", 
-  bd."courseCode", 
-  bd."hasAnnotations",
-  u.name AS seller
-FROM "Listing" l
-JOIN "BookDetails" bd ON bd."listingId" = l.id
-JOIN "User" u ON l."userId" = u.id
-WHERE l.status = 'ACTIVE'
-LIMIT 10;`,
-  },
-  {
-    id: 'category-aggregation',
-    name: 'Category Valuation & Inventory Aggregation (Group By)',
+    id: 'category-valuation-breakdown',
+    name: 'Valuation by Category (Group By)',
     category: 'Analytics',
-    description: 'Computes inventory count, average valuation, and max price grouped by listing type and exchange mode.',
     sql: `SELECT 
   l."listingType", 
   l."exchangeType", 
   COUNT(*) AS total_items, 
-  ROUND(AVG(COALESCE(l.price, 0))::numeric, 2) AS avg_valuation, 
-  MAX(l.price) AS max_valuation
+  ROUND(AVG(COALESCE(l.price, 0))::numeric, 2) AS avg_price, 
+  MAX(l.price) AS max_price
 FROM "Listing" l
 GROUP BY l."listingType", l."exchangeType"
 ORDER BY total_items DESC;`,
@@ -250,14 +225,18 @@ ORDER BY total_items DESC;`,
 ];
 
 interface CustomSQLWorkbenchProps {
-  curatedQueries: any[];
+  curatedQueries?: any[];
 }
 
-export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenchProps) {
-  const [workbenchMode, setWorkbenchMode] = useState<'custom' | 'recipes'>('custom');
-  const [queryText, setQueryText] = useState<string>(SQL_TEMPLATES[0].sql);
-  const [activeTemplateId, setActiveTemplateId] = useState<string>(SQL_TEMPLATES[0].id);
-  const [activeRecipeIndex, setActiveRecipeIndex] = useState<number>(0);
+export default function CustomSQLWorkbench({ curatedQueries = [] }: CustomSQLWorkbenchProps) {
+  // Left sidebar tab: 'tables' | 'queries' | 'recipes'
+  const [sidebarTab, setSidebarTab] = useState<'tables' | 'queries' | 'recipes'>('tables');
+  
+  // SQL text state
+  const [queryText, setQueryText] = useState<string>(ALL_TABLES_COUNT_SQL);
+  const [activeItemId, setActiveItemId] = useState<string>('all-tables-summary');
+  
+  // Execution state
   const [executing, setExecuting] = useState(false);
   const [executionResult, setExecutionResult] = useState<{
     columns: string[];
@@ -269,28 +248,14 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
   const [resultFormat, setResultFormat] = useState<'table' | 'json'>('table');
   const [copiedQuery, setCopiedQuery] = useState(false);
 
-  // Template category filter
-  const [categoryFilter, setCategoryFilter] = useState<'ALL' | 'Simple' | 'Joins & Swaps' | 'Analytics'>('ALL');
+  // Template filter
+  const [queryCategory, setQueryCategory] = useState<'All' | 'Simple' | 'Joins' | 'Analytics'>('All');
 
   const filteredTemplates = SQL_TEMPLATES.filter((t) =>
-    categoryFilter === 'ALL' ? true : t.category === categoryFilter
+    queryCategory === 'All' ? true : t.category === queryCategory
   );
 
-  const handleSelectTemplate = (tmpl: SQLTemplateItem) => {
-    setActiveTemplateId(tmpl.id);
-    setQueryText(tmpl.sql);
-    setExecutionResult(null);
-    setExecutionError(null);
-  };
-
-  const handleLoadRecipeIntoEditor = (recipeSql: string) => {
-    setQueryText(recipeSql);
-    setActiveTemplateId('');
-    setWorkbenchMode('custom');
-    setExecutionResult(null);
-    setExecutionError(null);
-  };
-
+  // Run a query immediately
   const handleRunQuery = async (queryToRun?: string) => {
     const q = (queryToRun !== undefined ? queryToRun : queryText).trim();
     if (!q) return;
@@ -323,6 +288,37 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
     }
   };
 
+  // Click on a table: load SELECT * and auto-run
+  const handleSelectTable = (table: TableMeta) => {
+    setActiveItemId(table.name);
+    const sql = table.hasCreatedAt
+      ? `SELECT * FROM "${table.name}" ORDER BY "createdAt" DESC LIMIT 50;`
+      : `SELECT * FROM "${table.name}" LIMIT 50;`;
+    setQueryText(sql);
+    handleRunQuery(sql);
+  };
+
+  // Click "All Tables Record Counts"
+  const handleSelectAllTablesCount = () => {
+    setActiveItemId('all-tables-summary');
+    setQueryText(ALL_TABLES_COUNT_SQL);
+    handleRunQuery(ALL_TABLES_COUNT_SQL);
+  };
+
+  // Click on a template
+  const handleSelectTemplate = (tmpl: SQLTemplateItem) => {
+    setActiveItemId(tmpl.id);
+    setQueryText(tmpl.sql);
+    handleRunQuery(tmpl.sql);
+  };
+
+  // Click on a curated recipe
+  const handleSelectRecipe = (recipe: any) => {
+    setActiveItemId(recipe.id || recipe.title);
+    setQueryText(recipe.sql);
+    handleRunQuery(recipe.sql);
+  };
+
   const handleCopy = () => {
     navigator.clipboard.writeText(queryText);
     setCopiedQuery(true);
@@ -330,199 +326,296 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
   };
 
   const handleFormatSQL = () => {
-    // Simple indentation cleaner for keywords
     const formatted = queryText
       .replace(/\s+/g, ' ')
-      .replace(/\s*(SELECT|FROM|WHERE|JOIN|LEFT JOIN|RIGHT JOIN|GROUP BY|ORDER BY|HAVING|LIMIT)\s+/gi, '\n$1 ')
+      .replace(/\s*(SELECT|FROM|WHERE|JOIN|LEFT JOIN|RIGHT JOIN|GROUP BY|ORDER BY|HAVING|LIMIT|UNION ALL)\s+/gi, '\n$1 ')
       .trim();
     setQueryText(formatted);
   };
 
   return (
-    <div className="space-y-6">
-      {/* Top Header Mode Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-xs">
-        <div className="flex items-center gap-2">
+    <div className="flex flex-col lg:flex-row gap-6 items-start">
+      {/* ========================================================================= */}
+      {/* LEFT COLUMN: TABLES & PRE-MADE OPTIONS (WIDTH: 320px) */}
+      {/* ========================================================================= */}
+      <div className="w-full lg:w-80 shrink-0 space-y-4">
+        {/* Sidebar Nav Tabs */}
+        <div className="flex items-center p-1 bg-surface-container-low rounded-2xl border border-outline-variant/30 text-xs font-bold">
           <button
-            onClick={() => setWorkbenchMode('custom')}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
-              workbenchMode === 'custom'
-                ? 'bg-primary text-white shadow-xs'
-                : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
+            onClick={() => setSidebarTab('tables')}
+            className={`flex-1 py-1.5 px-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+              sidebarTab === 'tables'
+                ? 'bg-primary text-white shadow-2xs'
+                : 'text-on-surface-variant hover:text-on-surface'
             }`}
           >
-            <Terminal className="w-3.5 h-3.5" />
-            <span>⚡ Custom SQL Query Studio (Editable)</span>
+            <Database className="w-3.5 h-3.5" />
+            <span>Tables ({DB_TABLES.length})</span>
           </button>
+
           <button
-            onClick={() => setWorkbenchMode('recipes')}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
-              workbenchMode === 'recipes'
-                ? 'bg-primary text-white shadow-xs'
-                : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
+            onClick={() => setSidebarTab('queries')}
+            className={`flex-1 py-1.5 px-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+              sidebarTab === 'queries'
+                ? 'bg-primary text-white shadow-2xs'
+                : 'text-on-surface-variant hover:text-on-surface'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>📚 Curated Production Recipes ({curatedQueries.length})</span>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Queries ({SQL_TEMPLATES.length})</span>
           </button>
+
+          {curatedQueries.length > 0 && (
+            <button
+              onClick={() => setSidebarTab('recipes')}
+              className={`py-1.5 px-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                sidebarTab === 'recipes'
+                  ? 'bg-primary text-white shadow-2xs'
+                  : 'text-on-surface-variant hover:text-on-surface'
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Recipes</span>
+            </button>
+          )}
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-outline">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>PostgreSQL 16.2 • Port 5432</span>
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* MODE 1: CUSTOM SQL QUERY STUDIO WITH EDITABLE TEMPLATES */}
-      {/* ========================================================================= */}
-      {workbenchMode === 'custom' && (
-        <div className="space-y-6">
-          {/* Editable Templates Palette */}
+        {/* TAB 1: BROWSE TABLES & ALL TABLE RECORDS */}
+        {sidebarTab === 'tables' && (
           <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-outline flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-primary" />
-                Select Editable SQL Template:
-              </span>
-              <span className="text-[11px] text-primary font-semibold">
-                Click any template to load into the editor and customize
-              </span>
-            </div>
+            {/* Direct Option to View All Stored Records Across All Tables */}
+            <button
+              onClick={handleSelectAllTablesCount}
+              className={`w-full p-3 rounded-2xl text-left transition-all border flex items-center justify-between ${
+                activeItemId === 'all-tables-summary'
+                  ? 'bg-emerald-500/10 border-emerald-500 text-emerald-950 dark:text-emerald-200 ring-2 ring-emerald-500/30'
+                  : 'bg-emerald-50/50 hover:bg-emerald-100/60 border-emerald-200/80 text-emerald-900'
+              }`}
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="font-extrabold text-xs tracking-tight truncate">
+                    📊 View All Tables Record Counts
+                  </div>
+                  <div className="text-[10px] text-emerald-700 dark:text-emerald-300 font-medium truncate">
+                    Live row count for every database table
+                  </div>
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-emerald-600 shrink-0 ml-1" />
+            </button>
 
-            {/* Template Category Pills */}
-            <div className="flex items-center gap-1.5 flex-wrap">
-              {[
-                { id: 'ALL', label: `All (${SQL_TEMPLATES.length})` },
-                { id: 'Simple', label: `⭐ Simple Queries (${SQL_TEMPLATES.filter((t) => t.category === 'Simple').length})` },
-                { id: 'Joins & Swaps', label: `🔄 Multi-Table Joins (${SQL_TEMPLATES.filter((t) => t.category === 'Joins & Swaps').length})` },
-                { id: 'Analytics', label: `📈 Analytics & Aggregations (${SQL_TEMPLATES.filter((t) => t.category === 'Analytics').length})` },
-              ].map((c) => (
+            {/* Individual Table List */}
+            <div className="p-2.5 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-1">
+              <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-outline flex items-center justify-between">
+                <span>Select Table to View Records</span>
+                <span className="font-mono text-[9px]">Limit 50</span>
+              </div>
+
+              <div className="space-y-0.5 max-h-[480px] overflow-y-auto pr-1">
+                {DB_TABLES.map((table) => {
+                  const isSelected = activeItemId === table.name;
+                  return (
+                    <button
+                      key={table.name}
+                      onClick={() => handleSelectTable(table)}
+                      className={`w-full px-3 py-2 rounded-xl text-left text-xs transition-all flex items-center justify-between group ${
+                        isSelected
+                          ? 'bg-primary text-white font-bold shadow-2xs'
+                          : 'hover:bg-surface-container text-on-surface'
+                      }`}
+                    >
+                      <div className="min-w-0 flex items-center gap-2">
+                        <TableIcon className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white' : 'text-outline'}`} />
+                        <span className="font-mono font-semibold truncate text-[11.5px]">{table.name}</span>
+                      </div>
+                      <span className={`text-[10.5px] truncate ml-2 font-normal ${isSelected ? 'text-white/80' : 'text-on-surface-variant'}`}>
+                        {table.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: PRE-MADE QUERIES (SIMPLIFIED TEXT) */}
+        {sidebarTab === 'queries' && (
+          <div className="space-y-3">
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1 flex-wrap">
+              {(['All', 'Simple', 'Joins', 'Analytics'] as const).map((cat) => (
                 <button
-                  key={c.id}
-                  onClick={() => setCategoryFilter(c.id as any)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
-                    categoryFilter === c.id
+                  key={cat}
+                  onClick={() => setQueryCategory(cat)}
+                  className={`px-2.5 py-1 rounded-full text-[10.5px] font-bold transition-all ${
+                    queryCategory === cat
                       ? 'bg-primary text-white shadow-2xs'
                       : 'bg-surface-container-low hover:bg-surface-container text-on-surface-variant'
                   }`}
                 >
-                  {c.label}
+                  {cat}
                 </button>
               ))}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-              {filteredTemplates.map((tmpl) => (
+            {/* Streamlined Query List */}
+            <div className="p-2 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-1 max-h-[500px] overflow-y-auto pr-1">
+              {filteredTemplates.map((tmpl) => {
+                const isSelected = activeItemId === tmpl.id;
+                return (
+                  <button
+                    key={tmpl.id}
+                    onClick={() => handleSelectTemplate(tmpl)}
+                    className={`w-full p-2.5 rounded-xl text-left text-xs transition-all border ${
+                      isSelected
+                        ? 'bg-primary-fixed/40 border-primary text-primary font-bold shadow-2xs'
+                        : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="font-bold text-xs truncate">{tmpl.name}</span>
+                      <span
+                        className={`text-[9px] uppercase px-1.5 py-0.2 rounded font-mono font-bold shrink-0 ${
+                          tmpl.category === 'Simple'
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : tmpl.category === 'Joins'
+                            ? 'bg-amber-100 text-amber-900'
+                            : 'bg-purple-100 text-purple-900'
+                        }`}
+                      >
+                        {tmpl.category}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: CURATED RECIPES */}
+        {sidebarTab === 'recipes' && (
+          <div className="p-2 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-1 max-h-[500px] overflow-y-auto pr-1">
+            {curatedQueries.map((recipe, idx) => {
+              const isSelected = activeItemId === (recipe.id || recipe.title);
+              return (
                 <button
-                  key={tmpl.id}
-                  onClick={() => handleSelectTemplate(tmpl)}
-                  className={`p-2.5 rounded-xl text-left transition-all border ${
-                    activeTemplateId === tmpl.id
-                      ? 'bg-primary-fixed/30 border-primary text-primary shadow-2xs ring-1 ring-primary/40'
-                      : 'bg-surface-container-lowest hover:bg-surface-container-low border-outline-variant/30 text-on-surface'
+                  key={idx}
+                  onClick={() => handleSelectRecipe(recipe)}
+                  className={`w-full p-2.5 rounded-xl text-left text-xs transition-all border ${
+                    isSelected
+                      ? 'bg-primary-fixed/40 border-primary text-primary font-bold shadow-2xs'
+                      : 'bg-surface-container-lowest hover:bg-surface-container border-outline-variant/20 text-on-surface'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs truncate block">{tmpl.name}</span>
-                    <span className={`text-[9px] uppercase px-1.5 py-0.5 rounded font-mono font-bold ${
-                      tmpl.category === 'Simple' 
-                        ? 'bg-emerald-100 text-emerald-800' 
-                        : tmpl.category === 'Joins & Swaps'
-                        ? 'bg-amber-100 text-amber-900'
-                        : 'bg-purple-100 text-purple-900'
-                    }`}>
-                      {tmpl.category}
-                    </span>
+                  <div className="font-bold text-xs truncate">{recipe.title}</div>
+                  <div className="text-[10.5px] text-on-surface-variant truncate mt-0.5">
+                    {recipe.description}
                   </div>
-                  <p className="text-[10.5px] text-on-surface-variant truncate mt-0.5">{tmpl.description}</p>
                 </button>
-              ))}
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* RIGHT COLUMN: SQL EDITOR (TOP) & RESULTS TABLE (BELOW) */}
+      {/* ========================================================================= */}
+      <div className="flex-1 min-w-0 w-full space-y-6">
+        {/* TOP: SQL EDITOR */}
+        <div className="rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden">
+          {/* Editor Header Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-2.5 px-4 py-3 border-b border-slate-800/80 bg-slate-900/60 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="font-mono font-bold text-indigo-300 text-xs">
+                PostgreSQL 16 Editor
+              </span>
+              <span className="text-slate-400 text-[11px] hidden sm:inline">
+                • Read-only (SELECT / WITH)
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleFormatSQL}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors"
+                title="Format SQL indentation"
+              >
+                Format
+              </button>
+              <button
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors"
+                title="Copy SQL to clipboard"
+              >
+                {copiedQuery ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedQuery ? 'Copied' : 'Copy'}</span>
+              </button>
+              <button
+                onClick={() => setQueryText('')}
+                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 transition-colors"
+                title="Clear editor"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => handleRunQuery()}
+                disabled={executing || !queryText.trim()}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs shadow-sm transition-all"
+              >
+                <Play className={`w-3.5 h-3.5 ${executing ? 'animate-spin' : ''}`} />
+                <span>{executing ? 'Running...' : 'Run Query'}</span>
+              </button>
             </div>
           </div>
 
-          {/* Interactive SQL Code Editor */}
-          <div className="rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl overflow-hidden">
-            {/* Editor Toolbar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3 border-b border-slate-800 text-xs">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded bg-slate-800 text-indigo-300 font-mono text-[11px] font-bold">
-                  SQL Editor (Read-Only Safety Guard Enabled)
-                </span>
-                <span className="text-slate-400 text-[11px] hidden md:inline">
-                  Supports SELECT, JOIN, GROUP BY, aggregates, and subqueries
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleFormatSQL}
-                  className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
-                  title="Format SQL indentation"
-                >
-                  Format
-                </button>
-                <button
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
-                  title="Copy SQL to clipboard"
-                >
-                  {copiedQuery ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedQuery ? 'Copied' : 'Copy'}</span>
-                </button>
-                <button
-                  onClick={() => setQueryText('')}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 transition-colors"
-                  title="Clear editor"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  onClick={() => handleRunQuery()}
-                  disabled={executing || !queryText.trim()}
-                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs shadow-sm transition-all"
-                >
-                  <Play className={`w-3.5 h-3.5 ${executing ? 'animate-spin' : ''}`} />
-                  <span>{executing ? 'Executing Query...' : 'Execute SQL (PostgreSQL)'}</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Monospaced Editable Textarea */}
-            <div className="p-4 bg-slate-950 relative">
-              <textarea
-                value={queryText}
-                onChange={(e) => {
-                  setQueryText(e.target.value);
-                  setActiveTemplateId('');
-                }}
-                rows={10}
-                placeholder="Write or edit any PostgreSQL SELECT statement here..."
-                className="w-full bg-transparent font-mono text-xs text-emerald-400 leading-relaxed focus:outline-none resize-y selection:bg-indigo-600 selection:text-white"
-                spellCheck={false}
-              />
-            </div>
-
-            <div className="px-5 py-2 bg-slate-900 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-              <span>Shortcut: Click Execute SQL or tweak conditions above</span>
-              <span>Tables: User, Listing, BookDetails, BarterProposal, CashOffer, Message</span>
-            </div>
+          {/* Editor Textarea */}
+          <div className="p-4 bg-slate-950">
+            <textarea
+              value={queryText}
+              onChange={(e) => {
+                setQueryText(e.target.value);
+                setActiveItemId('');
+              }}
+              rows={7}
+              placeholder="Write or edit any PostgreSQL SELECT statement here..."
+              className="w-full bg-transparent font-mono text-xs text-emerald-400 leading-relaxed focus:outline-none resize-y selection:bg-indigo-600 selection:text-white"
+              spellCheck={false}
+            />
           </div>
 
-          {/* Prompt card before execution */}
+          <div className="px-4 py-2 bg-slate-900/40 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Click any table or query on the left to run immediately</span>
+            <span className="hidden sm:inline">Port 5432 • Local DB</span>
+          </div>
+        </div>
+
+        {/* BELOW: EXECUTION RESULTS & DATA GRID */}
+        <div>
+          {/* Initial Ready State */}
           {!executionResult && !executionError && !executing && (
-            <div className="p-8 rounded-3xl bg-surface-container-low/60 border border-dashed border-outline-variant/40 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center mx-auto text-primary shadow-2xs">
-                <Play className="w-6 h-6 ml-0.5 text-primary" />
+            <div className="p-8 rounded-3xl bg-surface-container-low/60 border border-dashed border-outline-variant/40 text-center space-y-2">
+              <div className="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center mx-auto text-primary shadow-2xs">
+                <Play className="w-5 h-5 ml-0.5 text-primary" />
               </div>
               <h4 className="text-sm font-bold text-on-surface">Ready to Execute Query</h4>
-              <p className="text-xs text-outline max-w-md mx-auto">
-                Select or edit any SQL query in the editor above, then click <strong className="text-emerald-600 font-bold">Execute SQL (PostgreSQL)</strong> to run the statement and display live database results.
+              <p className="text-xs text-outline max-w-sm mx-auto">
+                Click a table on the left, choose a pre-made query, or edit your SQL above and click <strong className="text-emerald-600 font-semibold">Run Query</strong>.
               </p>
             </div>
           )}
 
-          {/* Executing Spinner */}
+          {/* Running Spinner */}
           {executing && (
             <div className="p-10 rounded-3xl bg-surface-container-low/60 border border-outline-variant/30 text-center space-y-3">
               <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
@@ -530,7 +623,7 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
             </div>
           )}
 
-          {/* Execution Error Banner */}
+          {/* Error Banner */}
           {executionError && (
             <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 space-y-1">
               <div className="flex items-center gap-2 font-bold text-xs">
@@ -541,7 +634,7 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
             </div>
           )}
 
-          {/* Dynamic Execution Result Output */}
+          {/* Result Data Grid */}
           {executionResult && !executionError && !executing && (
             <div className="p-5 rounded-3xl bg-surface-container-lowest border border-outline-variant/30 shadow-xs space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant/20">
@@ -551,10 +644,10 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
                   </div>
                   <div>
                     <h3 className="font-extrabold text-sm text-on-surface">
-                      Live Result Set ({executionResult.rowCount} {executionResult.rowCount === 1 ? 'row' : 'rows'})
+                      Result: {executionResult.rowCount} {executionResult.rowCount === 1 ? 'record' : 'records'}
                     </h3>
                     <p className="text-[11px] text-outline font-mono">
-                      Query executed in <strong className="text-primary">{executionResult.durationMs}ms</strong> on local PostgreSQL database
+                      Completed in <strong className="text-primary">{executionResult.durationMs}ms</strong>
                     </p>
                   </div>
                 </div>
@@ -586,16 +679,16 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
                 </div>
               </div>
 
-              {/* Table View */}
+              {/* Table Data View */}
               {resultFormat === 'table' && (
-                <div className="overflow-x-auto rounded-2xl border border-outline-variant/20 shadow-2xs">
+                <div className="overflow-x-auto rounded-2xl border border-outline-variant/20 shadow-2xs max-h-[500px] overflow-y-auto">
                   {executionResult.rows.length === 0 ? (
                     <div className="p-8 text-center text-outline text-xs">
-                      No records matched the query criteria.
+                      No records found in this table or query.
                     </div>
                   ) : (
                     <table className="w-full text-left text-xs font-mono">
-                      <thead className="bg-surface-container border-b border-outline-variant/20 text-outline uppercase font-bold text-[10.5px]">
+                      <thead className="bg-surface-container border-b border-outline-variant/20 text-outline uppercase font-bold text-[10.5px] sticky top-0 z-10">
                         <tr>
                           {executionResult.columns.map((col) => (
                             <th key={col} className="p-3 whitespace-nowrap">
@@ -614,7 +707,11 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
                                 displayVal = <span className="text-outline italic">NULL</span>;
                               } else if (typeof val === 'boolean') {
                                 displayVal = (
-                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${val ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                                  <span
+                                    className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                                      val ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                                    }`}
+                                  >
                                     {val ? 'TRUE' : 'FALSE'}
                                   </span>
                                 );
@@ -635,82 +732,16 @@ export default function CustomSQLWorkbench({ curatedQueries }: CustomSQLWorkbenc
                 </div>
               )}
 
-              {/* JSON View */}
+              {/* JSON Data View */}
               {resultFormat === 'json' && (
-                <div className="rounded-2xl bg-slate-950 p-4 font-mono text-xs text-indigo-300 overflow-x-auto max-h-96">
+                <div className="rounded-2xl bg-slate-950 p-4 font-mono text-xs text-indigo-300 overflow-x-auto max-h-[500px]">
                   <pre>{JSON.stringify(executionResult.rows, null, 2)}</pre>
                 </div>
               )}
             </div>
           )}
         </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* MODE 2: CURATED PRODUCTION RECIPES */}
-      {/* ========================================================================= */}
-      {workbenchMode === 'recipes' && (
-        <div className="space-y-6">
-          {/* Query Selector Tabs */}
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {curatedQueries.map((q, idx) => (
-              <button
-                key={q.id}
-                onClick={() => setActiveRecipeIndex(idx)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
-                  activeRecipeIndex === idx
-                    ? 'bg-primary text-white border-primary shadow-xs'
-                    : 'bg-surface-container-low hover:bg-surface-container text-on-surface-variant border-outline-variant/20'
-                }`}
-              >
-                {q.title}
-              </button>
-            ))}
-          </div>
-
-          {/* Active Curated Query Card */}
-          {curatedQueries[activeRecipeIndex] && (
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20">
-                <div>
-                  <h3 className="font-bold text-sm text-on-surface">
-                    {curatedQueries[activeRecipeIndex].title}
-                  </h3>
-                  <p className="text-xs text-on-surface-variant mt-0.5">
-                    {curatedQueries[activeRecipeIndex].description}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    onClick={() => handleLoadRecipeIntoEditor(curatedQueries[activeRecipeIndex].sql)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-white text-xs font-bold hover:bg-primary-container shadow-xs transition-all"
-                  >
-                    <Sliders className="w-3.5 h-3.5" />
-                    <span>✏️ Open & Edit in SQL Studio</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Code Block */}
-              <div className="relative rounded-2xl overflow-hidden bg-slate-950 text-slate-100 p-5 font-mono text-xs shadow-inner">
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400 text-[11px]">
-                  <span>PostgreSQL 16 Compatible Query</span>
-                  <button
-                    onClick={() => handleLoadRecipeIntoEditor(curatedQueries[activeRecipeIndex].sql)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors"
-                  >
-                    <Play className="w-3 h-3" />
-                    <span>Run Query in Studio</span>
-                  </button>
-                </div>
-                <pre className="overflow-x-auto whitespace-pre leading-relaxed text-indigo-200">
-                  {curatedQueries[activeRecipeIndex].sql}
-                </pre>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

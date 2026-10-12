@@ -1148,13 +1148,13 @@ export default function DatabasePage() {
               <div className="pb-4 border-b border-outline-variant/20">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
                   <Terminal className="w-3.5 h-3.5" />
-                  <span>PostgreSQL 16 Analytical Playground</span>
+                  <span>PostgreSQL 16 Database Studio</span>
                 </div>
                 <h2 className="text-xl font-extrabold text-on-surface">
-                  SQL Query Studio & Interactive Workbench
+                  SQL Query Studio & Table Explorer
                 </h2>
                 <p className="text-xs text-on-surface-variant mt-1">
-                  Write, edit, and execute custom SQL queries against the local database with editable templates, live syntax safety, and real-time result tables.
+                  Explore stored table records or write, edit, and run custom SQL queries against the local database.
                 </p>
               </div>
 

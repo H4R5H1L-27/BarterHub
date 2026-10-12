@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            error: `Security policy violation: Only read-only queries (SELECT / WITH) are allowed in this analytical playground. Mutating statement detected: "${kw.trim()}".`,
+            error: `Security policy violation: Only read-only queries (SELECT / WITH) are allowed in this database studio. Mutating statement detected: "${kw.trim()}".`,
           },
           { status: 403 }
         );
