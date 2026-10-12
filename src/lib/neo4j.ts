@@ -565,18 +565,20 @@ export async function executeCypher(cypherQuery: string, params: Record<string, 
 
   const q = cypherQuery.trim().toUpperCase();
 
-  // Emulate Preset 1: Find 2-Way Direct Swaps
-  if (q.includes('WISHES_FOR') && q.includes('[:WISHES_FOR]->(L1)')) {
-    const cycles = embeddedEngine.findCycles().filter((c) => c.type === '2_WAY_DIRECT_SWAP');
+  // 1. Emulate Preset 1: 3-Way Triangular Loops (check multi-party 3-way loops first)
+  if (q.includes('L3') || q.includes('TRIANGULAR') || q.includes('ITEM3') || (q.includes('WISHES_FOR') && q.includes('L1') && q.includes('L2'))) {
+    const cycles = embeddedEngine.findCycles().filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP');
     const rows = cycles.map((c) => ({
-      userA: c.users[0].name,
-      offeringA: c.items[0].title,
-      userB: c.users[1].name,
-      offeringB: c.items[1].title,
-      gain: c.efficiencyGain,
+      trader1: c.users[0]?.name || 'Trader 1',
+      item1: c.items[0]?.title || 'Item 1',
+      trader2: c.users[1]?.name || 'Trader 2',
+      item2: c.items[1]?.title || 'Item 2',
+      trader3: c.users[2]?.name || 'Trader 3',
+      item3: c.items[2]?.title || 'Item 3',
+      efficiencyGain: c.efficiencyGain,
     }));
     return {
-      columns: ['userA', 'offeringA', 'userB', 'offeringB', 'gain'],
+      columns: ['trader1', 'item1', 'trader2', 'item2', 'trader3', 'item3', 'efficiencyGain'],
       rows,
       executionTimeMs,
       source: 'embedded_graph_engine',
@@ -585,20 +587,16 @@ export async function executeCypher(cypherQuery: string, params: Record<string, 
     };
   }
 
-  // Emulate Preset 2: 3-Way Triangular Loops
-  if (q.includes('L3') && (q.includes('TRIANGULAR') || q.includes('(L3)-[:WISHES_FOR]->(L1)'))) {
+  // 2. Emulate Preset 2: Transitive Barter Paths & Rings
+  if (q.includes('PATH') || q.includes('TRANSITIVE') || q.includes('HOPS') || q.includes('2..3')) {
     const cycles = embeddedEngine.findCycles().filter((c) => c.type === '3_WAY_TRIANGULAR_LOOP');
-    const rows = cycles.map((c) => ({
-      trader1: c.users[0].name,
-      givesItem1: c.items[0].title,
-      trader2: c.users[1].name,
-      givesItem2: c.items[1].title,
-      trader3: c.users[2].name,
-      givesItem3: c.items[2].title,
-      efficiency: c.efficiencyGain,
+    const rows = cycles.slice(0, 5).map((c) => ({
+      tradeChain: [c.items[0]?.title, c.items[1]?.title, c.items[2]?.title, c.items[0]?.title].join(' ➔ '),
+      hops: 3,
+      participants: `${c.users[0]?.name} ➔ ${c.users[1]?.name} ➔ ${c.users[2]?.name}`,
     }));
     return {
-      columns: ['trader1', 'givesItem1', 'trader2', 'givesItem2', 'trader3', 'givesItem3', 'efficiency'],
+      columns: ['tradeChain', 'hops', 'participants'],
       rows,
       executionTimeMs,
       source: 'embedded_graph_engine',
